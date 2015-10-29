@@ -1,0 +1,7 @@
+#|dep do_not_invoke_cmi_directly
+mysrcdir=$1
+shift
+export "${configure_vars[@]}"
+$mysrcdir/"${configure[@]}" "$@"
+make $parallel
+make install DESTDIR=$destdir

@@ -1,0 +1,15 @@
+#|rcp cmi_x86_64-bootstrap-linux-gnu
+#|src mpc /src
+#|ins $target-gmp
+#|ins $target-mpfr
+#|pkg name $target-mpc
+#|pkg dep $target-mpfr
+#|pkg dep $target-gmp
+#|pkg + /usr/include
+#|pkg . /usr/lib
+#|pkg . /usr/lib/lib*.a
+#|pkg name nopackage
+#|pkg + /usr/share
+#|pkg . /usr/lib/lib*.la
+#|pkg . /usr
+. $recipes/cmi_x86_64-bootstrap-linux-gnu --with-gmp=$srcdir/usr --with-mpfr=$srcdir/usr

@@ -1,0 +1,30 @@
+#|src gawk /src
+#|ins $target-gcc
+#|pkg name $target-gawk
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg . /usr/lib*/gawk
+#|pkg . /usr/lib*/gawk/*.so
+#|pkg + /usr/lib*/awk
+#|pkg + /usr/share/awk
+#|pkg name $target-gawk-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg name $target-gawk-man
+#|pkg + /usr/share/man
+#|pkg name $target-gawk-info
+#|pkg + /usr/share/info
+#|pkg name $target-gawk-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share/locale
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+. $recipes/cmi $srcdir/src
+rm -f $destdir/usr/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

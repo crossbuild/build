@@ -1,0 +1,10 @@
+#|src binutils /src
+#|pkg name $target-binutils
+#|pkg + /
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+$srcdir/src/configure --target=$build64 --prefix=/ \
+    --program-prefix=$build64- --with-sysroot=$sysroot
+make $parallel
+make install DESTDIR=$destdir
+rm -f $destdir/share/info/dir

@@ -1,0 +1,242 @@
+#|src glibc /src
+#|ins $target-gcc2
+#|ins $target-glibc-linux /$target/sys-root
+#|ins $target-glibc-headers /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|pkg name $target-libc-6
+#|pkg auto $target
+#|pkg dep $target-sysroot
+#|pkg + /etc
+#|pkg . /usr/bin/getconf
+#|pkg . /usr/bin/ldd
+#|pkg . /usr/lib*/ld-2.22.so
+#|pkg . /usr/lib*/libc-2.22.so
+#|pkg .? /lib/ld*.so.*
+#|pkg .? /usr/lib*/ld*.so.*
+#|pkg . /usr/lib*/libSegFault.so
+#|pkg . /usr/lib*/libc.so.6
+#|pkg . /usr/sbin/ldconfig
+#|pkg name $target-glibc-optional
+#|pkg auto $target
+#|pkg . /usr/bin/gencat
+#|pkg . /usr/bin/getent
+#|pkg . /usr/bin/iconv
+#|pkg . /usr/bin/locale
+#|pkg . /usr/bin/localedef
+#|pkg + /usr/lib/getconf
+#|pkg . /usr/sbin/iconvconfig
+#|pkg name $target-libBrokenLocale-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libBrokenLocale.so.1
+#|pkg . /usr/lib*/libBrokenLocale-2.22.so
+#|pkg name $target-libanl-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libanl.so.1
+#|pkg . /usr/lib*/libanl-2.22.so
+#|pkg name $target-libcidn-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libcidn.so.1
+#|pkg . /usr/lib*/libcidn-2.22.so
+#|pkg name $target-libcrypt-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libcrypt.so.1
+#|pkg . /usr/lib*/libcrypt-2.22.so
+#|pkg name $target-libdl-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libdl.so.2
+#|pkg . /usr/lib*/libdl-2.22.so
+#|pkg name $target-libm-6
+#|pkg auto $target
+#|pkg . /usr/lib*/libm.so.6
+#|pkg . /usr/lib*/libm-2.22.so
+#|pkg name $target-libnsl-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libnsl.so.1
+#|pkg . /usr/lib*/libnsl-2.22.so
+#|pkg name $target-libnss_compat-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libnss_compat.so.2
+#|pkg . /usr/lib*/libnss_compat-2.22.so
+#|pkg name $target-libnss_db-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libnss_db.so.2
+#|pkg . /usr/lib*/libnss_db-2.22.so
+#|pkg name $target-libnss_dns-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libnss_dns.so.2
+#|pkg . /usr/lib*/libnss_dns-2.22.so
+#|pkg name $target-libnss_files-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libnss_files.so.2
+#|pkg . /usr/lib*/libnss_files-2.22.so
+#|pkg name $target-libnss_hesiod-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libnss_hesiod.so.2
+#|pkg . /usr/lib*/libnss_hesiod-2.22.so
+#|pkg name $target-libnss_nis-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libnss_nis.so.2
+#|pkg . /usr/lib*/libnss_nis-2.22.so
+#|pkg name $target-libnss_nisplus-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libnss_nisplus.so.2
+#|pkg . /usr/lib*/libnss_nisplus-2.22.so
+#|pkg name $target-libpthread-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libpthread.so.0
+#|pkg . /usr/lib*/libpthread-2.22.so
+#|pkg name $target-libresolv-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libresolv.so.2
+#|pkg . /usr/lib*/libresolv-2.22.so
+#|pkg name $target-libthread_db-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libthread_db.so.1
+#|pkg . /usr/lib*/libthread_db-1.0.so
+#|pkg name $target-librt-1
+#|pkg auto $target
+#|pkg . /usr/lib*/librt.so.1
+#|pkg . /usr/lib*/librt-2.22.so
+#|pkg name $target-libutil-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libutil.so.1
+#|pkg . /usr/lib*/libutil-2.22.so
+#|pkg name $target-glibc-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-linux
+#|pkg . /usr/bin/catchsegv
+#|pkg . /usr/bin/rpcgen
+#|pkg . /usr/bin/sprof
+#|pkg + /usr/include
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/*.o
+#|pkg . /usr/lib*/libBrokenLocale.so
+#|pkg . /usr/lib*/libanl.so
+#|pkg . /usr/lib*/libc.so
+#|pkg . /usr/lib*/lib*_nonshared.a
+#|pkg . /usr/lib*/libcidn.so
+#|pkg . /usr/lib*/libcrypt.so
+#|pkg . /usr/lib*/libdl.so
+#|pkg . /usr/lib*/libg.a
+#|pkg . /usr/lib*/libieee.a
+#|pkg . /usr/lib*/libm.so
+#|pkg .? /usr/lib*/libmvec.so
+#|pkg . /usr/lib*/libmcheck.a
+#|pkg . /usr/lib*/libnsl.so
+#|pkg . /usr/lib*/libnss_compat.so
+#|pkg . /usr/lib*/libnss_db.so
+#|pkg . /usr/lib*/libnss_dns.so
+#|pkg . /usr/lib*/libnss_files.so
+#|pkg . /usr/lib*/libnss_hesiod.so
+#|pkg . /usr/lib*/libnss_nis.so
+#|pkg . /usr/lib*/libnss_nisplus.so
+#|pkg . /usr/lib*/libpthread.so
+#|pkg . /usr/lib*/libresolv.so
+#|pkg . /usr/lib*/librpcsvc.a
+#|pkg . /usr/lib*/librt.so
+#|pkg . /usr/lib*/libthread_db.so
+#|pkg . /usr/lib*/libutil.so
+#|pkg name $target-glibc-devel-static
+#|pkg auto $target
+#|pkg . /usr/lib*/libBrokenLocale.a
+#|pkg . /usr/lib*/libanl.a
+#|pkg . /usr/lib*/libc.a
+#|pkg . /usr/lib*/libcrypt.a
+#|pkg . /usr/lib*/libdl.a
+#|pkg . /usr/lib*/libm.a
+#|pkg .? /usr/lib*/libmvec.a
+#|pkg . /usr/lib*/libnsl.a
+#|pkg . /usr/lib*/libpthread.a
+#|pkg . /usr/lib*/libresolv.a
+#|pkg . /usr/lib*/librt.a
+#|pkg . /usr/lib*/libutil.a
+#|pkg name $target-glibc-extra
+#|pkg auto $target
+#|pkg . /usr/bin/makedb
+#|pkg + /var/db
+#|pkg name $target-glibc-utils
+#|pkg auto $target
+#|pkg . /usr/bin/mtrace
+#|pkg . /usr/bin/pcprofiledump
+#|pkg . /usr/bin/pldd
+#|pkg . /usr/bin/sotruss
+#|pkg . /usr/bin/xtrace
+#|pkg + /usr/lib*/audit
+#|pkg . /usr/lib*/libmemusage.so
+#|pkg . /usr/lib*/libpcprofile.so
+#|pkg name $target-glibc-timezone
+#|pkg auto $target
+#|pkg . /usr/bin/tzselect
+#|pkg . /usr/sbin/zdump
+#|pkg . /usr/sbin/zic
+#|pkg name $target-glibc-locale
+#|pkg auto $target
+#|pkg + /usr/lib*/gconv
+#|pkg + /usr/share/locale
+#|pkg name $target-glibc-i18ndata
+#|pkg auto $target
+#|pkg + /usr/share/i18n
+#|pkg name $target-glibc-info
+#|pkg auto $target
+#|pkg + /usr/share/info
+#|pkg name $target-glibc-nscd
+#|pkg auto $target
+#|pkg . /usr/sbin/nscd
+#|pkg name $target-glibc-unknown
+#|pkg auto $target
+#|pkg . /usr/sbin/sln
+#|pkg name $target-glibc-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /lib*
+#|pkg . /sbin
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/sbin
+#|pkg . /usr/share
+#|pkg . /var
+#|rcp strip_debug
+mkdir $destdir/usr
+cp -a $srcdir/$target/sys-root/usr/{bin,$lib,sbin} $destdir/usr
+cp -a $srcdir/$target/sys-root/{bin,$lib,sbin} $destdir
+case $target in
+    *)
+	WERROR=
+	;;
+esac
+export "${configure_vars[@]}"
+BUILD_CC=$srcdir/bin/$build-gcc \
+    CC=$srcdir/bin/$target-gcc CXX=$srcdir/bin/$target-g++ \
+    AR=$srcdir/bin/$target-ar RANLIB=$srcdir/bin/$target-ranlib \
+    CFLAGS="${cflags_glibc[@]-}" \
+    $srcdir/src/"${configure[@]}" \
+    CFLAGS="${cflags_glibc[*]-}" \
+    BASH_SHELL=/bin/bash \
+    --with-headers=$sysroot/usr/include \
+    --disable-profile --without-gd --without-cvs --enable-add-ons \
+    --enable-kernel=3.10 --enable-obsolete-rpc $WERROR \
+    "${extra_glibc[@]-}"
+make $parallel
+make install install_root=$destdir
+
+#if test $lib != lib; then
+#    ln -s $lib $destdir/usr/lib
+#fi
+rm -f $destdir/usr/bin/lddlibc4
+
+$recipes/strip_debug --strip-debug $target $destdir /usr/lib/debug "/usr/$lib/*.so"
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
+
+mkdir -p .pkg
+> .pkg/dynamic
+case $target in
+    x86_64-*-linux-gnu)
+        cat <<-EOT >> .pkg/dynamic
+	#|pkg name $target-libmvec-1
+	#|pkg auto $target
+	#|pkg . /usr/lib*/libmvec.so.1
+	#|pkg . /usr/lib*/libmvec-2.22.so
+	EOT
+	;;
+esac

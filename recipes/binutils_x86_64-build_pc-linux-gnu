@@ -1,0 +1,27 @@
+#|dep auto x86_64-bootstrap-linux-gnu
+#|rcp binutils64
+#|ins x86_64-bootstrap-linux-gnu-gcc /bootstrap
+#|pkg name $target-binutils
+#|pkg dep $target-binutils-common
+#|pkg + /bin
+#|pkg + /*-*
+#|pkg + /share/man
+#|pkg name $target-binutils-common
+#|pkg + /share/info
+#|pkg + /share/locale
+#|pkg name $target-binutils-devel /devel
+#|pkg + /usr
+#|pkg name $target-binutils-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /share
+#|pkg . /devel
+NOISOLATION=1
+PATH=$srcdir/bootstrap/bin:$PATH . $recipes/binutils64
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

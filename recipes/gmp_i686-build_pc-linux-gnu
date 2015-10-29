@@ -1,0 +1,10 @@
+#|rcp cmi_i686-build_pc-linux-gnu
+#|src gmp /src
+#|ins i686-bootstrap-linux-gnu-gcc /bootstrap
+#|pkg name $target-gmp-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg + /usr/share
+. $recipes/cmi_$target NM=$target-nm --enable-cxx

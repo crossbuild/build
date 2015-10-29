@@ -1,0 +1,15 @@
+#|src grep /src
+#|ins $target-gcc
+#|pkg name $target-grep
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-grep-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|rcp toolcmi
+#|rcp strip_debug
+. $recipes/toolcmi $srcdir/src
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

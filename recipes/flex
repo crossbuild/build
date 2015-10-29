@@ -1,0 +1,43 @@
+#|src flex
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|pkg name $target-flex
+#|pkg auto $target
+#|pkg dep $target-flex-devel
+#|pkg + /usr/bin
+#|pkg name $target-flex-devel
+#|pkg auto $target
+#|pkg dep $target-flex-devel-headers
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-flex-devel-headers
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg name $target-flex-devel-staticonly
+#|pkg auto $target
+#|pkg dep $target-flex-devel-headers
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-flex-devel-static
+#|pkg auto $target
+#|pkg dep $target-flex-devel
+#|pkg dep $target-flex-devel-staticonly
+#|pkg name $target-libfl-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libfl.so.2*
+#|pkg name $target-libfl_pic-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libfl_pic.so.2*
+#|pkg name $target-flex-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg + /usr/share
+#|rcp cmi
+#|rcp strip_debug
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+. $recipes/cmi .
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

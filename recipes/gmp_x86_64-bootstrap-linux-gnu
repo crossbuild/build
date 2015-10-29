@@ -1,0 +1,11 @@
+#|rcp cmi_x86_64-bootstrap-linux-gnu
+#|src gmp /src
+#|pkg name $target-gmp
+#|pkg + /usr/include
+#|pkg . /usr/lib
+#|pkg . /usr/lib/lib*.a
+#|pkg name nopackage
+#|pkg + /usr/share
+#|pkg . /usr/lib/lib*.la
+#|pkg . /usr
+. $recipes/cmi_x86_64-bootstrap-linux-gnu --enable-cxx

@@ -1,0 +1,42 @@
+#|dep auto x86_64-bootstrap1-linux-gnu
+#|src old_glibc /src
+#|src elfinterface /src
+#|ins $target-sysroot
+#|ins $target-glibc-linux
+#|ins x86_64-bootstrap1-linux-gnu-gcc /bootstrap
+#|pkg name $target-glibc-devel
+#|pkg dep $target-sysroot
+#|pkg dep $target-glibc-linux
+#|pkg + /etc
+#|pkg + /usr
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /lib*
+#|pkg . /sbin
+#|rcp strip_debug
+mkdir $destdir/usr
+cp -a $srcdir/usr/{bin,$lib,sbin} $destdir/usr
+cp -a $srcdir/{bin,$lib,sbin} $destdir
+export PATH="$srcdir/bootstrap/bin:$PATH"
+$srcdir/src/configure \
+    CC="$target-gcc" \
+    ac_cv_lib_cap_cap_init=no \
+    --host=$target \
+    --prefix=/usr \
+    --with-headers=$srcdir/usr/include \
+    --disable-profile \
+    --without-gd \
+    --without-cvs \
+    --without-selinux \
+    --enable-add-ons
+make $parallel
+make install install_root=$destdir
+
+$recipes/strip_debug --strip-debug $target $destdir /usr/lib/debug "/usr/$lib/*.so"
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
+rm -rf $destdir/usr/lib/debug
+
+gcc -DE64 $srcdir/src/elfinterface.c -o elfinterface
+for i in $destdir/usr/$lib/*-*.so; do
+    ./elfinterface $i
+done

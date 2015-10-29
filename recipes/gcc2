@@ -1,0 +1,28 @@
+#|rcp gccbase
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|ins $target-binutils
+#|ins $target-glibc-headers /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gmp-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-mpfr-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-mpc-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-cloog-devel /i686-build_pc-linux-gnu/sys-root
+#|pkg name $target-gcc2
+#|pkg dep $target-binutils
+#|pkg + /bin
+#|pkg + /include
+#|pkg + /lib*/gcc
+#|pkg + /*-*
+#|pkg + /share/man/man1
+#|pkg name nopackage
+#|pkg . /lib*
+#|pkg . /share
+#|pkg + /share/info
+#|pkg + /share/locale
+#|pkg . /share/man
+#|pkg + /share/man/man7
+. $recipes/gccbase \
+    --disable-libssp --disable-libgomp --disable-libmudflap \
+    --enable-languages=c \
+    --disable-libquadmath --disable-libatomic

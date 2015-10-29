@@ -1,0 +1,21 @@
+#|src make /src
+#|ins $target-gcc
+#|pkg name $target-make
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-make-devel /devel
+#|pkg + /usr
+#|pkg name $target-make-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib
+#|rcp toolcmi
+#|rcp strip_debug
+. $recipes/toolcmi $srcdir/src
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/include $destdir/devel/usr

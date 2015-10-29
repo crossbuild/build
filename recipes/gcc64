@@ -1,0 +1,53 @@
+#|rcp gccbase64
+#|ins x86_64-build_pc-linux-gnu-gcc
+#|ins x86_64-build_pc-linux-gnu-bison
+#|ins x86_64-build_pc-linux-gnu-flex
+#|ins $target-binutils64
+#|ins $target-glibc-devel /$target/sys-root
+#|ins x86_64-build_pc-linux-gnu-gmp-devel /x86_64-build_pc-linux-gnu/sys-root
+#|ins x86_64-build_pc-linux-gnu-mpfr-devel /x86_64-build_pc-linux-gnu/sys-root
+#|ins x86_64-build_pc-linux-gnu-mpc-devel /x86_64-build_pc-linux-gnu/sys-root
+#|ins x86_64-build_pc-linux-gnu-cloog-devel /x86_64-build_pc-linux-gnu/sys-root
+#|pkg name $target-gcc64
+#|pkg dep x86_64-build_pc-linux-gnu-gcc-common
+#|pkg dep $target-binutils64
+#|pkg dep $target-glibc-devel /$target/sys-root
+#|pkg dep $target-gcc-libs-devel /$target/sys-root
+#|pkg + /bin
+#|pkg + /include
+#|pkg + /lib*/gcc
+#|pkg . /*-*
+#|pkg + /*-*/include
+#|pkg + /*-*/lib*
+#|pkg + /share/man/man1
+#|pkg name $target-gcc64-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib*
+#|pkg + /*-*/sys-root
+#|pkg . /share
+#|pkg + /share/gcc-*
+#|pkg + /share/info
+#|pkg + /share/locale
+#|pkg . /share/man
+#|pkg + /share/man/man7
+#|rcp strip_debug
+. $recipes/gccbase64 \
+    --enable-__cxa_atexit \
+    --enable-libmudflap --enable-libgomp --enable-libssp \
+    --enable-languages=c,c++ \
+    --enable-threads=posix --disable-libstdcxx-pch \
+    --enable-c99 --enable-long-long
+
+mkdir -p $destdir/$target/sys-root/usr/$lib
+mv $destdir/$target/$lib/lib*.{a,so*} $destdir/$target/sys-root/usr/$lib
+rm $destdir/$target/$lib/lib*.la
+#rm $destdir/$target/$lib/libstdc++.so
+#ln -s ../sys-root/usr/$lib/libstdc++.so.6 $destdir/$target/$lib/libstdc++.so
+#if test -h $destdir/$target/$lib/libstdc++.so; then
+#    rm $destdir/$target/$lib/libgcc_s.so
+#    ln -s ../sys-root/usr/$lib/libgcc_s.so.1 $destdir/$target/$lib/libgcc_s.so
+#fi
+
+$recipes/strip_debug --strip-all $target $destdir/$target/sys-root /usr/lib/debug /
+$recipes/strip_debug --strip-all $build64 $destdir /lib/debug / -path "$destdir/$target" -prune -o

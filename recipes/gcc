@@ -1,0 +1,142 @@
+#|rcp gccbase
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|ins $target-binutils
+#|ins $target-glibc-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gmp-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-mpfr-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-mpc-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-cloog-devel /i686-build_pc-linux-gnu/sys-root
+#|pkg name $target-gcc
+#|pkg dep i686-build_pc-linux-gnu-gcc-common
+#|pkg dep $target-binutils
+#|pkg dep $target-glibc-devel /$target/sys-root
+#|pkg dep $target-gcc-libs-devel /$target/sys-root
+#|pkg + /bin
+#|pkg + /include
+#|pkg + /lib*/gcc
+#|pkg . /*-*
+#|pkg + /*-*/include
+#|pkg + /*-*/lib*
+#|pkg + /share/man/man1
+#|pkg name $target-gcc-libs-devel /$target/sys-root
+#|pkg auto $target
+#|pkg . /usr/lib*/libssp_nonshared.a
+#|pkg . /usr/lib*/libsupc++.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-gcc-libs-devel-static /$target/sys-root
+#|pkg auto $target
+#|pkg . /usr/lib*/libstdc++.a
+#|pkg . /usr/lib*/libgomp.a
+#|pkg . /usr/lib*/libatomic.a
+#|pkg . /usr/lib*/libssp.a
+#|pkg .? /usr/lib*/libasan.a
+#|pkg .? /usr/lib*/libitm.a
+#|pkg .? /usr/lib*/libubsan.a
+#|pkg .? /usr/lib*/liblsan.a
+#|pkg .? /usr/lib*/libtsan.a
+#|pkg .? /usr/lib*/libcilkrts.a
+#|pkg .? /usr/lib*/libquadmath.a
+#|pkg .? /usr/lib*/libvtv.a
+#|pkg name $target-libgcc_s-1 /$target/sys-root
+#|pkg auto $target
+#|pkg . /usr/lib*/libgcc_s.so.1
+#|pkg name $target-libstdc++-6 /$target/sys-root
+#|pkg auto $target
+#|pkg . /usr/lib*/libstdc++.so.6*
+#|pkg name $target-libgomp-1 /$target/sys-root
+#|pkg auto $target
+#|pkg . /usr/lib*/libgomp.so.1*
+#|pkg name $target-libatomic-1 /$target/sys-root
+#|pkg auto $target
+#|pkg . /usr/lib*/libatomic.so.1*
+#|pkg name $target-libssp-0 /$target/sys-root
+#|pkg auto $target
+#|pkg . /usr/lib*/libssp.so.0*
+#|pkg name $target-gcc-debug
+#|pkg + /lib/debug
+#|pkg name $target-gcc-libs-debug /$target/sys-root
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /lib*
+#|pkg . /*-*/sys-root
+#|pkg . /*-*/sys-root/usr
+#|pkg . /*-*/sys-root/usr/lib*
+#|pkg . /share
+#|pkg + /share/gcc-*
+#|pkg + /share/info
+#|pkg + /share/locale
+#|pkg . /share/man
+#|pkg + /share/man/man7
+#|rcp strip_debug
+. $recipes/gccbase \
+    --enable-__cxa_atexit \
+    --enable-libmudflap --enable-libgomp --enable-libssp \
+    --enable-languages=c,c++ \
+    --enable-threads=posix --disable-libstdcxx-pch \
+    --enable-c99 --enable-long-long
+
+mkdir -p $destdir/$target/sys-root/usr/$lib
+mv $destdir/$target/$lib/lib*.{a,so*} $destdir/$target/sys-root/usr/$lib
+rm $destdir/$target/$lib/lib*.la
+#rm $destdir/$target/$lib/libstdc++.so
+#ln -s ../sys-root/usr/$lib/libstdc++.so.6 $destdir/$target/$lib/libstdc++.so
+#if test -h $destdir/$target/$lib/libstdc++.so; then
+#    rm $destdir/$target/$lib/libgcc_s.so
+#    ln -s ../sys-root/usr/$lib/libgcc_s.so.1 $destdir/$target/$lib/libgcc_s.so
+#fi
+
+$recipes/strip_debug --strip-all $target $destdir/$target/sys-root /usr/lib/debug /
+$recipes/strip_debug --strip-all $build $destdir /lib/debug / -path "$destdir/$target" -prune -o
+
+mkdir -p .pkg
+> .pkg/dynamic
+case $target in
+    aarch64-linux-gnu | arm-*-linux-gnueabi* | i686-*-linux-gnu | x86_64-*-linux-gnu)
+	cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-libitm-1 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libitm.so.1*
+EOT
+	;;
+esac
+case $target in
+    arm-*-linux-gnueabi* | i686-*-linux-gnu | x86_64-*-linux-gnu)
+	cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-libasan-1 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libasan.so.1*
+        #|pkg name $target-libubsan-0 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libubsan.so.0*
+EOT
+	;;
+esac
+case $target in
+    x86_64-*-linux-gnu)
+	cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-liblsan-0 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/liblsan.so.0*
+        #|pkg name $target-libtsan-0 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libtsan.so.0*
+EOT
+	;;
+esac
+case $target in
+    i686-*-linux-gnu | x86_64-*-linux-gnu)
+	cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-libcilkrts-5 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libcilkrts.so.5*
+        #|pkg name $target-libquadmath-0 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libquadmath.so.0*
+        #|pkg name $target-libvtv-0 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libvtv.so.0*
+EOT
+	;;
+esac

@@ -1,0 +1,14 @@
+#|rcp cmi_i686-bootstrap-linux-gnu
+#|src isl /src
+#|ins $target-gmp
+#|pkg name $target-isl
+#|pkg dep $target-gmp
+#|pkg + /usr/include
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.a
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*/lib*.la
+. $recipes/cmi_i686-bootstrap-linux-gnu \
+    --with-gmp-prefix=$srcdir/usr

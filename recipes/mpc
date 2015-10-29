@@ -1,0 +1,29 @@
+#|ins $target-gcc
+#|src mpc /src
+#|ins $target-gmp-devel /$target/sys-root
+#|ins $target-mpfr-devel /$target/sys-root
+#|pkg name $target-libmpc-3
+#|pkg auto $target
+#|pkg . /usr/lib*/libmpc.so.3*
+#|pkg name $target-mpc-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libmpc.a
+#|pkg . /usr/lib*/libmpc.so
+#|pkg name $target-mpc-info
+#|pkg + /usr/share/info
+#|pkg name $target-mpc-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/libmpc.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+. $recipes/cmi $srcdir/src \
+    --with-gmp=$sysroot/usr \
+    --with-mpfr=$sysroot/usr
+rm -f $destdir/usr/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

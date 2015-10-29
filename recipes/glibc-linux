@@ -1,0 +1,19 @@
+#|src glibc_linux
+#|ins $target-sysroot
+#|pkg name $target-glibc-linux
+#|pkg dep $target-sysroot
+#|pkg + /usr/include
+#|pkg name nopackage
+#|pkg . /usr
+case $target in
+    powerpc*)        linux_arch=powerpc;;
+    mips*)           linux_arch=mips;;
+    arm*)            linux_arch=arm;;
+    aarch64-*)       linux_arch=arm64;;
+    i?86-*|x86_64-*) linux_arch=x86;;
+    *)               linux_arch=none;;
+esac
+make headers_install \
+    ARCH=$linux_arch CROSS_COMPILE=$target- INSTALL_HDR_PATH=$destdir/usr
+find $destdir/usr/include \( -name .install -o -name ..install.cmd \) -print0 |
+xargs -0 rm

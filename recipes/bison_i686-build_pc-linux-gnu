@@ -1,0 +1,33 @@
+#|src bison /src
+#|ins $target-gcc
+#|ins $target-m4
+#|pkg name $target-bison
+#|pkg dep $target-m4
+#|pkg + /bin
+#|pkg + /share
+#|pkg + /sdksetup
+#|pkg name $target-bison-devel /devel
+#|pkg + /usr
+#|pkg name $target-bison-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib*
+#|rcp toolcmi
+#|rcp strip_debug
+. $recipes/toolcmi $srcdir/src \
+	M4=m4
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/$lib $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi
+mkdir -p $destdir/sdksetup
+cat <<'EOT' > $destdir/sdksetup/bison
+export BISON_PKGDATADIR=$SDKROOT/share/bison
+EOT

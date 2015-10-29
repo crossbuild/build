@@ -1,0 +1,14 @@
+#|src mingwrt /src/mingwrt
+#|src w32api /src/w32api
+#|ins $target-gcc1
+#|ins $target-w32api /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|pkg name $target-mingwrt
+#|pkg dep $target-w32api
+#|pkg + /
+$srcdir/src/mingwrt/configure \
+    --prefix=/mingw \
+    --build=$build --host=$target
+# mingwrt as problems when building with $parallel
+make -j1
+make -j1 install DESTDIR=$destdir

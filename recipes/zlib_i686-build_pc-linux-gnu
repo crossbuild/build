@@ -1,0 +1,12 @@
+#|src zlib
+#|ins $target-gcc
+#|pkg name $target-zlib-devel
+#|pkg + /usr
+CHOST=$target \
+    CFLAGS='-O2 -g -fPIC' \
+    ./configure \
+    --prefix=/ \
+    --libdir=/$lib \
+    --static
+make $parallel
+make install DESTDIR=$destdir/usr

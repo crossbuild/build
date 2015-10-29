@@ -1,0 +1,13 @@
+#!/bin/bash
+set -eu
+cd $(dirname $0)
+git submodule init
+git submodule update src/buildtool
+rm -f build repo
+ln -s src/buildtool/{build,repo} .
+if test -d .git/hooks -a -d hooks; then
+    for i in hooks/*; do
+	rm -f ".git/$i"
+	cp -a "$i" ".git/$i"
+    done
+fi

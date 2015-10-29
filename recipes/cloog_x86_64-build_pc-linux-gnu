@@ -1,0 +1,19 @@
+#|rcp cmi_x86_64-build_pc-linux-gnu
+#|src cloog /src
+#|ins x86_64-bootstrap-linux-gnu-gcc /bootstrap
+#|ins $target-gmp-devel
+#|ins $target-isl-devel
+#|pkg name $target-cloog /usr
+#|pkg + /bin
+#|pkg name $target-cloog-devel
+#|pkg dep $target-isl-devel
+#|pkg dep $target-gmp-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*
+#|pkg name nopackage
+#|pkg . /usr
+. $recipes/cmi_$target \
+	LDFLAGS="-L$srcdir/usr/$lib" \
+	--with-gmp-prefix=$srcdir/usr \
+	--with-isl=system \
+	--with-isl-prefix=$srcdir/usr

@@ -1,0 +1,6 @@
+#|src w32api /src/w32api
+#|src mingwrt /src/mingwrt
+#|pkg name $target-mingw-headers
+#|pkg + /
+mkdir -p $destdir/mingw/include
+cp -a $srcdir/src/{w32api,mingwrt}/include/* $destdir/mingw/include

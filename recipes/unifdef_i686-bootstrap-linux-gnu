@@ -1,0 +1,10 @@
+#|src unifdef
+#|pkg name $target-unifdef
+#|pkg + /
+touch version.sh
+cat <<'EOT' > version.h
+"@(#) $Version: unifdef-2.9 $\n"
+"@(#) $Date: 2013-06-07 11:53:51 +0100 $\n"
+EOT
+make $parallel CC=gcc
+make install DESTDIR=$destdir prefix=/

@@ -1,0 +1,33 @@
+#|rcp gccbase
+#|ins $target-binutils
+#|ins $target-mingw-headers /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gmp-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-mpfr-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-mpc-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-cloog-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|pkg name $target-gcc1
+#|pkg dep $target-binutils
+#|pkg + /bin
+#|pkg + /include
+#|pkg + /lib*/gcc
+#|pkg + /share/man/man1
+#|pkg name nopackage
+#|pkg . /lib*
+#|pkg . /share
+#|pkg + /share/info
+#|pkg + /share/locale
+#|pkg . /share/man
+#|pkg + /share/man/man7
+. $recipes/gccbase \
+    --disable-libgomp \
+    --enable-languages=c \
+    --disable-sjlj-exceptions \
+    --with-dwarf2 \
+    --disable-shared \
+    --disable-libstdcxx-pch \
+    --enable-libstdcxx-debug \
+    --disable-win32-registry \
+    --enable-version-specific-runtime-libs

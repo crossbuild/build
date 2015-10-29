@@ -1,0 +1,41 @@
+#|src gcc /src
+#|ins $target-binutils
+#|ins $target-gmp
+#|ins $target-mpfr
+#|ins $target-mpc
+#|ins $target-cloog
+#|ins i686-build_pc-linux-gnu-glibc-devel /i686-build_pc-linux-gnu/sys-root
+#|pkg name $target-gcc
+#|pkg dep $target-binutils
+#|pkg dep i686-build_pc-linux-gnu-glibc-devel /i686-build_pc-linux-gnu/sys-root
+#|pkg + /bin
+#|pkg + /include
+#|pkg + /lib*/gcc
+#|pkg + /*-*
+#|pkg + /share
+#|pkg name nopackage
+#|pkg . /lib*
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+$srcdir/src/configure \
+    --target=$build \
+    --prefix=/ --libexecdir=//lib \
+    --program-prefix=$build- \
+    --with-sysroot=//i686-build_pc-linux-gnu/sys-root \
+    --with-build-sysroot=$sysroot \
+    --with-local-prefix=$sysroot \
+    --enable-__cxa_atexit \
+    --enable-libmudflap --enable-libgomp --enable-libssp \
+    --enable-languages=c,c++ \
+    --with-gmp=$srcdir/usr --with-mpfr=$srcdir/usr --with-mpc=$srcdir/usr \
+    --with-cloog=$srcdir/usr \
+    --with-isl=$srcdir/usr \
+    --with-host-libstdcxx='-lstdc++ -lm' \
+    --disable-multilib $checking \
+    --enable-threads=posix --disable-libstdcxx-pch \
+    --enable-c99 --enable-long-long --disable-shared \
+    --disable-libsanitizer --disable-libcilkrts \
+    --disable-lto
+make $parallel
+make install DESTDIR=$destdir
+rm -f $destdir/share/info/dir

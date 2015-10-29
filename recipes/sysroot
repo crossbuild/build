@@ -1,0 +1,6 @@
+#|pkg name $target-sysroot
+#|pkg + /
+for i in bin sbin $lib; do
+    mkdir -p $destdir/usr/$i
+    ln -s usr/$i $destdir/$i
+done

@@ -1,0 +1,30 @@
+#|dep do_not_invoke_gccbase_directly
+#|src gcc /src
+#|rcp gccbase-settings
+. $recipes/gccbase-settings
+#export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+#export LEX="$FLEX"
+export "${toolconfigure_vars[@]}"
+$srcdir/src/"${toolconfigure64[@]}" \
+    --target=$target \
+    --program-prefix=$target- \
+    --with-sysroot=//$target/sys-root \
+    --with-build-sysroot=$sysroot \
+    --disable-bootstrap \
+    --with-gmp=$srcdir/$build64/sys-root/usr \
+    --with-gmp-lib=$srcdir/$build64/sys-root/usr/$lib \
+    --with-mpfr=$srcdir/$build64/sys-root/usr \
+    --with-mpfr-lib=$srcdir/$build64/sys-root/usr/$lib \
+    --with-mpc=$srcdir/$build64/sys-root/usr \
+    --with-mpc-lib=$srcdir/$build64/sys-root/usr/$lib \
+    --with-cloog=$srcdir/$build64/sys-root/usr \
+    --with-cloog-lib=$srcdir/$build64/sys-root/usr/$lib \
+    --with-isl=$srcdir/$build64/sys-root/usr \
+    --with-isl-lib=$srcdir/$build64/sys-root/usr/$lib \
+    --with-host-libstdcxx="$srcdir/$build64/sys-root/usr/lib64/libstdc++.a -lm" \
+    --disable-multilib $checking \
+    --enable-linker-build-id \
+    "${extra_config[@]-}" "$@"
+lt_cv_shlibpath_overrides_runpath=no \
+    make $parallel
+make install DESTDIR=$destdir

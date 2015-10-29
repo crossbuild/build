@@ -1,0 +1,11 @@
+#|src w32api /src
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins $target-gcc1
+#|ins $target-mingw-headers /$target/sys-root
+#|pkg name $target-w32api
+#|pkg + /
+$srcdir/src/configure \
+    --prefix=/mingw \
+    --build=$build --host=$target
+make $parallel
+make install DESTDIR=$destdir

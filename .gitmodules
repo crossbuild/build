@@ -1,0 +1,115 @@
+[submodule "src/buildtool"]
+	path = src/buildtool
+	url = ../buildtool
+[submodule "src/binutils"]
+	path = src/binutils
+	url = ../binutils-gdb
+	ignore = dirty
+[submodule "src/old_binutils"]
+	path = src/old_binutils
+	url = ../binutils-gdb
+	ignore = dirty
+[submodule "src/bison"]
+	path = src/bison
+	url = ../bison
+	ignore = dirty
+[submodule "src/cloog"]
+	path = src/cloog
+	url = ../cloog
+	ignore = dirty
+[submodule "src/coreutils"]
+	path = src/coreutils
+	url = ../coreutils
+	ignore = dirty
+[submodule "src/diffutils"]
+	path = src/diffutils
+	url = ../diffutils
+	ignore = dirty
+[submodule "src/elfinterface"]
+	path = src/elfinterface
+	url = ../elfinterface
+	ignore = dirty
+[submodule "src/flex"]
+	path = src/flex
+	url = ../flex
+	ignore = dirty
+[submodule "src/gawk"]
+	path = src/gawk
+	url = ../gawk
+	ignore = dirty
+[submodule "src/gcc"]
+	path = src/gcc
+	url = ../gcc
+	ignore = dirty
+[submodule "src/old_gcc"]
+	path = src/old_gcc
+	url = ../gcc
+	ignore = dirty
+[submodule "src/glibc"]
+	path = src/glibc
+	url = ../glibc
+	ignore = dirty
+[submodule "src/old_glibc"]
+	path = src/old_glibc
+	url = ../glibc
+	ignore = dirty
+[submodule "src/gmp"]
+	path = src/gmp
+	url = ../gmp
+	ignore = dirty
+[submodule "src/grep"]
+	path = src/grep
+	url = ../grep
+	ignore = dirty
+[submodule "src/isl"]
+	path = src/isl
+	url = ../isl
+	ignore = dirty
+[submodule "src/glibc_linux"]
+	path = src/glibc_linux
+	url = ../linux
+	ignore = dirty
+[submodule "src/old_linux"]
+	path = src/old_linux
+	url = ../linux
+	ignore = dirty
+[submodule "src/m4"]
+	path = src/m4
+	url = ../m4
+	ignore = dirty
+[submodule "src/make"]
+	path = src/make
+	url = ../make
+	ignore = dirty
+[submodule "src/mingwrt"]
+	path = src/mingwrt
+	url = ../mingwrt
+	ignore = dirty
+[submodule "src/mpc"]
+	path = src/mpc
+	url = ../mpc
+	ignore = dirty
+[submodule "src/mpfr"]
+	path = src/mpfr
+	url = ../mpfr
+	ignore = dirty
+[submodule "src/sed"]
+	path = src/sed
+	url = ../sed
+	ignore = dirty
+[submodule "src/texinfo"]
+	path = src/texinfo
+	url = ../texinfo
+	ignore = dirty
+[submodule "src/unifdef"]
+	path = src/unifdef
+	url = ../unifdef
+	ignore = dirty
+[submodule "src/w32api"]
+	path = src/w32api
+	url = ../w32api
+	ignore = dirty
+[submodule "src/zlib"]
+	path = src/zlib
+	url = ../zlib
+	ignore = dirty

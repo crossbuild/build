@@ -1,0 +1,11 @@
+#|dep do_not_invoke_toolcmi_directly
+mysrcdir=$1
+shift
+export "${toolconfigure_vars[@]}"
+if test "$target" = x86_64-build_pc-linux-gnu; then
+    $mysrcdir/"${toolconfigure64[@]}" "$@"
+else
+    $mysrcdir/"${toolconfigure[@]}" "$@"
+fi
+make $parallel
+make install DESTDIR=$destdir

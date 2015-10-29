@@ -1,0 +1,81 @@
+#!/bin/bash
+set -eu
+
+get_debugfn()
+{
+    dn=$(dirname "${1#$buildroot}")
+    bn=$(basename "$1").debug
+    debugdn=${debugdir}${dn}
+    debugfn=${debugdn}/${bn}
+}
+
+strip_debug()
+{
+    local dn
+    local bn
+    local debugdn
+    local debugfn
+    local strip_option="$1"
+    shift
+    local target="$1"
+    shift
+    local buildroot="$1"
+    shift
+    local debugrel="$1"
+    shift
+    local findpattern="$*"
+    local debugdir="$buildroot$debugrel"
+    
+    find $buildroot$findpattern ! -path "$debugdir/*.debug" -type f \( -executable -or -name "*.so*" -or -name "*.ko" \) ! -name "*.a" -print0 |
+	sort -z |
+	xargs --no-run-if-empty -0 stat -c '%h %D_%i %n' |
+	while read nlinks inum f; do
+	    case $($target-objdump -h $f 2>/dev/null | egrep -o '(debug[\.a-z_]*|gnu.version)') in
+		*debuglink*) continue ;;
+		*debug*) ;;
+		*gnu.version*)
+		    echo "WARNING: $f is already stripped!"
+		    continue
+		    ;;
+		*) continue ;;
+	    esac
+	    ftype=i$(file $f | cut -d: -f2-)
+	    case $ftype in
+		*ELF*) ;;
+		*)
+		    echo "$f is not an ELF file, skipping"
+		    continue
+		    ;;
+	    esac
+	    get_debugfn "$f"
+	    [ -f "${debugfn}" ] && continue
+	    if [ $nlinks -gt 1 ]; then
+		set +u
+		eval linked=\$linked_$inum
+		set -u
+		if [ -n "$linked" ]; then
+		    link=$debugfn
+		    get_debugfn "$linked"
+		    echo "hard linked $link to $debugfn"
+		    mkdir -p "$(dirname "$link")" && ln -nf "$debugfn" "$link"
+		    continue
+		else
+		    eval linked_$inum=\$f
+		    echo "file $f has $[$nlinks - 1] other hard links"
+		fi
+	    fi
+	    echo "extracting debug info from $f"
+	    local mode=$(stat -c %a "$f")
+	    chmod +w "$f"
+	    case "$dn" in
+		/usr/lib/debug/*)
+		    continue ;;
+	    esac
+	    mkdir -p "${debugdn}"
+	    $target-objcopy --only-keep-debug $f $debugfn
+	    $target-objcopy --add-gnu-debuglink=$debugfn -R .comment -R .GCC.command.line $strip_option $f
+	    chmod $mode $f
+	done
+}
+
+strip_debug "$@"

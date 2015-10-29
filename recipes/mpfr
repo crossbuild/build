@@ -1,0 +1,28 @@
+#|ins $target-gcc
+#|src mpfr /src
+#|ins $target-gmp-devel /$target/sys-root
+#|pkg name $target-libmpfr-4
+#|pkg auto $target
+#|pkg . /usr/lib*/libmpfr.so.4*
+#|pkg name $target-mpfr-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libmpfr.a
+#|pkg . /usr/lib*/libmpfr.so
+#|pkg name $target-mpfr-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-mpfr-info
+#|pkg + /usr/share/info
+#|pkg name $target-mpfr-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/libmpfr.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+. $recipes/cmi $srcdir/src --with-gmp=$sysroot/usr
+rm -f $destdir/usr/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

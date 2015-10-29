@@ -1,0 +1,30 @@
+#|src coreutils /src
+#|ins $target-gcc
+#|pkg name $target-coreutils
+#|pkg + /bin
+#|pkg + /lib*/coreutils
+#|pkg + /share
+#|pkg name $target-coreutils-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib*
+#|rcp strip_debug
+touch $(find $srcdir/src -name configure -or -name Makefile.in -or -name config.hin)
+$srcdir/src/configure \
+    gl_cv_func_memchr_works=yes \
+    --prefix=/ \
+    --libdir=/$lib --libexecdir=/$lib \
+    --build=$target --host=$target \
+    --disable-shared --enable-static \
+    --disable-gcc-warnings
+cat <<'EOT' >> lib/config.h
+#undef _FORTIFY_SOURCE
+#define _FORTIFY_SOURCE 0
+EOT
+make run_help2man='$(SHELL) $(srcdir)/man/dummy-man' $parallel
+make install DESTDIR=$destdir
+# conflicts with util-linux
+rm $destdir/{bin/kill,share/man/man1/kill.1}
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

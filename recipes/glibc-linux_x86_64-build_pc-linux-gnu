@@ -1,0 +1,13 @@
+#|src old_linux
+#|ins x86_64-bootstrap-linux-gnu-unifdef /bootstrap
+#|ins $target-sysroot
+#|pkg name $target-glibc-linux
+#|pkg dep $target-sysroot
+#|pkg + /usr/include
+#|pkg name nopackage
+#|pkg . /usr
+PATH=$srcdir/bootstrap/bin:$PATH make headers_install \
+    INSTALL_HDR_PATH=$destdir/usr V=1
+rm $destdir/usr/include/scsi/{scsi.h,scsi_ioctl.h,sg.h}
+#find $destdir/usr/include \( -name .install -o -name ..install.cmd \) -print0 |
+#xargs -0 rm

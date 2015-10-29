@@ -1,0 +1,8 @@
+#|dep do_not_invoke_cmi_directly
+export "${toolconfigure_vars[@]}"
+PATH=$srcdir/bootstrap/bin:$PATH CC=$target-gcc CXX=$target-g++ \
+$srcdir/src/"${toolconfigure64[@]}" \
+    --enable-static --disable-shared "$@"
+PATH=$srcdir/bootstrap/bin:$PATH make $parallel
+PATH=$srcdir/bootstrap/bin:$PATH make install DESTDIR=$destdir/usr
+rm -f $destdir/usr/$lib/lib*.la

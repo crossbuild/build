@@ -1,0 +1,23 @@
+#|dep do_not_invoke_gccbase_directly
+case $target in
+    arm*)
+        extra_config=(--with-cpu=cortex-a15
+		      #--with-fpu=vfpv3-d16
+		      --with-float=hard
+		      --with-mode=thumb
+		      )
+        ;;
+    *)
+        extra_config=()
+        ;;
+esac
+case $target in
+    *-linux-gnu*)
+	extra_config=("${extra_config[@]-}" --with-linker-hash-style=gnu)
+	;;
+esac
+case "$target_opt_flags" in
+    *-Os*)
+	extra_config=("${extra_config[@]-}" --enable-target-optspace)
+	;;
+esac

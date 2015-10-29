@@ -1,0 +1,32 @@
+#|ins $target-gcc
+#|src gmp /src
+#|pkg name $target-libgmp-10
+#|pkg auto $target
+#|pkg . /usr/lib*/libgmp.so.10*
+#|pkg name $target-libgmpxx-4
+#|pkg auto $target
+#|pkg . /usr/lib*/libgmpxx.so.4*
+#|pkg name $target-gmp-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-gmp-devel-static
+#|pkg auto $target
+#|pkg dep $target-gmp-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-gmp-info
+#|pkg + /usr/share/info
+#|pkg name $target-gmp-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+. $recipes/cmi $srcdir/src --enable-cxx
+rm -f $destdir/usr/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

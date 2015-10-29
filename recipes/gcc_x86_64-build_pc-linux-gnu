@@ -1,0 +1,46 @@
+#|rcp gccbase64
+#|ins x86_64-bootstrap-linux-gnu-gcc /bootstrap
+#|ins $target-binutils
+#|ins $target-glibc-devel /$target/sys-root
+#|ins $target-gmp-devel /$target/sys-root
+#|ins $target-mpfr-devel /$target/sys-root
+#|ins $target-mpc-devel /$target/sys-root
+#|ins $target-cloog-devel /$target/sys-root
+#|pkg name $target-gcc
+#|pkg dep $target-binutils
+#|pkg dep $target-gcc-common
+#|pkg dep $target-glibc-devel /$target/sys-root
+#|pkg + /bin
+#|pkg + /*-*
+#|pkg + /include
+#|pkg + /lib*/gcc
+#|pkg + /share/man/man1
+#|pkg name $target-gcc-common
+#|pkg + /share/gcc-*
+#|pkg + /share/info
+#|pkg + /share/locale
+#|pkg + /share/man/man7
+#|pkg name $target-gcc-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib*
+#|pkg . /share
+#|pkg . /share/man
+#|rcp strip_debug
+cp $srcdir/bin/* $srcdir/bootstrap/bin/
+mkdir -p $srcdir/$target/sys-root/usr/$lib
+cp $srcdir/bootstrap/$target/$lib/libstdc++.a $srcdir/$target/sys-root/usr/$lib
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+PATH=$srcdir/bootstrap/bin:$PATH . $recipes/gccbase64 --enable-__cxa_atexit \
+        --enable-libmudflap --enable-libgomp --enable-libssp \
+        --enable-languages=c,c++ \
+        --enable-threads=posix --disable-libstdcxx-pch \
+        --enable-c99 --enable-long-long --disable-shared \
+	--disable-libsanitizer
+rm $destdir/$lib/lib*.la
+rm -f $destdir/share/info/dir
+mkdir -p $destdir/$target/sys-root/usr/$lib
+mv $destdir/$lib/lib* $destdir/$target/sys-root/usr/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

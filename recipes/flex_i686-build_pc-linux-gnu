@@ -1,0 +1,32 @@
+#|src flex
+#|ins $target-gcc
+#|ins $target-bison
+#|ins $target-m4
+#|pkg name $target-flex
+#|pkg dep $target-m4
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-flex-devel /devel
+#|pkg + /usr
+#|pkg name $target-flex-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib*
+#|rcp toolcmi
+#|rcp strip_debug
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+. $recipes/toolcmi . \
+	M4=m4
+rm $destdir/$lib/lib*.la
+rm $destdir/$lib/lib*.so*
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

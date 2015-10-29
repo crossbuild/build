@@ -1,0 +1,27 @@
+#|src glibc /src
+#|ins $target-gcc
+#|pkg name $target-regex-devel
+#|pkg + /mingw
+for i in regex.c regcomp.c regexec.c regex.h regex_internal.c regex_internal.h; do
+    cp $srcdir/src/posix/$i .
+done
+sed -i -e 's|__USE_GNU|_GNU_SOURCE|' regex.h
+cat <<'EOT' > alloca.h
+#define alloca(size) __builtin_alloca (size)
+#define HAVE_ALLOCA 1
+EOT
+cat <<'EOT' > config.h
+#define IS_IN(x) 1
+#define __attribute_warn_unused_result__ \
+  __attribute__ ((__warn_unused_result__))
+#define MAX(a,b) (((a)>(b))?(a):(b))
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define HAVE_STDBOOL_H
+#define _GNU_SOURCE
+EOT
+mingw32-gcc -mthreads $target_opt_flags -std=gnu99 -I. -DHAVE_CONFIG_H -c -o regex.o regex.c
+$target-ar rv libregex.a regex.o
+
+mkdir -p $destdir/mingw/{lib,include}
+cp libregex.a $destdir/mingw/lib
+cp regex.h $destdir/mingw/include

@@ -1,0 +1,8 @@
+#|src old_binutils /src
+#|pkg name $target-binutils
+#|pkg + /
+$srcdir/src/configure --target=$build64 \
+    --prefix=/ \
+    --program-prefix=$build64- --with-sysroot=/ --disable-werror
+make $parallel
+make install DESTDIR=$destdir

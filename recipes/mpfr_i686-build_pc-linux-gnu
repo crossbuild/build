@@ -1,0 +1,14 @@
+#|rcp cmi_i686-build_pc-linux-gnu
+#|src mpfr /src
+#|ins i686-bootstrap-linux-gnu-gcc /bootstrap
+#|ins $target-gmp-devel
+#|pkg name $target-mpfr-devel
+#|pkg dep $target-gmp-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg + /usr/share
+. $recipes/cmi_$target \
+	--with-gmp-include=$srcdir/usr/include \
+	--with-gmp-lib=$srcdir/usr/$lib

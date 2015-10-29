@@ -1,0 +1,38 @@
+#|src binutils /src
+#|ins x86_64-build_pc-linux-gnu-bison
+#|ins x86_64-build_pc-linux-gnu-coreutils
+#|ins x86_64-build_pc-linux-gnu-diffutils
+#|ins x86_64-build_pc-linux-gnu-flex
+#|ins x86_64-build_pc-linux-gnu-gawk
+#|ins x86_64-build_pc-linux-gnu-grep
+#|ins x86_64-build_pc-linux-gnu-gcc
+#|ins x86_64-build_pc-linux-gnu-make
+#|ins x86_64-build_pc-linux-gnu-sed
+#|ins x86_64-build_pc-linux-gnu-texinfo
+#|pkg name $target-binutils64
+#|pkg dep x86_64-build_pc-linux-gnu-binutils-common
+#|pkg + /bin
+#|pkg + /??????*
+#|pkg + /share/man
+#|pkg name $target-binutils64-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /share
+#|pkg + /share/info
+#|pkg + /share/locale
+#|rcp toolcmi64
+#|rcp strip_debug
+test "${NOISOLATION:-0}" || export PATH=$srcdir/bin
+rm -rf $srcdir/src/{gdb,sim}
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+. $recipes/toolcmi64 $srcdir/src \
+    --target=$target \
+    --program-prefix=$target- \
+    --with-sysroot=$sysroot \
+    --enable-gold \
+    --enable-plugins
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $build64 $destdir /lib/debug /

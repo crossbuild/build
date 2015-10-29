@@ -1,0 +1,7 @@
+#|dep do_not_invoke_toolcmi_directly
+mysrcdir=$1
+shift
+export "${toolconfigure_vars[@]}"
+$mysrcdir/"${toolconfigure64[@]}" "$@"
+make $parallel
+make install DESTDIR=$destdir

@@ -1,0 +1,19 @@
+#|src diffutils /src
+#|ins $target-gcc
+#|pkg name $target-diffutils
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-diffutils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+#|rcp cmi
+#|rcp strip_debug
+for i in aclocal.m4 configure Makefile.in config.hin; do
+    touch $(find $srcdir/src -name $i)
+done
+. $recipes/cmi $srcdir/src --disable-gcc-warnings
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

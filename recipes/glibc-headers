@@ -1,0 +1,31 @@
+#|src glibc /src
+#|ins $target-gcc1
+#|ins $target-glibc-linux /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|pkg name $target-glibc-headers
+#|pkg dep $target-sysroot
+#|pkg dep $target-glibc-linux
+#|pkg + /usr
+export "${configure_vars[@]}"
+BUILD_CC=$srcdir/bin/$build-gcc \
+    CC=$srcdir/bin/$target-gcc CXX=$srcdir/bin/$target-g++ \
+    AR=$srcdir/bin/$target-ar RANLIB=$srcdir/bin/$target-ranlib \
+    CFLAGS="${cflags_glibc[@]-}" \
+    $srcdir/src/"${configure[@]}" \
+    CFLAGS="${cflags_glibc[*]-}" \
+    --with-headers=$sysroot/usr/include \
+    --disable-profile --without-gd --without-cvs --enable-add-ons \
+    "${extra_glibc[@]-}"
+make install-headers install_root=$destdir
+touch $destdir/usr/include/gnu/stubs.h
+
+make csu/subdir_lib
+
+mkdir $destdir/usr/$lib
+cp csu/crt1.o csu/crti.o csu/crtn.o $destdir/usr/$lib
+$srcdir/bin/$target-gcc -nostdlib -nostartfiles -shared -x c /dev/null \
+    -o $destdir/usr/$lib/libc.so
+
+if test $lib != lib; then
+    ln -s $lib $destdir/usr/lib
+fi
