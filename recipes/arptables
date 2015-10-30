@@ -1,0 +1,20 @@
+#|src ebtables
+#|ins $target-gcc
+#|pkg name $target-arptables
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/sbin
+#|pkg name $target-arptables-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/man
+#|rcp strip_debug
+cd userspace/arptables
+export CC=$target-gcc
+make $parallel PREFIX=/usr
+# install is not thread-safe
+make -j1 install DESTDIR=$destdir PREFIX=/usr
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

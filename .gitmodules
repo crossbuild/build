@@ -25,6 +25,10 @@
 	path = src/diffutils
 	url = ../diffutils
 	ignore = dirty
+[submodule "src/ebtables"]
+	path = src/ebtables
+	url = ../ebtables
+	ignore = dirty
 [submodule "src/elfinterface"]
 	path = src/elfinterface
 	url = ../elfinterface
