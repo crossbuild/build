@@ -1,0 +1,80 @@
+#|src openldap /src/openldap
+#|src config /src/config
+#|ins $target-gcc
+#|ins $target-openssl-devel /$target/sys-root
+##|ins i686-build_pc-linux-gnu-autoconf
+##|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-groff
+##|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|pkg name $target-openldap
+#|pkg auto $target
+#|pkg + /etc
+#|pkg name $target-liblber-2-4-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liblber-2.4.so.2*
+#|pkg name $target-libldap-2-4-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libldap-2.4.so.2*
+#|pkg name $target-libldap_r-2-4-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libldap_r-2.4.so.2*
+#|pkg name $target-openldap-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-openldap-devel-static
+#|pkg auto $target
+#|pkg dep $target-openldap-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-openldap-tools
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-openldap-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg + /usr/share
+#|rcp cmi
+#|rcp strip_debug
+export PATH=$srcdir/bin
+cp $srcdir/src/config/config.* $srcdir/src/openldap/build/
+#sed -i -e "s|//bin|$srcdir/bin|g;s|//share|$srcdir/share|g" \
+#    $srcdir/share/automake-1.14/Automake/Config.pm \
+#    $srcdir/share/autoconf/autom4te.cfg \
+#    $srcdir/bin/automake-1.14 \
+#    $srcdir/bin/libtoolize \
+#    $srcdir/bin/autoscan \
+#    $srcdir/bin/autoreconf \
+#    $srcdir/bin/ifnames \
+#    $srcdir/bin/autoheader \
+#    $srcdir/bin/aclocal-1.14 \
+#    $srcdir/bin/autoupdate \
+#    $srcdir/bin/automake \
+#    $srcdir/bin/autom4te \
+#    $srcdir/bin/aclocal
+#export AUTOM4TE=$srcdir/bin/autom4te
+#(
+#    cd $srcdir/src/openldap
+#    autoreconf -i -f
+#)
+sed -i -e "s|='.*--rpath.*'|=' '|" $srcdir/src/openldap/configure
+. $recipes/cmi $srcdir/src/openldap \
+    CC=$target-gcc \
+    AR=$target-ar \
+    --disable-slapd \
+    --with-yielding_select=yes \
+    --with-tls
+cp libraries/libldap*/.libs/libldap*.so.*.*[^T] $destdir/usr/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

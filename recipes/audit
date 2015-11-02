@@ -1,0 +1,110 @@
+#|src audit /src
+#|ins $target-gcc
+#|ins $target-openldap-devel /$target/sys-root
+#|ins $target-tcp_wrappers-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-audit
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg name $target-libaudit-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libaudit.so.1*
+#|pkg name $target-libauparse-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libauparse.so.0*
+#|pkg name $target-audit-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-audit-devel-static
+#|pkg auto $target
+#|pkg dep $target-audit-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-audit-man
+#|pkg + /usr/share/man
+#|pkg name $target-audit-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp strip_debug
+for i in linux/audit.h linux/net.h sys/mount.h sys/personality.h \
+	bits/socket.h bits/socket_type.h; do
+    cp $sysroot/usr/include/$i $srcdir/i686-build_pc-linux-gnu/sys-root/usr/include/$i
+done
+cd $srcdir/src
+./autogen.sh
+sed -i -e 's|\${\?wl}\?-rpath \${\?wl}\?\$libdir||' $srcdir/src/configure
+cd -
+TABS_lib='
+	flagtabs.h
+	s390_tables.h
+	x86_64_tables.h
+	ppc_tables.h
+	ia64_tables.h
+	machinetabs.h
+	s390x_tables.h
+	msg_typetabs.h
+	ftypetabs.h
+	errtabs.h
+	fieldtabs.h
+	i386_tables.h
+	optabs.h
+	actiontabs.h
+	'
+TABS_auparse='
+	accesstabs.h
+	captabs.h
+	clone-flagtabs.h
+	clocktabs.h
+	epoll_ctls.h
+	famtabs.h
+	flagtabs.h
+	fcntl-cmdtabs.h
+	icmptypetabs.h
+	ipctabs.h
+	ipccmdtabs.h
+	ipoptnametabs.h
+	open-flagtabs.h
+	nfprototabs.h
+	mounttabs.h
+	ioctlreqtabs.h
+	persontabs.h
+	mmaptabs.h
+	ip6optnametabs.h
+	signaltabs.h
+	prottabs.h
+	pktoptnametabs.h
+	shm_modetabs.h
+	seektabs.h
+	ptracetabs.h
+	prctl_opttabs.h
+	sockoptnametabs.h
+	tcpoptnametabs.h
+	recvtabs.h
+	socktabs.h
+	socktypetabs.h
+	seccomptabs.h
+	schedtabs.h
+	typetabs.h
+	umounttabs.h
+	rlimittabs.h
+	sockleveltabs.h
+	'
+export "${configure_vars[@]}"
+$srcdir/src/"${configure[@]}" --without-python --with-libwrap --disable-gssapi-krb5 --without-libcap-ng
+make -C lib CC=i686-build_pc-linux-gnu-gcc $parallel $TABS_lib
+make -C auparse CC=i686-build_pc-linux-gnu-gcc $parallel $TABS_auparse
+make $parallel
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

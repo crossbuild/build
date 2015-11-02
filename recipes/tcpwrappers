@@ -1,0 +1,32 @@
+#|src tcp_wrappers
+#|ins $target-gcc
+#|pkg name $target-tcp_wrappers
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-libwrap-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libwrap.so.0*
+#|pkg name $target-tcp_wrappers-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libwrap.so
+#|pkg name $target-tcp_wrappers-man
+#|pkg + /usr/share/man
+#|pkg name $target-tcp_wrappers-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+#|rcp strip_debug
+make $parallel linux CC=$target-gcc
+mkdir -p $destdir/usr/{include,$lib,sbin,share/man/man{3,5,8}}
+cp -a ip6utils.h tcpd.h $destdir/usr/include/
+cp -a safe_finger tcpd tcpdchk tcpdmatch try-from $destdir/usr/sbin/
+cp -a hosts_access.3 $destdir/usr/share/man/man3/
+cp -a hosts_access.5 hosts_options.5 $destdir/usr/share/man/man5/
+cp -a tcpd.8 tcpdchk.8 tcpdmatch.8 $destdir/usr/share/man/man8/
+cp -a shared/libwrap.so* $destdir/usr/$lib/
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

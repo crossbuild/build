@@ -1,0 +1,20 @@
+#|src findutils /src
+#|ins $target-gcc
+#|pkg name $target-findutils
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg . /usr/lib*/bigram
+#|pkg . /usr/lib*/code
+#|pkg . /usr/lib*/frcode
+#|pkg name $target-findutils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /var
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+#|rcp cmi
+#|rcp strip_debug
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

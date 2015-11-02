@@ -1,0 +1,52 @@
+#|src openssl
+#|ins $target-gcc
+#|pkg name $target-openssl
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg name $target-openssl-engines
+#|pkg auto $target
+#|pkg + /usr/lib*/engines
+#|pkg name $target-libcrypto-1-0-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libcrypto.so.1.0.0
+#|pkg name $target-libssl-1-0-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libssl.so.1.0.0
+#|pkg name $target-openssl-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-openssl-devel-static
+#|pkg auto $target
+#|pkg dep $target-openssl-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-openssl-man
+#|pkg + /usr/man
+#|pkg name $target-openssl-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|rcp strip_debug
+case $target in
+    powerpc*)  arch=linux-ppc;;
+    mips64*)   arch=linux-generic64;;
+    arm*)      arch=linux-generic32;;
+    aarch64-*) arch=linux-generic64;;
+    i?86-*)    arch=linux-elf;;
+    x86_64-*)  arch=linux-x86_64;;
+    *)         arch=none;;
+esac
+./Configure --prefix=/usr --openssldir=/etc/ssl --libdir=/$lib no-asm no-idea no-fips no-rc5 no-mdc2 no-camellia $arch shared
+case "$target_opt_flags" in
+    *-Os*) sed -i -e 's/-O[23]/-Os/' Makefile;;
+esac
+make CC=$target-gcc AR="$target-ar r" AS=$target-as LD=$target-ld RANLIB=$target-ranlib NM=$target-nm MAKEDEPPROG=$target-gcc update
+# makefile bug, parallel build has race conditions
+make -j1 CC=$target-gcc AR="$target-ar r" AS=$target-as LD=$target-ld RANLIB=$target-ranlib NM=$target-nm MAKEDEPPROG=$target-gcc
+make -j1 install MANDIR=/usr/man INSTALL_PREFIX=$destdir CC=$target-gcc AR="$target-ar r" AS=$target-as LD=$target-ld RANLIB=$target-ranlib NM=$target-nm MAKEDEPPROG=$target-gcc
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

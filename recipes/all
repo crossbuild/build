@@ -1,3 +1,4 @@
 #|dep arptables
 #|dep atftp
+#|dep audit
 #|dep zlib

@@ -1,0 +1,19 @@
+#|src findutils /src
+#|ins $target-gcc
+#|pkg name $target-findutils
+#|pkg + /bin
+#|pkg + /share
+#|pkg . /lib/bigram
+#|pkg . /lib/code
+#|pkg . /lib/frcode
+#|pkg name $target-findutils-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /var
+#|rcp toolcmi
+#|rcp strip_debug
+. $recipes/toolcmi $srcdir/src
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

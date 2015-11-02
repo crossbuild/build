@@ -1,0 +1,27 @@
+#|src openssl
+#|ins $target-gcc
+#|pkg name $target-openssl
+#|pkg + /bin
+#|pkg + /etc
+#|pkg . /lib*/engines
+#|pkg + /share
+#|pkg name $target-openssl-devel /devel
+#|pkg + /usr
+#|pkg name $target-openssl-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib*
+#|pkg . /devel
+#|rcp strip_debug
+sed -i -e 's|^\("linux-elf",.*-O3\)\(.*\)|\1 -fPIC\2|p' Configure
+./Configure --prefix=/ --openssldir=/etc/ssl --libdir=/$lib no-asm no-idea no-fips no-rc5 no-mdc2 no-camellia linux-elf no-shared no-dso
+make CC=$target-gcc AR="$target-ar r" AS=$target-as LD=$target-ld RANLIB=$target-ranlib NM=$target-nm MAKEDEPPROG=$target-gcc update
+# makefile bug, parallel build has race conditions
+make -j1 CC=$target-gcc AR="$target-ar r" AS=$target-as LD=$target-ld RANLIB=$target-ranlib NM=$target-nm MAKEDEPPROG=$target-gcc
+make -j1 install MANDIR=/share/man INSTALL_PREFIX=$destdir CC=$target-gcc AR="$target-ar r" AS=$target-as LD=$target-ld RANLIB=$target-ranlib NM=$target-nm MAKEDEPPROG=$target-gcc
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr/$lib
+mv $destdir/include $destdir/devel/usr
+mv $destdir/$lib/{lib*.a,pkgconfig} $destdir/devel/usr/$lib

@@ -1,0 +1,19 @@
+#|src automake /src
+#|ins $target-autoconf
+#|ins $target-gcc
+#|pkg name $target-automake
+#|pkg + /
+#|rcp toolcmi
+touch $(find $srcdir/src -name aclocal.m4 -or -name configure -or -name Makefile.in -or -name config.hin)
+sed -i -e "s|//share/autoconf|$srcdir/share/autoconf|" \
+    $srcdir/share/autoconf/autom4te.cfg
+. $recipes/toolcmi $srcdir/src
+sed -i -e "s|\\([\"']\\)//share|\$ENV{SDKROOT}.\\1/share|" \
+    $destdir/share/automake-1.15/Automake/Config.pm \
+    $destdir/bin/automake \
+    $destdir/bin/aclocal
+for i in automake aclocal; do
+    rm $destdir/bin/$i-1.15
+    ln $destdir/bin/$i $destdir/bin/$i-1.15
+done
+rm -f $destdir/share/info/dir

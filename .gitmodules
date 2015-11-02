@@ -5,6 +5,18 @@
 	path = src/atftp
 	url = ../atftp
 	ignore = dirty
+[submodule "src/audit"]
+	path = src/audit
+	url = ../audit
+	ignore = dirty
+[submodule "src/autoconf"]
+	path = src/autoconf
+	url = ../autoconf
+	ignore = dirty
+[submodule "src/automake"]
+	path = src/automake
+	url = ../automake
+	ignore = dirty
 [submodule "src/binutils"]
 	path = src/binutils
 	url = ../binutils-gdb
@@ -21,6 +33,10 @@
 	path = src/cloog
 	url = ../cloog
 	ignore = dirty
+[submodule "src/config"]
+	path = src/config
+	url = ../config
+	ignore = dirty
 [submodule "src/coreutils"]
 	path = src/coreutils
 	url = ../coreutils
@@ -36,6 +52,14 @@
 [submodule "src/elfinterface"]
 	path = src/elfinterface
 	url = ../elfinterface
+	ignore = dirty
+[submodule "src/file"]
+	path = src/file
+	url = ../file
+	ignore = dirty
+[submodule "src/findutils"]
+	path = src/findutils
+	url = ../findutils
 	ignore = dirty
 [submodule "src/flex"]
 	path = src/flex
@@ -69,9 +93,17 @@
 	path = src/grep
 	url = ../grep
 	ignore = dirty
+[submodule "src/groff"]
+	path = src/groff
+	url = ../groff
+	ignore = dirty
 [submodule "src/isl"]
 	path = src/isl
 	url = ../isl
+	ignore = dirty
+[submodule "src/libtool"]
+	path = src/libtool
+	url = ../libtool
 	ignore = dirty
 [submodule "src/glibc_linux"]
 	path = src/glibc_linux
@@ -101,9 +133,21 @@
 	path = src/mpfr
 	url = ../mpfr
 	ignore = dirty
+[submodule "src/openldap"]
+	path = src/openldap
+	url = ../openldap
+	ignore = dirty
+[submodule "src/openssl"]
+	path = src/openssl
+	url = ../openssl
+	ignore = dirty
 [submodule "src/sed"]
 	path = src/sed
 	url = ../sed
+	ignore = dirty
+[submodule "src/tcp_wrappers"]
+	path = src/tcp_wrappers
+	url = ../tcp_wrappers
 	ignore = dirty
 [submodule "src/texinfo"]
 	path = src/texinfo

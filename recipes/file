@@ -1,0 +1,34 @@
+#|src file /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-file
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libmagic-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libmagic.so.1*
+#|pkg + /usr/share/misc
+#|pkg name $target-file-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/include
+#|pkg + /usr/share/man
+#|pkg name $target-file-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+cd $srcdir/src
+autoreconf -f -i
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

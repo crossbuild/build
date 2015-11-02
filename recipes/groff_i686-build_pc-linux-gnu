@@ -1,0 +1,8 @@
+#|src groff /src
+#|ins $target-gcc
+#|pkg name $target-groff
+#|pkg + /
+#|rcp toolcmi
+parallel=-j1
+. $recipes/toolcmi $srcdir/src
+rm -f $destdir/share/info/dir

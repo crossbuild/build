@@ -1,0 +1,29 @@
+#|src file /src
+#|ins $target-gcc
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-libtool
+#|pkg name $target-file
+#|pkg + /bin
+#|pkg + /sdksetup
+#|pkg + /share
+#|pkg name $target-file-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /lib/lib*
+#|pkg + /include
+#|rcp toolcmi
+#|rcp strip_debug
+cd $srcdir/src
+autoreconf -f -i
+cd -
+. $recipes/toolcmi $srcdir/src \
+    --enable-static --disable-shared
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/sdksetup
+cat <<'EOT' > $destdir/sdksetup/file
+export MAGIC=$SDKROOT/share/misc/magic
+EOT
