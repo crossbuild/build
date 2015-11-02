@@ -1,6 +1,10 @@
 [submodule "src/buildtool"]
 	path = src/buildtool
 	url = ../buildtool
+[submodule "src/atftp"]
+	path = src/atftp
+	url = ../atftp
+	ignore = dirty
 [submodule "src/binutils"]
 	path = src/binutils
 	url = ../binutils-gdb

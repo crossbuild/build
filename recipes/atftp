@@ -1,0 +1,19 @@
+#|src atftp /src
+#|ins $target-gcc
+#|pkg name $target-atftp
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-atftpd
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-atftp-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+#|rcp cmi
+#|rcp strip_debug
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
