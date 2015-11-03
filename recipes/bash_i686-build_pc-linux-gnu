@@ -1,0 +1,16 @@
+#|src bash /src
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|pkg name $target-bash
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-bash-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|rcp toolcmi
+#|rcp strip_debug
+. $recipes/toolcmi $srcdir/src --without-bash-malloc --disable-nls
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

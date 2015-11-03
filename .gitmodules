@@ -17,6 +17,10 @@
 	path = src/automake
 	url = ../automake
 	ignore = dirty
+[submodule "src/bash"]
+	path = src/bash
+	url = ../bash
+	ignore = dirty
 [submodule "src/binutils"]
 	path = src/binutils
 	url = ../binutils-gdb
@@ -133,6 +137,10 @@
 	path = src/mpfr
 	url = ../mpfr
 	ignore = dirty
+[submodule "src/ncurses"]
+	path = src/ncurses
+	url = ../ncurses
+	ignore = dirty
 [submodule "src/openldap"]
 	path = src/openldap
 	url = ../openldap
@@ -140,6 +148,10 @@
 [submodule "src/openssl"]
 	path = src/openssl
 	url = ../openssl
+	ignore = dirty
+[submodule "src/readline"]
+	path = src/readline
+	url = ../readline
 	ignore = dirty
 [submodule "src/sed"]
 	path = src/sed

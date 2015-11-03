@@ -1,0 +1,64 @@
+#|src bash /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-readline-devel /$target/sys-root
+#|pkg name $target-bash
+#|pkg auto $target
+#|pkg . /usr/bin/bash
+#|pkg name $target-bash-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/bin/bashbug
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+#|rcp strip_debug
+export PATH=$srcdir/bin
+case $target in
+    mips64-octeon2-linux-gnu)
+	gt_cv_int_divbyzero_sigfpe='gt_cv_int_divbyzero_sigfpe=yes';;
+    *)
+	gt_cv_int_divbyzero_sigfpe=;;
+esac
+export AR=$build-ar
+export CC_FOR_BUILD=$build-gcc
+export "${configure_vars[@]}"
+$srcdir/src/"${configure[@]}" \
+    bash_cv_func_ctype_nonascii=yes \
+    bash_cv_dup2_broken=no \
+    bash_cv_pgrp_pipe=no \
+    bash_cv_sys_siglist=yes \
+    bash_cv_under_sys_siglist=yes \
+    bash_cv_wexitstatus_offset=8 \
+    bash_cv_opendir_not_robust=no \
+    bash_cv_ulimit_maxfds=yes \
+    bash_cv_getenv_redef=yes \
+    bash_cv_getcwd_malloc=yes \
+    bash_cv_func_sigsetjmp=present \
+    bash_cv_func_strcoll_broken=no \
+    bash_cv_func_snprintf=yes \
+    bash_cv_func_vsnprintf=yes \
+    bash_cv_printf_a_format=yes \
+    bash_cv_must_reinstall_sighandlers=no \
+    bash_cv_job_control_missing=present \
+    bash_cv_sys_named_pipes=present \
+    bash_cv_wcontinued_broken=no \
+    bash_cv_unusable_rtsigs=no \
+    $gt_cv_int_divbyzero_sigfpe \
+    ac_cv_rl_version=6.3 \
+    --without-bash-malloc \
+    --disable-nls \
+    --with-installed-readline
+make READLINE_LDFLAGS= HISTORY_LDFLAGS= $parallel
+make READLINE_LDFLAGS= HISTORY_LDFLAGS= install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

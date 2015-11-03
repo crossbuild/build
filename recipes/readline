@@ -1,0 +1,48 @@
+#|src readline /src
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|pkg name $target-libreadline-6
+#|pkg auto $target
+#|pkg . /usr/lib*/libreadline.so.6*
+#|pkg name $target-libhistory-6
+#|pkg auto $target
+#|pkg . /usr/lib*/libhistory.so.6*
+#|pkg name $target-readline-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-readline-devel-static
+#|pkg auto $target
+#|pkg dep $target-readline-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-readline-doc
+#|pkg + /usr/share/doc
+#|pkg + /usr/share/readline
+#|pkg name $target-readline-info
+#|pkg + /usr/share/info
+#|pkg name $target-readline-man
+#|pkg + /usr/share/man
+#|pkg name $target-readline-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+export PATH=$srcdir/bin
+
+sed -i -e 's|\(^.*\$(SHOBJ_LD).*\$(SHARED_OBJ) \$(SHLIB_LIBS)\)$|\1 -lcurses|' $srcdir/src/shlib/Makefile.in
+. $recipes/cmi $srcdir/src \
+    bash_cv_wcwidth_broken=no
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

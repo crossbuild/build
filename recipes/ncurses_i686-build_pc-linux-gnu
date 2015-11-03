@@ -1,0 +1,34 @@
+#|src ncurses /src
+#|ins $target-gcc
+#|pkg name $target-ncurses
+#|pkg + /bin
+#|pkg . /lib/terminfo
+#|pkg + /share
+#|pkg name $target-ncurses-devel /devel
+#|pkg + /usr
+#|pkg name $target-ncurses-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib*
+#|rcp toolcmi
+#|rcp strip_debug
+mkdir -p $destdir/lib
+. $recipes/toolcmi $srcdir/src \
+    --without-shared \
+    --enable-symlinks \
+    --without-debug \
+    --without-ada \
+    --without-cxx-bindings \
+    --disable-leaks \
+    --disable-termcap \
+    --without-termlib
+for i in curses ncurses term termcap; do
+    ln -s ncurses/$i.h $destdir/include/
+done
+mkdir -p $destdir/devel/usr/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mv $destdir/$lib/lib*.a $destdir/devel/usr/$lib
+mv $destdir/include $destdir/devel/usr
