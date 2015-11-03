@@ -1,0 +1,63 @@
+#|src babeltrace /src
+#|ins $target-gcc
+#|ins $target-glib-devel /$target/sys-root
+#|ins $target-popt-devel /$target/sys-root
+#|ins $target-util-linux-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-glib
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-babeltrace
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-babeltrace-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-babeltrace-devel-static
+#|pkg auto $target
+#|pkg dep $target-babeltrace-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libbabeltrace-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libbabeltrace.so.1*
+#|pkg name $target-libbabeltrace-ctf-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libbabeltrace-ctf.so.1*
+#|pkg name $target-libbabeltrace-ctf-text-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libbabeltrace-ctf-text.so.1*
+#|pkg name $target-libbabeltrace-dummy-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libbabeltrace-dummy.so.1*
+#|pkg name $target-libbabeltrace-lttng-live-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libbabeltrace-lttng-live.so.1*
+#|pkg name $target-libbabeltrace-ctf-metadata-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libbabeltrace-ctf-metadata.so.1*
+#|pkg name $target-babeltrace-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-babeltrace-man
+#|pkg + /usr/share/man
+#|pkg name $target-babeltrace-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./bootstrap
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

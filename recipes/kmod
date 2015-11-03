@@ -1,0 +1,56 @@
+#|src kmod /src
+#|ins $target-gcc
+#|ins $target-xz-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-kmod-nobusybox
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg . /usr/sbin/depmod
+#|pkg . /usr/sbin/modinfo
+#|pkg name $target-kmod
+#|pkg auto $target
+#|pkg dep $target-kmod-nobusybox
+#|pkg . /usr/sbin/insmod
+#|pkg . /usr/sbin/lsmod
+#|pkg . /usr/sbin/rmmod
+#|pkg . /usr/sbin/modprobe
+#|pkg name $target-libkmod-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libkmod.so.2*
+#|pkg name $target-libkmod-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libkmod.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share
+#|pkg name $target-kmod-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/libkmod.la
+#|pkg . /usr/sbin
+#|rcp cmi
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+touch libkmod/docs/gtk-doc.make
+autoreconf --install --symlink
+cd -
+. $recipes/cmi $srcdir/src --with-xz --with-zlib
+mkdir $destdir/usr/sbin
+for i in depmod insmod lsmod modinfo modprobe rmmod; do
+    ln -s ../bin/kmod $destdir/usr/sbin/$i
+done
+for i in lsmod; do
+    ln -s kmod $destdir/usr/bin/$i
+done
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

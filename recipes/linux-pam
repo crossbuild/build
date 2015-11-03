@@ -1,0 +1,156 @@
+#|src linux-pam /src/linux-pam
+#|src config /src/config
+#|ins $target-gcc
+#|ins $target-flex-devel-staticonly /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-flex-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-libpam-0
+#|pkg auto $target
+#|pkg + /etc
+#|pkg . /usr/lib*/libpam.so.0*
+#|pkg . /usr/lib*/security
+#|pkg . /usr/lib*/security/*.so
+#|pkg + /usr/lib*/security/pam_filter
+#|pkg + /usr/sbin
+#|pkg name $target-libpam_misc-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libpam_misc.so.0*
+#|pkg name $target-libpamc-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libpamc.so.0*
+#|pkg name $target-pam-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/share
+#|pkg name $target-pam-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /sbin
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/lib*/security/*.la
+#|rcp cmi
+#|rcp strip_debug
+cd $srcdir/src/linux-pam
+touch ChangeLog
+touch doc/man/PAM.8
+touch doc/man/misc_conv.3
+touch doc/man/pam.3
+touch doc/man/pam.8
+touch doc/man/pam.conf.5
+touch doc/man/pam.d.5
+touch doc/man/pam_acct_mgmt.3
+touch doc/man/pam_authenticate.3
+touch doc/man/pam_chauthtok.3
+touch doc/man/pam_close_session.3
+touch doc/man/pam_conv.3
+touch doc/man/pam_end.3
+touch doc/man/pam_error.3
+touch doc/man/pam_fail_delay.3
+touch doc/man/pam_get_authtok.3
+touch doc/man/pam_get_authtok_noverify.3
+touch doc/man/pam_get_authtok_verify.3
+touch doc/man/pam_get_data.3
+touch doc/man/pam_get_item.3
+touch doc/man/pam_get_user.3
+touch doc/man/pam_getenv.3
+touch doc/man/pam_getenvlist.3
+touch doc/man/pam_info.3
+touch doc/man/pam_misc_drop_env.3
+touch doc/man/pam_misc_paste_env.3
+touch doc/man/pam_misc_setenv.3
+touch doc/man/pam_open_session.3
+touch doc/man/pam_prompt.3
+touch doc/man/pam_putenv.3
+touch doc/man/pam_set_data.3
+touch doc/man/pam_set_item.3
+touch doc/man/pam_setcred.3
+touch doc/man/pam_sm_acct_mgmt.3
+touch doc/man/pam_sm_authenticate.3
+touch doc/man/pam_sm_chauthtok.3
+touch doc/man/pam_sm_close_session.3
+touch doc/man/pam_sm_open_session.3
+touch doc/man/pam_sm_setcred.3
+touch doc/man/pam_start.3
+touch doc/man/pam_strerror.3
+touch doc/man/pam_syslog.3
+touch doc/man/pam_verror.3
+touch doc/man/pam_vinfo.3
+touch doc/man/pam_vprompt.3
+touch doc/man/pam_vsyslog.3
+touch doc/man/pam_xauth_data.3
+touch modules/pam_access/access.conf.5
+touch modules/pam_access/pam_access.8
+touch modules/pam_cracklib/pam_cracklib.8
+touch modules/pam_debug/pam_debug.8
+touch modules/pam_deny/pam_deny.8
+touch modules/pam_echo/pam_echo.8
+touch modules/pam_env/pam_env.conf.5
+touch modules/pam_env/pam_env.8
+touch modules/pam_exec/pam_exec.8
+touch modules/pam_faildelay/pam_faildelay.8
+touch modules/pam_filter/pam_filter.8
+touch modules/pam_ftp/pam_ftp.8
+touch modules/pam_group/group.conf.5
+touch modules/pam_group/pam_group.8
+touch modules/pam_issue/pam_issue.8
+touch modules/pam_keyinit/pam_keyinit.8
+touch modules/pam_lastlog/pam_lastlog.8
+touch modules/pam_limits/limits.conf.5
+touch modules/pam_limits/pam_limits.8
+touch modules/pam_listfile/pam_listfile.8
+touch modules/pam_localuser/pam_localuser.8
+touch modules/pam_loginuid/pam_loginuid.8
+touch modules/pam_mail/pam_mail.8
+touch modules/pam_mkhomedir/mkhomedir_helper.8
+touch modules/pam_mkhomedir/pam_mkhomedir.8
+touch modules/pam_motd/pam_motd.8
+touch modules/pam_namespace/namespace.conf.5
+touch modules/pam_namespace/pam_namespace.8
+touch modules/pam_nologin/pam_nologin.8
+touch modules/pam_permit/pam_permit.8
+touch modules/pam_pwhistory/pam_pwhistory.8
+touch modules/pam_rhosts/pam_rhosts.8
+touch modules/pam_rootok/pam_rootok.8
+touch modules/pam_securetty/pam_securetty.8
+touch modules/pam_selinux/pam_selinux.8
+touch modules/pam_sepermit/pam_sepermit.8
+touch modules/pam_sepermit/sepermit.conf.5
+touch modules/pam_shells/pam_shells.8
+touch modules/pam_succeed_if/pam_succeed_if.8
+touch modules/pam_tally/pam_tally.8
+touch modules/pam_tally2/pam_tally2.8
+touch modules/pam_time/pam_time.8
+touch modules/pam_time/time.conf.5
+touch modules/pam_timestamp/pam_timestamp.8
+touch modules/pam_timestamp/pam_timestamp_check.8
+touch modules/pam_tty_audit/pam_tty_audit.8
+touch modules/pam_umask/pam_umask.8
+touch modules/pam_unix/pam_unix.8
+touch modules/pam_unix/unix_chkpwd.8
+touch modules/pam_unix/unix_update.8
+touch modules/pam_userdb/pam_userdb.8
+touch modules/pam_warn/pam_warn.8
+touch modules/pam_wheel/pam_wheel.8
+touch modules/pam_xauth/pam_xauth.8
+autoreconf -fiv
+cd -
+cp $srcdir/src/config/config.* $srcdir/src/linux-pam/build-aux/
+mkdir -p $destdir/usr/sbin
+ln -s usr/sbin $destdir/sbin
+export LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEXLIB=-lfl
+export CC_FOR_BUILD=i686-build_pc-linux-gnu-gcc
+. $recipes/cmi $srcdir/src/linux-pam --includedir=/usr/include/security \
+    --disable-regenerate-docu
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

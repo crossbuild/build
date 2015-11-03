@@ -1,0 +1,53 @@
+#|src perl
+#|ins $target-gcc
+##|ins $target-ncurses-devel /$target/sys-root
+##|ins $target-zlib-devel /$target/sys-root
+##|ins $target-bzip2-devel /$target/sys-root
+#|pkg name $target-perl
+#|pkg + /bin
+#|pkg + /lib/perl*
+#|pkg + /share
+#|pkg name $target-perl-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+##|rcp toolcmi
+#|rcp strip_debug
+#. $recipes/toolcmi . ac_cv_prog_PYTHON= --bindir=/bin --libdir=/$lib
+./Configure -des \
+    -Dcc=$target-gcc \
+    -Dcf_email='robert.schiele@nsn.com' \
+    -Uglibpth= \
+    -Uhintfile \
+    -Dinitialinstalllocation="$destdir/bin" \
+    -Dinstallprefix="$destdir" \
+    -Ulocincpth= \
+    -Uloclibpth= \
+    -Dmydomain='.nsn-net.net' \
+    -Dmyhostname='build' \
+    -Dplibpth="$sysroot/usr/$lib" \
+    -Dstartperl='#!/usr/bin/env perl' \
+    -Duserelocatableinc \
+    -Dusethreads \
+    -Uxlibpth= \
+-Ud_suidsafe \
+-Ui_libutil \
+-Dignore_versioned_solibs='y' \
+-Dlibswanted='sfio socket inet nsl nm ndbm gdbm dbm db malloc dl dld ld sun m crypt sec util pthread c cposix posix ucb BSD gdbm_compat' \
+-Dlibc='/lib/libc-2.5.so' \
+-Dd_lstat \
+-Dusemallocwrap \
+-Dusemymalloc='n' \
+-Doptimize='-O2' \
+-Dccflags='-D_REENTRANT -D_GNU_SOURCE -fno-strict-aliasing -pipe -fstack-protector -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' \
+-Dccflags_uselargefiles="-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64" \
+-Dman1dir='.../../share/man/man1'
+sed -i -e "s|^initialinstalllocation='.*'$|initialinstalllocation='$destdir/bin'|" config.sh
+oldarchname=$(sed -ne "s|^myarchname='\(.*\)'$|\1|p" config.sh)
+sed -i -e "s|$oldarchname|x86_64-linux|" config.sh
+make $parallel
+make install
+# conflicts with openssl
+rm $destdir/share/man/man3/threads.3
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

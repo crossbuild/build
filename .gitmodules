@@ -1,9 +1,17 @@
 [submodule "src/buildtool"]
 	path = src/buildtool
 	url = ../buildtool
+[submodule "src/acl"]
+	path = src/acl
+	url = ../acl
+	ignore = dirty
 [submodule "src/atftp"]
 	path = src/atftp
 	url = ../atftp
+	ignore = dirty
+[submodule "src/attr"]
+	path = src/attr
+	url = ../attr
 	ignore = dirty
 [submodule "src/audit"]
 	path = src/audit
@@ -16,6 +24,10 @@
 [submodule "src/automake"]
 	path = src/automake
 	url = ../automake
+	ignore = dirty
+[submodule "src/babeltrace"]
+	path = src/babeltrace
+	url = ../babeltrace
 	ignore = dirty
 [submodule "src/bash"]
 	path = src/bash
@@ -45,6 +57,14 @@
 	path = src/coreutils
 	url = ../coreutils
 	ignore = dirty
+[submodule "src/curl"]
+	path = src/curl
+	url = ../curl
+	ignore = dirty
+[submodule "src/dbus"]
+	path = src/dbus
+	url = ../dbus
+	ignore = dirty
 [submodule "src/diffutils"]
 	path = src/diffutils
 	url = ../diffutils
@@ -56,6 +76,10 @@
 [submodule "src/elfinterface"]
 	path = src/elfinterface
 	url = ../elfinterface
+	ignore = dirty
+[submodule "src/expat"]
+	path = src/expat
+	url = ../expat
 	ignore = dirty
 [submodule "src/file"]
 	path = src/file
@@ -81,6 +105,14 @@
 	path = src/old_gcc
 	url = ../gcc
 	ignore = dirty
+[submodule "src/gettext"]
+	path = src/gettext
+	url = ../gettext
+	ignore = dirty
+[submodule "src/glib"]
+	path = src/glib
+	url = ../glib
+	ignore = dirty
 [submodule "src/glibc"]
 	path = src/glibc
 	url = ../glibc
@@ -93,6 +125,10 @@
 	path = src/gmp
 	url = ../gmp
 	ignore = dirty
+[submodule "src/gperf"]
+	path = src/gperf
+	url = ../gperf
+	ignore = dirty
 [submodule "src/grep"]
 	path = src/grep
 	url = ../grep
@@ -101,9 +137,25 @@
 	path = src/groff
 	url = ../groff
 	ignore = dirty
+[submodule "src/intltool"]
+	path = src/intltool
+	url = ../intltool
+	ignore = dirty
 [submodule "src/isl"]
 	path = src/isl
 	url = ../isl
+	ignore = dirty
+[submodule "src/kmod"]
+	path = src/kmod
+	url = ../kmod
+	ignore = dirty
+[submodule "src/libcap"]
+	path = src/libcap
+	url = ../libcap
+	ignore = dirty
+[submodule "src/libffi"]
+	path = src/libffi
+	url = ../libffi
 	ignore = dirty
 [submodule "src/libtool"]
 	path = src/libtool
@@ -116,6 +168,14 @@
 [submodule "src/old_linux"]
 	path = src/old_linux
 	url = ../linux
+	ignore = dirty
+[submodule "src/linux-pam"]
+	path = src/linux-pam
+	url = ../linux-pam
+	ignore = dirty
+[submodule "src/lz4"]
+	path = src/lz4
+	url = ../lz4
 	ignore = dirty
 [submodule "src/m4"]
 	path = src/m4
@@ -149,6 +209,18 @@
 	path = src/openssl
 	url = ../openssl
 	ignore = dirty
+[submodule "src/perl"]
+	path = src/perl
+	url = ../perl
+	ignore = dirty
+[submodule "src/pkg-config"]
+	path = src/pkg-config
+	url = ../pkg-config
+	ignore = dirty
+[submodule "src/popt"]
+	path = src/popt
+	url = ../popt
+	ignore = dirty
 [submodule "src/readline"]
 	path = src/readline
 	url = ../readline
@@ -156,6 +228,10 @@
 [submodule "src/sed"]
 	path = src/sed
 	url = ../sed
+	ignore = dirty
+[submodule "src/systemd"]
+	path = src/systemd
+	url = ../systemd
 	ignore = dirty
 [submodule "src/tcp_wrappers"]
 	path = src/tcp_wrappers
@@ -169,9 +245,21 @@
 	path = src/unifdef
 	url = ../unifdef
 	ignore = dirty
+[submodule "src/util-linux"]
+	path = src/util-linux
+	url = ../util-linux
+	ignore = dirty
 [submodule "src/w32api"]
 	path = src/w32api
 	url = ../w32api
+	ignore = dirty
+[submodule "src/XML-Parser"]
+	path = src/XML-Parser
+	url = ../XML-Parser
+	ignore = dirty
+[submodule "src/xz"]
+	path = src/xz
+	url = ../xz
 	ignore = dirty
 [submodule "src/zlib"]
 	path = src/zlib

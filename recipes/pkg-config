@@ -1,0 +1,47 @@
+mkdir -p $tools/bin
+cat <<EOT > $tools/bin/$target-pkg-config
+set -eu
+fail()
+{
+    echo "\$@" >&2
+    #echo "\$@" >/dev/tty
+    exit 1
+}
+want_modversion=
+want_cflags=
+want_libs=
+while test \$# -gt 0; do
+    case "\$1" in
+	--atleast-version=*) ;;
+	--cflags) want_cflags=1;;
+	--libs) want_libs=1;;
+	--modversion) want_modversion=1;;
+	--*) fail "don't understand \$1";;
+	*) pkgname="\$1";;
+    esac
+    shift
+done
+case "\$pkgname" in
+    gthread-2.0)
+	modversion=2.34.3
+	cflags="-pthread -I$sysroot/usr/include/glib-2.0 -I$sysroot/usr/$lib/glib-2.0/include"
+	libs="-pthread -lgthread-2.0 -lglib-2.0"
+	;;
+    *)
+	fail unknown package "\$pkgname"
+	;;
+esac
+if test "\$want_modversion"; then
+    echo "\$modversion"
+fi
+if test "\$want_cflags"; then
+    echo -n "\$cflags"
+fi
+if test "\$want_libs"; then
+    echo -n "\$libs"
+fi
+if test "\$want_cflags" -o "\$want_libs"; then
+    echo
+fi
+EOT
+chmod 755 $tools/bin/$target-pkg-config

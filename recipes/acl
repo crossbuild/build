@@ -1,0 +1,38 @@
+#|src acl
+#|ins $target-gcc
+#|ins $target-libattr-devel /$target/sys-root
+#|pkg name $target-acl
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libacl-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libacl.so.1*
+#|pkg name $target-libacl-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/include
+#|pkg name $target-libacl-devel-static
+#|pkg auto $target
+#|pkg dep $target-libacl-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-acl-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-acl-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-acl-man
+#|pkg + /usr/share/man
+#|pkg name $target-acl-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp strip_debug
+export "${configure_vars[@]}"
+./"${configure[@]}"
+make $parallel
+make install install-lib install-dev DESTDIR=$destdir PKG_DEVLIB_DIR=/usr/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,13 @@
+#|src pkg-config /src
+#|ins $target-gcc
+#|ins $target-glib-devel /$target/sys-root
+#|pkg name $target-pkg-config
+#|pkg + /
+#|rcp toolcmi
+for i in aclocal.m4 configure Makefile.in config.h.in; do
+    touch $(find $srcdir/src -name $i)
+done
+export GLIB_LIBS='-lglib-2.0 -pthread -lrt'
+export GLIB_CFGLAGS='-I$sysroot/usr/include/glib-2.0 -I$sysroot/usr/$lib/glib-2.0/include'
+. $recipes/toolcmi $srcdir/src
+# --disable-gcc-warnings

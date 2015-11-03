@@ -1,0 +1,30 @@
+#|src attr
+#|ins $target-gcc
+#|pkg name $target-attr
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-attr-devel /devel
+#|pkg + /usr
+#|pkg name $target-attr-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib
+#|rcp strip_debug
+./configure \
+    --prefix=$destdir/ --libdir=$destdir/$lib --libexecdir=$destdir/$lib \
+    --build=$target --host=$target \
+    --enable-static --disable-shared
+make $parallel
+make INSTALL_LTLIB_STATIC='cd $(TOPDIR)/$(LIBNAME)/.libs; \
+        ../$(INSTALL) -m 755 -d $(PKG_DEVLIB_DIR); \
+        ../$(INSTALL) -m 644 -T old_lib $(LIBNAME).la $(PKG_DEVLIB_DIR)' install-lib install-dev install
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

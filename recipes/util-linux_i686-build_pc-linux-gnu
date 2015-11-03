@@ -1,0 +1,54 @@
+#|src util-linux /src
+#|ins $target-gcc
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-gettext
+#|ins $target-libtool
+#|ins $target-pkg-config
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-ncurses-devel /$target/sys-root
+##|ins $target-pam-devel /$target/sys-root
+#|pkg name $target-util-linux
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-util-linux-devel /devel
+#|pkg + /usr
+#|pkg name $target-util-linux-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib
+#|rcp toolcmi
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./autogen.sh
+cd -
+#mkdir -p $destdir/usr/{bin,sbin}
+#cp -a $srcdir/$target/sys-root/{bin,sbin} $destdir
+sed -i -e 's;mkostemp(\([a-z]*\), O_RDWR|O_CREAT|O_EXCL|O_CLOEXEC);mkstemp(\1);' $srcdir/src/{lib/fileutils.c,libblkid/src/save.c,libmount/src/utils.c}
+sed -i -e 's;fcntl(\(.*\), F_DUPFD_CLOEXEC, STDERR_FILENO + 1);dup(\1);' $srcdir/src/lib/sysfs.c
+. $recipes/toolcmi $srcdir/src \
+    --enable-cramfs \
+    --disable-makeinstall-chown \
+    --enable-static \
+    --disable-shared \
+    --disable-login \
+    --disable-wall \
+    --disable-su \
+    --without-python \
+    --disable-libmount
+rm $destdir/lib*/lib*.la
+mv $destdir/sbin/* $destdir/bin/
+rmdir $destdir/sbin
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

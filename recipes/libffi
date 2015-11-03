@@ -1,0 +1,40 @@
+#|src libffi /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libffi-6
+#|pkg auto $target
+#|pkg . /usr/lib*/libffi.so.6*
+#|pkg name $target-libffi-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libffi-devel-static
+#|pkg auto $target
+#|pkg dep $target-libffi-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libffi-info
+#|pkg + /usr/share/info
+#|pkg name $target-libffi-man
+#|pkg + /usr/share/man
+#|pkg name $target-libffi-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+mv $destdir/usr/$lib/libffi-*/include $destdir/usr/include
+rmdir $destdir/usr/$lib/libffi-*
+sed -i -e 's|^includedir=.*|includedir=/usr/include|' $destdir/usr/$lib/pkgconfig/libffi.pc
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

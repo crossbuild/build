@@ -1,0 +1,46 @@
+#|src babeltrace /src
+#|ins $target-gcc
+#|ins $target-glib-devel /$target/sys-root
+#|ins $target-popt-devel /$target/sys-root
+#|ins $target-util-linux-devel /$target/sys-root
+#|ins $target-automake
+#|ins $target-autoconf
+#|ins $target-glib
+#|ins $target-libtool
+#|ins $target-pkg-config
+#|pkg name $target-babeltrace
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-babeltrace-devel /devel
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-babeltrace-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /devel
+#|pkg . /devel/usr
+#|pkg . /devel/usr/lib*
+#|pkg . /devel/usr/lib*/lib*.la
+#|rcp toolcmi64
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./bootstrap
+cd -
+. $recipes/toolcmi64 $srcdir/src \
+	CFLAGS='-O2 -g -Dbe32toh\(x\)=__builtin_bswap32\(x\) -Dbe64toh\(x\)=__builtin_bswap64\(x\) -Dhtobe32\(x\)=__builtin_bswap32\(x\) -Dhtobe64\(x\)=__builtin_bswap64\(x\)' \
+	--disable-shared
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

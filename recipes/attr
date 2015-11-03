@@ -1,0 +1,33 @@
+#|src attr
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-gcc
+#|pkg name $target-attr
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/share
+#|pkg name $target-libattr-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libattr.so.1*
+#|pkg name $target-libattr-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg . /usr/lib*/libattr.so
+#|pkg + /usr/include
+#|pkg name $target-libattr-devel-static
+#|pkg auto $target
+#|pkg dep $target-libattr-devel
+#|pkg . /usr/lib*/libattr.a
+#|pkg name $target-attr-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr/lib*/libattr.la
+#|pkg . /usr/lib*
+#|pkg . /usr
+#|rcp strip_debug
+./configure \
+    --prefix=$destdir/usr --libdir=$destdir/usr/$lib --libexecdir=$destdir/usr/$lib \
+    --build=$build --host=$target
+make $parallel
+make install-lib install-dev install
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

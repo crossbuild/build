@@ -1,0 +1,59 @@
+#|src dbus /src
+#|ins $target-gcc
+#|ins $target-expat-devel /$target/sys-root
+#|ins $target-systemd-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-libdbus-1-3
+#|pkg auto $target
+#|pkg . /usr/lib*/libdbus-1.so.3*
+#|pkg name $target-dbus-devel
+#|pkg auto $target
+#|pkg dep $target-expat-devel
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*/dbus-1.0
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/libdbus-1.so
+#|pkg name $target-dbus-devel-static
+#|pkg auto $target
+#|pkg dep $target-dbus-devel
+#|pkg . /usr/lib*/libdbus-1.a
+#|pkg name $target-dbus-utils
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /var
+#|pkg + /usr/bin
+#|pkg . /usr/lib*/dbus-daemon-launch-helper
+#|pkg + /usr/lib/systemd
+#|pkg + /usr/share/dbus-1
+#|pkg name $target-dbus-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-dbus-man
+#|pkg + /usr/share/man
+#|pkg name $target-dbus-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/libdbus-1.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+export ACLOCAL=$srcdir/bin/aclocal
+cd $srcdir/src
+./autogen.sh --no-configure
+cd -
+. $recipes/cmi $srcdir/src \
+    am_cv_prog_tar_ustar=false \
+    --without-x \
+    --enable-systemd \
+    --with-systemdsystemunitdir=/usr/lib/systemd/system
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

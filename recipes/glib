@@ -1,0 +1,69 @@
+#|src glib /src
+#|ins $target-gcc
+#|ins $target-libffi-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-glib
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-glib
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libglib-2-0-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libglib-2.0.so.0*
+#|pkg name $target-libgio-2-0-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libgio-2.0.so.0*
+#|pkg + /usr/lib*/gio
+#|pkg name $target-libgobject-2-0-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libgobject-2.0.so.0*
+#|pkg name $target-libgthread-2-0-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libgthread-2.0.so.0*
+#|pkg name $target-libgmodule-2-0-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libgmodule-2.0.so.0*
+#|pkg name $target-glib-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/glib-2.0
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share/gdb
+#|pkg + /usr/share/aclocal
+#|pkg + /usr/share/glib-2.0
+#|pkg name $target-glib-man
+#|pkg + /usr/share/man
+#|pkg name $target-glib-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-glib-bash-completion
+#|pkg + /usr/share/bash-completion
+#|pkg name $target-glib-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+for i in aclocal.m4 configure Makefile.in config.h.in; do
+    touch $(find $srcdir/src -name $i)
+done
+#cd $srcdir/src
+#./autogen.sh
+#cd -
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+. $recipes/cmi $srcdir/src \
+	glib_cv_stack_grows=no \
+	glib_cv_uscore=no \
+	ac_cv_func_posix_getpwuid_r=yes \
+	ac_cv_func_posix_getgrgid_r=yes
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

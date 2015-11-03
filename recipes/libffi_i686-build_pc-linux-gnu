@@ -1,0 +1,18 @@
+#|src libffi /src
+#|ins $target-gcc
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-libtool
+#|pkg name $target-libffi-devel
+#|pkg + /usr
+#|rcp toolcmi
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/toolcmi $srcdir/src --enable-static --disable-shared
+rm -f $destdir/share/info/dir
+mv $destdir/$lib/libffi-*/include $destdir/include
+rmdir $destdir/$lib/libffi-*
+rm $destdir/$lib/libffi.la
+mkdir $destdir/usr
+mv $destdir/{include,$lib,share} $destdir/usr

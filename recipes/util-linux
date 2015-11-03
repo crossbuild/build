@@ -1,0 +1,190 @@
+#|src util-linux /src
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-pam-devel /$target/sys-root
+#|ins $target-systemd-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-util-linux-nobusybox
+#|pkg auto $target
+#|pkg . /usr/bin/cal
+#|pkg . /usr/bin/col
+#|pkg . /usr/bin/colcrt
+#|pkg . /usr/bin/colrm
+#|pkg . /usr/bin/column
+#|pkg . /usr/bin/eject
+#|pkg . /usr/bin/fallocate
+#|pkg . /usr/bin/findmnt
+#|pkg .? /usr/bin/i386
+#|pkg .? /usr/bin/mips*
+#|pkg .? /usr/bin/ppc*
+#|pkg .? /usr/bin/x86_64
+#|pkg . /usr/bin/ipcmk
+#|pkg . /usr/bin/isosize
+#|pkg . /usr/bin/lastb
+#|pkg . /usr/bin/linux32
+#|pkg . /usr/bin/linux64
+#|pkg . /usr/bin/look
+#|pkg . /usr/bin/lsblk
+#|pkg . /usr/bin/lscpu
+#|pkg . /usr/bin/lslocks
+#|pkg . /usr/bin/lslogins
+#|pkg . /usr/bin/mcookie
+#|pkg . /usr/bin/namei
+#|pkg . /usr/bin/nsenter
+#|pkg . /usr/bin/pg
+#|pkg . /usr/bin/prlimit
+#|pkg . /usr/bin/rename
+#|pkg . /usr/bin/rev
+#|pkg . /usr/bin/scriptreplay
+#|pkg . /usr/bin/setarch
+#|pkg . /usr/bin/setterm
+#|pkg . /usr/bin/tailf
+#|pkg . /usr/bin/ul
+#|pkg . /usr/bin/uname26
+#|pkg . /usr/bin/unshare
+#|pkg . /usr/bin/utmpdump
+#|pkg . /usr/bin/uuidgen
+#|pkg . /usr/bin/wdctl
+#|pkg . /usr/bin/whereis
+#|pkg . /usr/sbin/addpart
+#|pkg . /usr/sbin/agetty
+#|pkg . /usr/sbin/blkdiscard
+#|pkg . /usr/sbin/blockdev
+#|pkg . /usr/sbin/cfdisk
+#|pkg . /usr/sbin/chcpu
+#|pkg . /usr/sbin/ctrlaltdel
+#|pkg . /usr/sbin/delpart
+#|pkg . /usr/sbin/fdformat
+#|pkg . /usr/sbin/fsck
+#|pkg . /usr/sbin/fsck.cramfs
+#|pkg . /usr/sbin/fsck.minix
+#|pkg . /usr/sbin/fsfreeze
+#|pkg . /usr/sbin/ldattach
+#|pkg . /usr/sbin/mkfs
+#|pkg . /usr/sbin/mkfs.bfs
+#|pkg . /usr/sbin/mkfs.cramfs
+#|pkg . /usr/sbin/mkfs.minix
+#|pkg . /usr/sbin/nologin
+#|pkg . /usr/sbin/partx
+#|pkg . /usr/sbin/raw
+#|pkg . /usr/sbin/readprofile
+#|pkg . /usr/sbin/resizepart
+#|pkg . /usr/sbin/rtcwake
+#|pkg . /usr/sbin/runuser
+#|pkg . /usr/sbin/sfdisk
+#|pkg . /usr/sbin/sulogin
+#|pkg . /usr/sbin/swaplabel
+#|pkg . /usr/sbin/uuidd
+#|pkg . /usr/sbin/wipefs
+#|pkg . /usr/sbin/zramctl
+#|pkg + /usr/lib*/systemd
+#|pkg name $target-util-linux
+#|pkg auto $target
+#|pkg dep $target-util-linux-nobusybox
+#|pkg . /usr/bin/chrt
+#|pkg . /usr/bin/dmesg
+#|pkg . /usr/bin/flock
+#|pkg . /usr/bin/getopt
+#|pkg . /usr/bin/hexdump
+#|pkg . /usr/bin/ionice
+#|pkg . /usr/bin/ipcrm
+#|pkg . /usr/bin/ipcs
+#|pkg . /usr/bin/kill
+#|pkg . /usr/bin/last
+#|pkg . /usr/bin/logger
+#|pkg . /usr/bin/login
+#|pkg . /usr/bin/mesg
+#|pkg . /usr/bin/more
+#|pkg . /usr/bin/mount
+#|pkg . /usr/bin/mountpoint
+#|pkg . /usr/bin/renice
+#|pkg . /usr/bin/script
+#|pkg . /usr/bin/setsid
+#|pkg . /usr/bin/su
+#|pkg . /usr/bin/taskset
+#|pkg . /usr/bin/umount
+#|pkg . /usr/bin/wall
+#|pkg . /usr/sbin/blkid
+#|pkg . /usr/sbin/fdisk
+#|pkg . /usr/sbin/findfs
+#|pkg . /usr/sbin/fstrim
+#|pkg . /usr/sbin/hwclock
+#|pkg . /usr/sbin/losetup
+#|pkg . /usr/sbin/mkswap
+#|pkg . /usr/sbin/pivot_root
+#|pkg . /usr/sbin/swapoff
+#|pkg . /usr/sbin/swapon
+#|pkg . /usr/sbin/switch_root
+#|pkg name $target-util-linux-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-util-linux-devel-static
+#|pkg auto $target
+#|pkg dep $target-util-linux-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libblkid-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libblkid.so.1*
+#|pkg name $target-libmount-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libmount.so.1*
+#|pkg name $target-libuuid-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libuuid.so.1*
+#|pkg name $target-libsmartcols-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libsmartcols.so.1*
+#|pkg name $target-libfdisk-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libfdisk.so.1*
+#|pkg name $target-util-linux-bash-completion
+#|pkg + /usr/share/bash-completion
+#|pkg name $target-util-linux-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-util-linux-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-util-linux-man
+#|pkg + /usr/share/man
+#|pkg name $target-util-linux-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /sbin
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/bin/chfn
+#|pkg . /usr/bin/chsh
+#|pkg . /usr/sbin
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./autogen.sh
+cd -
+mkdir -p $destdir/usr/{bin,sbin}
+cp -a $srcdir/$target/sys-root/{bin,sbin} $destdir
+# util-linux does not seem to understand the concept of --disable-rpath
+sed -i -e '
+	s|hardcode_into_libs=yes|hardcode_into_libs=no|
+	s|^hardcode_libdir_flag_spec=\$lt_hardcode_libdir_flag_spec$|hardcode_libdir_flag_spec=|
+	' $srcdir/src/configure
+. $recipes/cmi $srcdir/src \
+	--enable-cramfs \
+	--disable-makeinstall-chown \
+	--without-python \
+	--disable-rpath
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

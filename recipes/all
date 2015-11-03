@@ -2,4 +2,5 @@
 #|dep atftp
 #|dep audit
 #|dep bash
+#|dep babeltrace
 #|dep zlib

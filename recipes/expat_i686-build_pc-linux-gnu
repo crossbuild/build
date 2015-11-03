@@ -1,0 +1,25 @@
+#|src expat /src
+#|ins $target-gcc
+#|pkg name $target-expat
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-expat-devel /devel
+#|pkg + /usr
+#|pkg name $target-expat-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib
+#|rcp toolcmi
+#|rcp strip_debug
+. $recipes/toolcmi $srcdir/src CFLAGS='-O2 -g -fPIC' --disable-shared --enable-static
+rm $destdir/$lib/libexpat.la
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

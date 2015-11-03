@@ -1,0 +1,64 @@
+#|src curl /src
+#|ins $target-gcc
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-curl
+#|pkg auto $target
+#|pkg . /usr/bin/curl
+#|pkg name $target-libcurl-4
+#|pkg auto $target
+#|pkg . /usr/lib*/libcurl.so.4*
+#|pkg name $target-libcurl-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg . /usr/bin/curl-config
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share/aclocal
+#|pkg name $target-libcurl-devel-static
+#|pkg auto $target
+#|pkg dep $target-libcurl-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-curl-man
+#|pkg + /usr/share/man
+#|pkg name $target-curl-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./buildconf
+cd -
+. $recipes/cmi $srcdir/src \
+	libsuff=${lib/lib} \
+	--with-ssl=$sysroot/usr \
+	--with-random=/dev/urandom \
+	--without-ca-bundle \
+	--enable-hidden-symbols \
+	--without-libidn \
+	--enable-ipv6 \
+	--disable-cookies \
+	--disable-dict \
+	--disable-ldap \
+	--disable-ares \
+	--disable-sspi \
+	--disable-crypto-auth \
+	--disable-debug \
+	--disable-manual \
+	--disable-verbose \
+	--disable-pop3
+rm $destdir/usr/$lib/libcurl.la
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

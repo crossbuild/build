@@ -1,0 +1,22 @@
+#|src glib /src
+#|ins $target-gcc
+#|ins $target-libffi-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|pkg name $target-glib
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-glib-devel /devel
+#|pkg + /usr
+#|pkg name nopackage
+#|pkg . /devel
+#|rcp toolcmi
+for i in aclocal.m4 configure Makefile.in config.h.in; do
+    touch $(find $srcdir/src -name $i)
+done
+export LIBFFI_CFLAGS=' '
+export LIBFFI_LIBS=-lffi
+. $recipes/toolcmi $srcdir/src --disable-modular-tests --disable-shared --enable-static
+rm $destdir/$lib/lib*.la
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+sed -i -e 's|//|/usr/|' $destdir/devel/usr/$lib/pkgconfig/*.pc

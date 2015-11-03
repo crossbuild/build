@@ -1,0 +1,35 @@
+#|src expat /src/expat
+#|src config /src/config
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-gcc
+#|pkg name $target-libexpat-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libexpat.so.1*
+#|pkg name $target-expat-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libexpat.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-expat-devel-static
+#|pkg auto $target
+#|pkg dep $target-expat-devel
+#|pkg . /usr/lib*/libexpat.a
+#|pkg name $target-expat-utils
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-expat-man
+#|pkg + /usr/share/man
+#|pkg name $target-expat-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/libexpat.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+cp $srcdir/src/config/config.* $srcdir/src/expat/conftools/
+. $recipes/cmi $srcdir/src/expat
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

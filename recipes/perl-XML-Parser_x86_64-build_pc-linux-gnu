@@ -1,0 +1,14 @@
+#|src XML-Parser
+#|ins $target-gcc
+#|ins $target-perl
+#|ins $target-expat-devel /$target/sys-root
+#|pkg name $target-perl-XML-Parser
+#|pkg dep $target-perl
+#|pkg + /
+sed -i -e "s|^\( *libpth *=> *'\).*\(',\)\$|\1$sysroot/usr/$lib\2|p" \
+	$srcdir/lib/perl5/*/x86_64-linux-thread-multi/Config.pm
+perl Makefile.PL
+sed -i -e "s|^\(INSTALL.* = \)/.*/srcdir/|\1/|" Makefile
+make $parallel
+make install DESTDIR=$destdir
+rm $destdir/lib/perl5/*/x86_64-linux-thread-multi/perllocal.pod

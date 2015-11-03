@@ -1,0 +1,61 @@
+#|src curl /src
+#|ins $target-gcc
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-libtool
+#|ins $target-pkg-config
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|pkg name $target-curl
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-curl-devel /devel
+#|pkg + /usr
+#|pkg name $target-curl-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /devel
+#|rcp toolcmi
+#|rcp strip_debug
+cd $srcdir/src
+./buildconf
+cd -
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+. $recipes/toolcmi $srcdir/src \
+	--build=${target/build_pc/build_pc_x} \
+	libsuff=${lib/lib} \
+	--with-ssl=$sysroot/usr \
+	--with-random=/dev/urandom \
+	--without-ca-bundle \
+	--enable-hidden-symbols \
+	--without-libidn \
+	--enable-ipv6 \
+	--disable-cookies \
+	--disable-dict \
+	--disable-ldap \
+	--disable-ares \
+	--disable-sspi \
+	--disable-crypto-auth \
+	--disable-debug \
+	--disable-manual \
+	--disable-verbose \
+	--disable-pop3 \
+	--enable-static \
+	--disable-shared
+rm $destdir/$lib/libcurl.la
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr/bin
+mkdir -p $destdir/devel/usr/share
+mv $destdir/include $destdir/devel/usr
+mv $destdir/$lib $destdir/devel/usr
+mv $destdir/bin/curl-config $destdir/devel/usr/bin
+mv $destdir/share/aclocal $destdir/devel/usr/share
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

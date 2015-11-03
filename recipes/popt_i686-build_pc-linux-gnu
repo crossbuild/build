@@ -1,0 +1,20 @@
+#|src popt /src/popt
+#|src config /src/config
+#|ins $target-gcc
+#|pkg name $target-popt-devel /devel
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /devel/usr
+#|pkg . /devel/usr/lib*
+#|pkg . /devel/usr/lib*/lib*.la
+#|pkg + /share
+#|rcp toolcmi
+cp $srcdir/src/config/config.* $srcdir/src/popt/
+. $recipes/toolcmi $srcdir/src/popt --disable-shared
+
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr

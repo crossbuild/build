@@ -1,0 +1,70 @@
+#|src xz /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-xz-nobusybox
+#|pkg auto $target
+#|pkg . /usr/bin/lzcmp
+#|pkg . /usr/bin/lzdiff
+#|pkg . /usr/bin/lzegrep
+#|pkg . /usr/bin/lzfgrep
+#|pkg . /usr/bin/lzgrep
+#|pkg . /usr/bin/lzless
+#|pkg . /usr/bin/lzmadec
+#|pkg . /usr/bin/lzmainfo
+#|pkg . /usr/bin/lzmore
+#|pkg . /usr/bin/xzcmp
+#|pkg . /usr/bin/xzdec
+#|pkg . /usr/bin/xzdiff
+#|pkg . /usr/bin/xzegrep
+#|pkg . /usr/bin/xzfgrep
+#|pkg . /usr/bin/xzgrep
+#|pkg . /usr/bin/xzless
+#|pkg . /usr/bin/xzmore
+#|pkg name $target-xz
+#|pkg auto $target
+#|pkg dep $target-xz-nobusybox
+#|pkg . /usr/bin/lzcat
+#|pkg . /usr/bin/lzma
+#|pkg . /usr/bin/unlzma
+#|pkg . /usr/bin/unxz
+#|pkg . /usr/bin/xz
+#|pkg . /usr/bin/xzcat
+#|pkg name $target-liblzma-5
+#|pkg auto $target
+#|pkg . /usr/lib*/liblzma.so.5*
+#|pkg name $target-xz-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/liblzma.so
+#|pkg . /usr/lib*/pkgconfig/liblzma.pc
+#|pkg name $target-xz-devel-static
+#|pkg auto $target
+#|pkg dep $target-xz-devel
+#|pkg . /usr/lib*/liblzma.a
+#|pkg name $target-xz-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-xz-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-xz-man
+#|pkg + /usr/share/man
+#|pkg name $target-xz-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/liblzma.la
+#|pkg . /usr/lib*/pkgconfig
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

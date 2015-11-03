@@ -1,0 +1,34 @@
+#|src kmod /src
+#|ins $target-gcc
+#|ins $target-xz-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-libtool
+#|ins $target-pkg-config
+#|pkg name $target-kmod
+#|pkg + /bin
+#|pkg name $target-kmod-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+touch libkmod/docs/gtk-doc.make
+autoreconf --install --symlink
+cd -
+export zlib_CFLAGS="-DO_CLOEXEC=0 -Dbe32toh=ntohl"
+export "${toolconfigure_vars[@]}"
+$srcdir/src/"${toolconfigure64[@]}" \
+    --with-xz --with-zlib
+make $parallel tools/kmod
+mkdir -p $destdir/bin
+cp -a tools/kmod $destdir/bin/
+for i in depmod insmod lsmod modinfo modprobe rmmod; do
+    ln -s kmod $destdir/bin/$i
+done
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

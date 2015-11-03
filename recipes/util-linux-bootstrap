@@ -1,0 +1,35 @@
+#|src util-linux /src
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-pam-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-util-linux-bootstrap
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so*
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /sbin
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|rcp cmi
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./autogen.sh
+cd -
+mkdir -p $destdir/usr/{bin,sbin}
+cp -a $srcdir/$target/sys-root/{bin,sbin} $destdir
+. $recipes/cmi $srcdir/src --enable-cramfs --disable-makeinstall-chown --without-python

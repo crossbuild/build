@@ -1,0 +1,8 @@
+#|src gperf /src
+#|ins i686-build_pc-linux-gnu-gcc
+#|pkg name $target-gperf
+#|pkg + /
+$srcdir/src/configure \
+    --build=$build --host=$build --prefix=/
+make $parallel
+make install DESTDIR=$destdir
