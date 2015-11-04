@@ -53,6 +53,514 @@
 	path = src/blktrace
 	url = ../blktrace
 	ignore = dirty
+[submodule "src/boost"]
+	path = src/boost
+	url = ../boost
+	ignore = dirty
+[submodule "src/boost-accumulators"]
+	path = src/boost-accumulators
+	url = ../boost-accumulators
+	ignore = dirty
+[submodule "src/boost-algorithm"]
+	path = src/boost-algorithm
+	url = ../boost-algorithm
+	ignore = dirty
+[submodule "src/boost-align"]
+	path = src/boost-align
+	url = ../boost-align
+	ignore = dirty
+[submodule "src/boost-any"]
+	path = src/boost-any
+	url = ../boost-any
+	ignore = dirty
+[submodule "src/boost-array"]
+	path = src/boost-array
+	url = ../boost-array
+	ignore = dirty
+[submodule "src/boost-asio"]
+	path = src/boost-asio
+	url = ../boost-asio
+	ignore = dirty
+[submodule "src/boost-assert"]
+	path = src/boost-assert
+	url = ../boost-assert
+	ignore = dirty
+[submodule "src/boost-assign"]
+	path = src/boost-assign
+	url = ../boost-assign
+	ignore = dirty
+[submodule "src/boost-atomic"]
+	path = src/boost-atomic
+	url = ../boost-atomic
+	ignore = dirty
+[submodule "src/boost-auto_index"]
+	path = src/boost-auto_index
+	url = ../boost-auto_index
+	ignore = dirty
+[submodule "src/boost-bcp"]
+	path = src/boost-bcp
+	url = ../boost-bcp
+	ignore = dirty
+[submodule "src/boost-bimap"]
+	path = src/boost-bimap
+	url = ../boost-bimap
+	ignore = dirty
+[submodule "src/boost-bind"]
+	path = src/boost-bind
+	url = ../boost-bind
+	ignore = dirty
+[submodule "src/boost-boostbook"]
+	path = src/boost-boostbook
+	url = ../boost-boostbook
+	ignore = dirty
+[submodule "src/boost-boostdep"]
+	path = src/boost-boostdep
+	url = ../boost-boostdep
+	ignore = dirty
+[submodule "src/boost-build"]
+	path = src/boost-build
+	url = ../boost-build
+	ignore = dirty
+[submodule "src/boost-chrono"]
+	path = src/boost-chrono
+	url = ../boost-chrono
+	ignore = dirty
+[submodule "src/boost-circular_buffer"]
+	path = src/boost-circular_buffer
+	url = ../boost-circular_buffer
+	ignore = dirty
+[submodule "src/boost-compatibility"]
+	path = src/boost-compatibility
+	url = ../boost-compatibility
+	ignore = dirty
+[submodule "src/boost-concept_check"]
+	path = src/boost-concept_check
+	url = ../boost-concept_check
+	ignore = dirty
+[submodule "src/boost-config"]
+	path = src/boost-config
+	url = ../boost-config
+	ignore = dirty
+[submodule "src/boost-container"]
+	path = src/boost-container
+	url = ../boost-container
+	ignore = dirty
+[submodule "src/boost-context"]
+	path = src/boost-context
+	url = ../boost-context
+	ignore = dirty
+[submodule "src/boost-conversion"]
+	path = src/boost-conversion
+	url = ../boost-conversion
+	ignore = dirty
+[submodule "src/boost-convert"]
+	path = src/boost-convert
+	url = ../boost-convert
+	ignore = dirty
+[submodule "src/boost-core"]
+	path = src/boost-core
+	url = ../boost-core
+	ignore = dirty
+[submodule "src/boost-coroutine"]
+	path = src/boost-coroutine
+	url = ../boost-coroutine
+	ignore = dirty
+[submodule "src/boost-coroutine2"]
+	path = src/boost-coroutine2
+	url = ../boost-coroutine2
+	ignore = dirty
+[submodule "src/boost-crc"]
+	path = src/boost-crc
+	url = ../boost-crc
+	ignore = dirty
+[submodule "src/boost-date_time"]
+	path = src/boost-date_time
+	url = ../boost-date_time
+	ignore = dirty
+[submodule "src/boost-detail"]
+	path = src/boost-detail
+	url = ../boost-detail
+	ignore = dirty
+[submodule "src/boost-disjoint_sets"]
+	path = src/boost-disjoint_sets
+	url = ../boost-disjoint_sets
+	ignore = dirty
+[submodule "src/boost-dynamic_bitset"]
+	path = src/boost-dynamic_bitset
+	url = ../boost-dynamic_bitset
+	ignore = dirty
+[submodule "src/boost-endian"]
+	path = src/boost-endian
+	url = ../boost-endian
+	ignore = dirty
+[submodule "src/boost-exception"]
+	path = src/boost-exception
+	url = ../boost-exception
+	ignore = dirty
+[submodule "src/boost-filesystem"]
+	path = src/boost-filesystem
+	url = ../boost-filesystem
+	ignore = dirty
+[submodule "src/boost-flyweight"]
+	path = src/boost-flyweight
+	url = ../boost-flyweight
+	ignore = dirty
+[submodule "src/boost-foreach"]
+	path = src/boost-foreach
+	url = ../boost-foreach
+	ignore = dirty
+[submodule "src/boost-format"]
+	path = src/boost-format
+	url = ../boost-format
+	ignore = dirty
+[submodule "src/boost-function"]
+	path = src/boost-function
+	url = ../boost-function
+	ignore = dirty
+[submodule "src/boost-functional"]
+	path = src/boost-functional
+	url = ../boost-functional
+	ignore = dirty
+[submodule "src/boost-function_types"]
+	path = src/boost-function_types
+	url = ../boost-function_types
+	ignore = dirty
+[submodule "src/boost-fusion"]
+	path = src/boost-fusion
+	url = ../boost-fusion
+	ignore = dirty
+[submodule "src/boost-geometry"]
+	path = src/boost-geometry
+	url = ../boost-geometry
+	ignore = dirty
+[submodule "src/boost-gil"]
+	path = src/boost-gil
+	url = ../boost-gil
+	ignore = dirty
+[submodule "src/boost-graph"]
+	path = src/boost-graph
+	url = ../boost-graph
+	ignore = dirty
+[submodule "src/boost-graph_parallel"]
+	path = src/boost-graph_parallel
+	url = ../boost-graph_parallel
+	ignore = dirty
+[submodule "src/boost-heap"]
+	path = src/boost-heap
+	url = ../boost-heap
+	ignore = dirty
+[submodule "src/boost-icl"]
+	path = src/boost-icl
+	url = ../boost-icl
+	ignore = dirty
+[submodule "src/boost-inspect"]
+	path = src/boost-inspect
+	url = ../boost-inspect
+	ignore = dirty
+[submodule "src/boost-integer"]
+	path = src/boost-integer
+	url = ../boost-integer
+	ignore = dirty
+[submodule "src/boost-interprocess"]
+	path = src/boost-interprocess
+	url = ../boost-interprocess
+	ignore = dirty
+[submodule "src/boost-interval"]
+	path = src/boost-interval
+	url = ../boost-interval
+	ignore = dirty
+[submodule "src/boost-intrusive"]
+	path = src/boost-intrusive
+	url = ../boost-intrusive
+	ignore = dirty
+[submodule "src/boost-io"]
+	path = src/boost-io
+	url = ../boost-io
+	ignore = dirty
+[submodule "src/boost-iostreams"]
+	path = src/boost-iostreams
+	url = ../boost-iostreams
+	ignore = dirty
+[submodule "src/boost-iterator"]
+	path = src/boost-iterator
+	url = ../boost-iterator
+	ignore = dirty
+[submodule "src/boost-lambda"]
+	path = src/boost-lambda
+	url = ../boost-lambda
+	ignore = dirty
+[submodule "src/boost-lexical_cast"]
+	path = src/boost-lexical_cast
+	url = ../boost-lexical_cast
+	ignore = dirty
+[submodule "src/boost-litre"]
+	path = src/boost-litre
+	url = ../boost-litre
+	ignore = dirty
+[submodule "src/boost-locale"]
+	path = src/boost-locale
+	url = ../boost-locale
+	ignore = dirty
+[submodule "src/boost-local_function"]
+	path = src/boost-local_function
+	url = ../boost-local_function
+	ignore = dirty
+[submodule "src/boost-lockfree"]
+	path = src/boost-lockfree
+	url = ../boost-lockfree
+	ignore = dirty
+[submodule "src/boost-log"]
+	path = src/boost-log
+	url = ../boost-log
+	ignore = dirty
+[submodule "src/boost-logic"]
+	path = src/boost-logic
+	url = ../boost-logic
+	ignore = dirty
+[submodule "src/boost-math"]
+	path = src/boost-math
+	url = ../boost-math
+	ignore = dirty
+[submodule "src/boost-move"]
+	path = src/boost-move
+	url = ../boost-move
+	ignore = dirty
+[submodule "src/boost-mpi"]
+	path = src/boost-mpi
+	url = ../boost-mpi
+	ignore = dirty
+[submodule "src/boost-mpl"]
+	path = src/boost-mpl
+	url = ../boost-mpl
+	ignore = dirty
+[submodule "src/boost-msm"]
+	path = src/boost-msm
+	url = ../boost-msm
+	ignore = dirty
+[submodule "src/boost-multi_array"]
+	path = src/boost-multi_array
+	url = ../boost-multi_array
+	ignore = dirty
+[submodule "src/boost-multi_index"]
+	path = src/boost-multi_index
+	url = ../boost-multi_index
+	ignore = dirty
+[submodule "src/boost-multiprecision"]
+	path = src/boost-multiprecision
+	url = ../boost-multiprecision
+	ignore = dirty
+[submodule "src/boost-numeric_conversion"]
+	path = src/boost-numeric_conversion
+	url = ../boost-numeric_conversion
+	ignore = dirty
+[submodule "src/boost-odeint"]
+	path = src/boost-odeint
+	url = ../boost-odeint
+	ignore = dirty
+[submodule "src/boost-optional"]
+	path = src/boost-optional
+	url = ../boost-optional
+	ignore = dirty
+[submodule "src/boost-parameter"]
+	path = src/boost-parameter
+	url = ../boost-parameter
+	ignore = dirty
+[submodule "src/boost-phoenix"]
+	path = src/boost-phoenix
+	url = ../boost-phoenix
+	ignore = dirty
+[submodule "src/boost-polygon"]
+	path = src/boost-polygon
+	url = ../boost-polygon
+	ignore = dirty
+[submodule "src/boost-pool"]
+	path = src/boost-pool
+	url = ../boost-pool
+	ignore = dirty
+[submodule "src/boost-predef"]
+	path = src/boost-predef
+	url = ../boost-predef
+	ignore = dirty
+[submodule "src/boost-preprocessor"]
+	path = src/boost-preprocessor
+	url = ../boost-preprocessor
+	ignore = dirty
+[submodule "src/boost-program_options"]
+	path = src/boost-program_options
+	url = ../boost-program_options
+	ignore = dirty
+[submodule "src/boost-property_map"]
+	path = src/boost-property_map
+	url = ../boost-property_map
+	ignore = dirty
+[submodule "src/boost-property_tree"]
+	path = src/boost-property_tree
+	url = ../boost-property_tree
+	ignore = dirty
+[submodule "src/boost-proto"]
+	path = src/boost-proto
+	url = ../boost-proto
+	ignore = dirty
+[submodule "src/boost-ptr_container"]
+	path = src/boost-ptr_container
+	url = ../boost-ptr_container
+	ignore = dirty
+[submodule "src/boost-python"]
+	path = src/boost-python
+	url = ../boost-python
+	ignore = dirty
+[submodule "src/boost-quickbook"]
+	path = src/boost-quickbook
+	url = ../boost-quickbook
+	ignore = dirty
+[submodule "src/boost-random"]
+	path = src/boost-random
+	url = ../boost-random
+	ignore = dirty
+[submodule "src/boost-range"]
+	path = src/boost-range
+	url = ../boost-range
+	ignore = dirty
+[submodule "src/boost-ratio"]
+	path = src/boost-ratio
+	url = ../boost-ratio
+	ignore = dirty
+[submodule "src/boost-rational"]
+	path = src/boost-rational
+	url = ../boost-rational
+	ignore = dirty
+[submodule "src/boost-regex"]
+	path = src/boost-regex
+	url = ../boost-regex
+	ignore = dirty
+[submodule "src/boost-scope_exit"]
+	path = src/boost-scope_exit
+	url = ../boost-scope_exit
+	ignore = dirty
+[submodule "src/boost-serialization"]
+	path = src/boost-serialization
+	url = ../boost-serialization
+	ignore = dirty
+[submodule "src/boost-signals"]
+	path = src/boost-signals
+	url = ../boost-signals
+	ignore = dirty
+[submodule "src/boost-signals2"]
+	path = src/boost-signals2
+	url = ../boost-signals2
+	ignore = dirty
+[submodule "src/boost-smart_ptr"]
+	path = src/boost-smart_ptr
+	url = ../boost-smart_ptr
+	ignore = dirty
+[submodule "src/boost-sort"]
+	path = src/boost-sort
+	url = ../boost-sort
+	ignore = dirty
+[submodule "src/boost-spirit"]
+	path = src/boost-spirit
+	url = ../boost-spirit
+	ignore = dirty
+[submodule "src/boost-statechart"]
+	path = src/boost-statechart
+	url = ../boost-statechart
+	ignore = dirty
+[submodule "src/boost-static_assert"]
+	path = src/boost-static_assert
+	url = ../boost-static_assert
+	ignore = dirty
+[submodule "src/boost-system"]
+	path = src/boost-system
+	url = ../boost-system
+	ignore = dirty
+[submodule "src/boost-test"]
+	path = src/boost-test
+	url = ../boost-test
+	ignore = dirty
+[submodule "src/boost-thread"]
+	path = src/boost-thread
+	url = ../boost-thread
+	ignore = dirty
+[submodule "src/boost-throw_exception"]
+	path = src/boost-throw_exception
+	url = ../boost-throw_exception
+	ignore = dirty
+[submodule "src/boost-timer"]
+	path = src/boost-timer
+	url = ../boost-timer
+	ignore = dirty
+[submodule "src/boost-tokenizer"]
+	path = src/boost-tokenizer
+	url = ../boost-tokenizer
+	ignore = dirty
+[submodule "src/boost-tr1"]
+	path = src/boost-tr1
+	url = ../boost-tr1
+	ignore = dirty
+[submodule "src/boost-tti"]
+	path = src/boost-tti
+	url = ../boost-tti
+	ignore = dirty
+[submodule "src/boost-tuple"]
+	path = src/boost-tuple
+	url = ../boost-tuple
+	ignore = dirty
+[submodule "src/boost-type_erasure"]
+	path = src/boost-type_erasure
+	url = ../boost-type_erasure
+	ignore = dirty
+[submodule "src/boost-type_index"]
+	path = src/boost-type_index
+	url = ../boost-type_index
+	ignore = dirty
+[submodule "src/boost-typeof"]
+	path = src/boost-typeof
+	url = ../boost-typeof
+	ignore = dirty
+[submodule "src/boost-type_traits"]
+	path = src/boost-type_traits
+	url = ../boost-type_traits
+	ignore = dirty
+[submodule "src/boost-ublas"]
+	path = src/boost-ublas
+	url = ../boost-ublas
+	ignore = dirty
+[submodule "src/boost-units"]
+	path = src/boost-units
+	url = ../boost-units
+	ignore = dirty
+[submodule "src/boost-unordered"]
+	path = src/boost-unordered
+	url = ../boost-unordered
+	ignore = dirty
+[submodule "src/boost-utility"]
+	path = src/boost-utility
+	url = ../boost-utility
+	ignore = dirty
+[submodule "src/boost-uuid"]
+	path = src/boost-uuid
+	url = ../boost-uuid
+	ignore = dirty
+[submodule "src/boost-variant"]
+	path = src/boost-variant
+	url = ../boost-variant
+	ignore = dirty
+[submodule "src/boost-wave"]
+	path = src/boost-wave
+	url = ../boost-wave
+	ignore = dirty
+[submodule "src/boost-winapi"]
+	path = src/boost-winapi
+	url = ../boost-winapi
+	ignore = dirty
+[submodule "src/boost-xpressive"]
+	path = src/boost-xpressive
+	url = ../boost-xpressive
+	ignore = dirty
+[submodule "src/bzip2"]
+	path = src/bzip2
+	url = ../bzip2
+	ignore = dirty
 [submodule "src/cloog"]
 	path = src/cloog
 	url = ../cloog

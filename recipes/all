@@ -6,4 +6,5 @@
 #|dep bc
 #|dep binutils-target
 #|dep blktrace
+#|dep boost
 #|dep zlib

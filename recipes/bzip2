@@ -1,0 +1,31 @@
+#|src bzip2
+#|ins $target-gcc
+#|pkg name $target-bzip2
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libbz2-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libbz2.so.1*
+#|pkg name $target-bzip2-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libbz2.so
+#|pkg + /usr/man
+#|pkg name $target-bzip2-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|rcp strip_debug
+make $parallel CC=$target-gcc CFLAGS="-fpic -fPIC -Wall -Winline $target_opt_flags -D_FILE_OFFSET_BITS=64" AR=$target-ar RANLIB=$target-ranlib libbz2.a bzip2 bzip2recover
+$target-gcc -shared -Wl,-soname -Wl,libbz2.so.1 -o libbz2.so.1.0.6 blocksort.o huffman.o crctable.o randtable.o compress.o decompress.o bzlib.o
+$target-gcc -Wall -Winline $target_opt_flags -D_FILE_OFFSET_BITS=64 -o bzip2 bzip2.c libbz2.so.1.0.6
+make install CC=$target-gcc AR=$target-ar RANLIB=$target-ranlib PREFIX=$destdir/usr
+rm -rf $destdir/usr/lib
+mkdir -p $destdir/usr/$lib
+cp -a libbz2.so.1.0.6 $destdir/usr/$lib
+ln -s libbz2.so.1.0.6 $destdir/usr/$lib/libbz2.so.1
+ln -s libbz2.so.1.0.6 $destdir/usr/$lib/libbz2.so
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,24 @@
+#|src bzip2
+#|ins $target-gcc
+#|pkg name $target-bzip2
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-bzip2-devel /devel
+#|pkg + /usr
+#|pkg name $target-bzip2-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib
+#|rcp strip_debug
+make $parallel CC=$target-gcc AR=$target-ar RANLIB=$target-ranlib libbz2.a bzip2 bzip2recover
+make install CC=$target-gcc AR=$target-ar RANLIB=$target-ranlib PREFIX=$destdir
+mkdir -p $destdir/share
+mv $destdir/man $destdir/share/
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/lib $destdir/include $destdir/devel/usr
+mkdir $destdir/lib
+mv $destdir/devel/usr/lib/debug $destdir/lib

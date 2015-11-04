@@ -1,0 +1,14 @@
+#|src boost-build
+#|ins $target-gcc
+#|pkg name $target-boost-build
+#|pkg + /bin
+#|pkg + /share
+##|pkg name $target-boost-build-debug
+##|pkg + /lib/debug
+#|pkg name nopackage
+##|pkg . /lib
+#|rcp strip_debug
+CC=$target-gcc ./bootstrap.sh --with-toolset=cc
+./b2 install --prefix=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
