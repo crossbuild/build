@@ -1,0 +1,21 @@
+#|src bc /src
+#|ins $target-gcc
+#|pkg name $target-bc
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-bc-info
+#|pkg + /usr/share/info
+#|pkg name $target-bc-man
+#|pkg + /usr/share/man
+#|pkg name $target-bc-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+. $recipes/cmi $srcdir/src
+rm -f $destdir/usr/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

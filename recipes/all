@@ -3,4 +3,5 @@
 #|dep audit
 #|dep bash
 #|dep babeltrace
+#|dep bc
 #|dep zlib
