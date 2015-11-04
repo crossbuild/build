@@ -1,7 +1,5 @@
 #|dep auto i686-build_pc-linux-gnu
 #|dep auto x86_64-build_pc-linux-gnu
-#|dep auto i686-bootstrap1-linux-gnu
-#|dep auto x86_64-bootstrap1-linux-gnu
 #|dep all arm-cortexa15-linux-gnueabihf
 #|dep all aarch64-linux-gnu
 #|dep all i686-pc-linux-gnu
