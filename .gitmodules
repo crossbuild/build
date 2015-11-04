@@ -557,6 +557,10 @@
 	path = src/boost-xpressive
 	url = ../boost-xpressive
 	ignore = dirty
+[submodule "src/bridge-utils"]
+	path = src/bridge-utils
+	url = ../bridge-utils
+	ignore = dirty
 [submodule "src/bzip2"]
 	path = src/bzip2
 	url = ../bzip2

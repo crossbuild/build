@@ -7,4 +7,5 @@
 #|dep binutils-target
 #|dep blktrace
 #|dep boost
+#|dep bridge-utils
 #|dep zlib
