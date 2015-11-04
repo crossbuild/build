@@ -49,6 +49,10 @@
 	path = src/bison
 	url = ../bison
 	ignore = dirty
+[submodule "src/blktrace"]
+	path = src/blktrace
+	url = ../blktrace
+	ignore = dirty
 [submodule "src/cloog"]
 	path = src/cloog
 	url = ../cloog
@@ -152,6 +156,10 @@
 [submodule "src/kmod"]
 	path = src/kmod
 	url = ../kmod
+	ignore = dirty
+[submodule "src/libaio"]
+	path = src/libaio
+	url = ../libaio
 	ignore = dirty
 [submodule "src/libcap"]
 	path = src/libcap

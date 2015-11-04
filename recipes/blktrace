@@ -1,0 +1,19 @@
+#|src blktrace
+#|ins $target-gcc
+#|ins $target-libaio-devel /$target/sys-root
+#|pkg name $target-blktrace
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-blktrace-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/man
+#|rcp strip_debug
+
+# Makefile is not thread safe
+make -j1 CC=$target-gcc
+make install DESTDIR=$destdir prefix=/usr
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

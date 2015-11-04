@@ -5,4 +5,5 @@
 #|dep babeltrace
 #|dep bc
 #|dep binutils-target
+#|dep blktrace
 #|dep zlib

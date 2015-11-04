@@ -1,0 +1,20 @@
+#|src libaio
+#|ins $target-gcc
+#|pkg name $target-libaio-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-libaio-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libaio.so.1*
+#|pkg name $target-libaio-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|rcp strip_debug
+make $parallel CC=$target-gcc
+make install prefix=$destdir/usr libdir=$destdir/usr/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
