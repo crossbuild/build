@@ -4,4 +4,5 @@
 #|dep bash
 #|dep babeltrace
 #|dep bc
+#|dep binutils-target
 #|dep zlib

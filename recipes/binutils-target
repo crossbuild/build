@@ -1,0 +1,64 @@
+#|src binutils /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|pkg name $target-binutils-target
+#|pkg dep $target-libbfd-2-25-2
+#|pkg dep $target-libopcodes-2-25-2
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/*-*
+#|pkg name $target-binutils-target-devel
+#|pkg auto $target
+#|pkg dep $target-libbfd-2-25-2
+#|pkg dep $target-libopcodes-2-25-2
+#|pkg dep $target-glibc-devel
+#|pkg . /usr/include/ansidecl.h
+#|pkg . /usr/include/bfd.h
+#|pkg . /usr/include/bfdlink.h
+#|pkg . /usr/include/dis-asm.h
+#|pkg . /usr/include/plugin-api.h
+#|pkg . /usr/include/symcat.h
+#|pkg . /usr/lib*/libbfd.so
+#|pkg . /usr/lib*/libopcodes.so
+#|pkg name $target-binutils-target-devel-static
+#|pkg auto $target
+#|pkg dep $target-binutils-target-devel
+#|pkg . /usr/lib*/libbfd.a
+#|pkg . /usr/lib*/libopcodes.a
+#|pkg name $target-libbfd-2-25-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libbfd-2.25.2.so
+#|pkg name $target-libopcodes-2-25-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libopcodes-2.25.2.so
+#|pkg name $target-libiberty-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg . /usr/include/libiberty.h
+#|pkg . /usr/lib*/libiberty.a
+#|pkg name $target-binutils-target-info
+#|pkg + /usr/share/info
+#|pkg name $target-binutils-target-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-binutils-target-man
+#|pkg + /usr/share/man
+#|pkg name $target-binutils-target-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/include
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+rm -rf $srcdir/src/{gdb,sim}
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+. $recipes/cmi $srcdir/src --target=$target --disable-werror
+cp $srcdir/src/include/libiberty.h $destdir/usr/include
+cp libiberty/libiberty.a $destdir/usr/$lib
+rm -f $destdir/usr/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
