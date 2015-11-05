@@ -1,0 +1,16 @@
+#|src cpio /src
+#|ins $target-gcc
+#|pkg name $target-cpio
+#|pkg + /bin
+#|pkg . /lib/rmt
+#|pkg + /share
+#|pkg name $target-cpio-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|rcp toolcmi
+#|rcp strip_debug
+. $recipes/toolcmi $srcdir/src am_cv_prog_tar_ustar=false
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

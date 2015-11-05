@@ -11,4 +11,6 @@
 #|dep busybox
 #|dep bzip2
 #|dep collectd
+#|dep coreutils
+#|dep cpio
 #|dep zlib

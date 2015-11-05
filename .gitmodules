@@ -585,6 +585,10 @@
 	path = src/coreutils
 	url = ../coreutils
 	ignore = dirty
+[submodule "src/cpio"]
+	path = src/cpio
+	url = ../cpio
+	ignore = dirty
 [submodule "src/curl"]
 	path = src/curl
 	url = ../curl

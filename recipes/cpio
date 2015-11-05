@@ -1,0 +1,26 @@
+#|src cpio /src/cpio
+#|src config /src/config
+#|ins $target-gcc
+#|pkg name $target-cpio
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg . /usr/lib/rmt
+#|pkg name $target-cpio-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-cpio-info
+#|pkg + /usr/share/info
+#|pkg name $target-cpio-man
+#|pkg + /usr/share/man
+#|pkg name $target-cpio-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+#|rcp cmi
+#|rcp strip_debug
+cp $srcdir/src/config/config.* $srcdir/src/cpio/build-aux
+. $recipes/cmi $srcdir/src/cpio am_cv_prog_tar_ustar=false
+rm -f $destdir/usr/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
