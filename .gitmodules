@@ -801,3 +801,11 @@
 	path = src/zlib
 	url = ../zlib
 	ignore = dirty
+[submodule "src/gnulib"]
+	path = src/gnulib
+	url = ../gnulib
+	ignore = dirty
+[submodule "src/paxutils"]
+	path = src/paxutils
+	url = ../paxutils
+	ignore = dirty

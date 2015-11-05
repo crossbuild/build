@@ -1,5 +1,10 @@
-#|src cpio /src
+#|src cpio /src/cpio
+#|src gnulib /src/gnulib
+#|src paxutils /src/cpio/paxutils
+#|ins $target-autoconf
+#|ins $target-automake
 #|ins $target-gcc
+#|ins $target-gettext
 #|pkg name $target-cpio
 #|pkg + /bin
 #|pkg . /lib/rmt
@@ -10,7 +15,19 @@
 #|pkg . /lib
 #|rcp toolcmi
 #|rcp strip_debug
-. $recipes/toolcmi $srcdir/src am_cv_prog_tar_ustar=false
+cd $srcdir/src/cpio
+sed -i -e '
+	s|^git submodule|#git submodule|
+	s| lib pax$| lib|
+	' bootstrap.conf
+./bootstrap \
+	--gnulib-srcdir=$srcdir/src/gnulib \
+	--no-bootstrap-sync \
+	--no-git \
+	--skip-po
+cd -
+touch $srcdir/src/cpio/lib/sysdep.c
+. $recipes/toolcmi $srcdir/src/cpio am_cv_prog_tar_ustar=false
 rm -f $destdir/share/info/dir
 
 $recipes/strip_debug --strip-all $target $destdir /lib/debug /
