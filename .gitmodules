@@ -573,6 +573,10 @@
 	path = src/cloog
 	url = ../cloog
 	ignore = dirty
+[submodule "src/collectd"]
+	path = src/collectd
+	url = ../collectd
+	ignore = dirty
 [submodule "src/config"]
 	path = src/config
 	url = ../config

@@ -10,4 +10,5 @@
 #|dep bridge-utils
 #|dep busybox
 #|dep bzip2
+#|dep collectd
 #|dep zlib

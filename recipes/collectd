@@ -1,0 +1,60 @@
+#|src collectd /src/collectd
+#|src config /src/config
+#|ins $target-gcc
+##|ins $target-util-linux-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-collectd
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg . /usr/lib*/collectd
+#|pkg . /usr/lib*/collectd/*.so
+#|pkg + /usr/share/collectd
+#|pkg + /var
+#|pkg name $target-libcollectdclient-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libcollectdclient.so.1*
+#|pkg name $target-collectd-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-collectd-devel-static
+#|pkg auto $target
+#|pkg dep $target-collectd-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/collectd/*.a
+#|pkg name $target-collectd-man
+#|pkg + /usr/share/man
+#|pkg name $target-collectd-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/share
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/lib*/collectd/*.la
+#|rcp cmi
+#|rcp strip_debug
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src/collectd
+./build.sh
+cp $srcdir/src/config/config.* libltdl/config/
+cd -
+case $target in
+    mips* | powerpc*) fplayout=endianflip;;
+    *) fplayout=nothing;;
+esac
+parallel=-j1
+. $recipes/cmi $srcdir/src/collectd \
+	--with-fp-layout=$fplayout \
+	--without-perl-bindings
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
