@@ -561,6 +561,10 @@
 	path = src/bridge-utils
 	url = ../bridge-utils
 	ignore = dirty
+[submodule "src/busybox"]
+	path = src/busybox
+	url = ../busybox
+	ignore = dirty
 [submodule "src/bzip2"]
 	path = src/bzip2
 	url = ../bzip2

@@ -8,4 +8,6 @@
 #|dep blktrace
 #|dep boost
 #|dep bridge-utils
+#|dep busybox
+#|dep bzip2
 #|dep zlib

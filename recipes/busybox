@@ -1,0 +1,493 @@
+#|src busybox
+#|ins $target-gcc
+#|ins $target-pam-devel /$target/sys-root
+#|pkg name $target-busybox
+#|pkg auto $target
+#|pkg . /usr/bin/[
+#|pkg . /usr/bin/[[
+#|pkg . /usr/bin/awk
+#|pkg . /usr/bin/base64
+#|pkg . /usr/bin/basename
+#|pkg . /usr/bin/bbconfig
+#|pkg . /usr/bin/bunzip2
+#|pkg . /usr/bin/busybox
+#|pkg . /usr/bin/bzcat
+#|pkg . /usr/bin/bzip2
+#|pkg . /usr/bin/cat
+#|pkg . /usr/bin/catv
+#|pkg . /usr/bin/chgrp
+#|pkg . /usr/bin/chmod
+#|pkg . /usr/bin/chown
+#|pkg . /usr/bin/chpst
+#|pkg . /usr/bin/chvt
+#|pkg . /usr/bin/cksum
+#|pkg . /usr/bin/cmp
+#|pkg . /usr/bin/comm
+#|pkg . /usr/bin/cp
+#|pkg . /usr/bin/cpio
+#|pkg . /usr/bin/crontab
+#|pkg . /usr/bin/cut
+#|pkg . /usr/bin/date
+#|pkg . /usr/bin/dd
+#|pkg . /usr/bin/deallocvt
+#|pkg . /usr/bin/df
+#|pkg . /usr/bin/diff
+#|pkg . /usr/bin/dirname
+#|pkg . /usr/bin/du
+#|pkg . /usr/bin/echo
+#|pkg . /usr/bin/egrep
+#|pkg . /usr/bin/env
+#|pkg . /usr/bin/expand
+#|pkg . /usr/bin/expr
+#|pkg . /usr/bin/false
+#|pkg . /usr/bin/fatattr
+#|pkg . /usr/bin/fgconsole
+#|pkg . /usr/bin/fgrep
+#|pkg . /usr/bin/find
+#|pkg . /usr/bin/fold
+#|pkg . /usr/bin/fsync
+#|pkg . /usr/bin/ftpget
+#|pkg . /usr/bin/ftpput
+#|pkg . /usr/bin/fuser
+#|pkg . /usr/bin/grep
+#|pkg . /usr/bin/groups
+#|pkg . /usr/bin/gunzip
+#|pkg . /usr/bin/gzip
+#|pkg . /usr/bin/hd
+#|pkg . /usr/bin/head
+#|pkg . /usr/bin/hostid
+#|pkg . /usr/bin/id
+#|pkg . /usr/bin/install
+#|pkg . /usr/bin/iostat
+#|pkg . /usr/bin/ipcalc
+#|pkg . /usr/bin/killall
+#|pkg . /usr/bin/less
+#|pkg . /usr/bin/ln
+#|pkg . /usr/bin/ls
+#|pkg . /usr/bin/lsof
+#|pkg . /usr/bin/lsusb
+#|pkg . /usr/bin/md5sum
+#|pkg . /usr/bin/mkdir
+#|pkg . /usr/bin/mkfifo
+#|pkg . /usr/bin/mknod
+#|pkg . /usr/bin/mktemp
+#|pkg . /usr/bin/mpstat
+#|pkg . /usr/bin/mv
+#|pkg . /usr/bin/nc
+#|pkg . /usr/bin/nice
+#|pkg . /usr/bin/nmeter
+#|pkg . /usr/bin/nohup
+#|pkg . /usr/bin/nslookup
+#|pkg . /usr/bin/od
+#|pkg . /usr/bin/openvt
+#|pkg . /usr/bin/passwd
+#|pkg . /usr/bin/patch
+#|pkg . /usr/bin/pipe_progress
+#|pkg . /usr/bin/printenv
+#|pkg . /usr/bin/pscan
+#|pkg . /usr/bin/pstree
+#|pkg . /usr/bin/pwd
+#|pkg . /usr/bin/readlink
+#|pkg . /usr/bin/realpath
+#|pkg . /usr/bin/resize
+#|pkg . /usr/bin/rm
+#|pkg . /usr/bin/rmdir
+#|pkg . /usr/bin/run-parts
+#|pkg . /usr/bin/runsv
+#|pkg . /usr/bin/sed
+#|pkg . /usr/bin/seq
+#|pkg . /usr/bin/setserial
+#|pkg . /usr/bin/setuidgid
+#|pkg . /usr/bin/sha1sum
+#|pkg . /usr/bin/sha256sum
+#|pkg . /usr/bin/sha3sum
+#|pkg . /usr/bin/sha512sum
+#|pkg . /usr/bin/shuf
+#|pkg . /usr/bin/sleep
+#|pkg . /usr/bin/smemcap
+#|pkg . /usr/bin/softlimit
+#|pkg . /usr/bin/sort
+#|pkg . /usr/bin/split
+#|pkg . /usr/bin/stat
+#|pkg . /usr/bin/stty
+#|pkg . /usr/bin/sum
+#|pkg . /usr/bin/sv
+#|pkg . /usr/bin/sync
+#|pkg . /usr/bin/tac
+#|pkg . /usr/bin/tail
+#|pkg . /usr/bin/tar
+#|pkg . /usr/bin/tcpsvd
+#|pkg . /usr/bin/tee
+#|pkg . /usr/bin/telnet
+#|pkg . /usr/bin/test
+#|pkg . /usr/bin/tftp
+#|pkg . /usr/bin/time
+#|pkg . /usr/bin/timeout
+#|pkg . /usr/bin/touch
+#|pkg . /usr/bin/tr
+#|pkg . /usr/bin/traceroute
+#|pkg . /usr/bin/traceroute6
+#|pkg . /usr/bin/true
+#|pkg . /usr/bin/truncate
+#|pkg . /usr/bin/tty
+#|pkg . /usr/bin/ttysize
+#|pkg . /usr/bin/udpsvd
+#|pkg . /usr/bin/uname
+#|pkg . /usr/bin/unexpand
+#|pkg . /usr/bin/uniq
+#|pkg . /usr/bin/unlink
+#|pkg . /usr/bin/unzip
+#|pkg . /usr/bin/uptime
+#|pkg . /usr/bin/users
+#|pkg . /usr/bin/usleep
+#|pkg . /usr/bin/vi
+#|pkg . /usr/bin/vlock
+#|pkg . /usr/bin/volname
+#|pkg . /usr/bin/wc
+#|pkg . /usr/bin/wget
+#|pkg . /usr/bin/which
+#|pkg . /usr/bin/who
+#|pkg . /usr/bin/whoami
+#|pkg . /usr/bin/whois
+#|pkg . /usr/bin/xargs
+#|pkg . /usr/bin/yes
+#|pkg . /usr/bin/zcat
+#|pkg . /usr/sbin/add-shell
+#|pkg . /usr/sbin/addgroup
+#|pkg . /usr/sbin/adduser
+#|pkg . /usr/sbin/adjtimex
+#|pkg . /usr/sbin/bootchartd
+#|pkg . /usr/sbin/chroot
+#|pkg . /usr/sbin/crond
+#|pkg . /usr/sbin/delgroup
+#|pkg . /usr/sbin/deluser
+#|pkg . /usr/sbin/devmem
+#|pkg . /usr/sbin/dhcprelay
+#|pkg . /usr/sbin/freeramdisk
+#|pkg . /usr/sbin/getty
+#|pkg . /usr/sbin/halt
+#|pkg . /usr/sbin/i2cdetect
+#|pkg . /usr/sbin/i2cdump
+#|pkg . /usr/sbin/i2cget
+#|pkg . /usr/sbin/i2cset
+#|pkg . /usr/sbin/inetd
+#|pkg . /usr/sbin/init
+#|pkg . /usr/sbin/klogd
+#|pkg . /usr/sbin/poweroff
+#|pkg . /usr/sbin/rdate
+#|pkg . /usr/sbin/rdev
+#|pkg . /usr/sbin/readahead
+#|pkg . /usr/sbin/reboot
+#|pkg . /usr/sbin/remove-shell
+#|pkg . /usr/sbin/route
+#|pkg . /usr/sbin/runlevel
+#|pkg . /usr/sbin/setconsole
+#|pkg . /usr/sbin/setlogcons
+#|pkg . /usr/sbin/start-stop-daemon
+#|pkg . /usr/sbin/svlogd
+#|pkg . /usr/sbin/telnetd
+#|pkg .? /usr/sbin/inotifyd
+#|pkg . /usr/sbin/tftpd
+#|pkg . /usr/sbin/udhcpc
+#|pkg . /usr/sbin/udhcpd
+#|pkg . /usr/sbin/uevent
+#|pkg . /usr/sbin/vconfig
+#|pkg . /usr/sbin/watchdog
+#|pkg name $target-busybox-bc
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/bin/dc
+#|pkg name $target-busybox-binutils
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/bin/strings
+#|pkg name $target-busybox-util-linux
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/bin/chrt
+#|pkg . /usr/bin/dmesg
+#|pkg . /usr/bin/flock
+#|pkg . /usr/bin/getopt
+#|pkg . /usr/bin/hexdump
+#|pkg . /usr/bin/ionice
+#|pkg . /usr/bin/ipcrm
+#|pkg . /usr/bin/ipcs
+#|pkg . /usr/bin/kill
+#|pkg . /usr/bin/last
+#|pkg . /usr/bin/logger
+#|pkg . /usr/bin/login
+#|pkg . /usr/bin/mesg
+#|pkg . /usr/bin/more
+#|pkg . /usr/bin/mount
+#|pkg . /usr/bin/mountpoint
+#|pkg . /usr/bin/renice
+#|pkg . /usr/bin/script
+#|pkg . /usr/bin/setsid
+#|pkg . /usr/bin/su
+#|pkg . /usr/bin/taskset
+#|pkg . /usr/bin/umount
+#|pkg . /usr/bin/wall
+#|pkg . /usr/sbin/blkid
+#|pkg . /usr/sbin/fdisk
+#|pkg . /usr/sbin/findfs
+#|pkg . /usr/sbin/fstrim
+#|pkg . /usr/sbin/hwclock
+#|pkg . /usr/sbin/losetup
+#|pkg . /usr/sbin/mkswap
+#|pkg . /usr/sbin/pivot_root
+#|pkg . /usr/sbin/swapoff
+#|pkg . /usr/sbin/swapon
+#|pkg . /usr/sbin/switch_root
+#|pkg name $target-busybox-iputils
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/bin/ping
+#|pkg . /usr/bin/ping6
+#|pkg . /usr/sbin/arping
+#|pkg name $target-busybox-kmod
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/sbin/insmod
+#|pkg . /usr/sbin/lsmod
+#|pkg . /usr/sbin/modprobe
+#|pkg . /usr/sbin/rmmod
+#|pkg name $target-busybox-mtd
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/sbin/ubimkvol
+#|pkg . /usr/sbin/ubirmvol
+#|pkg . /usr/sbin/ubirsvol
+#|pkg . /usr/sbin/ubiupdatevol
+#|pkg name $target-busybox-ncurses
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/bin/clear
+#|pkg . /usr/bin/reset
+#|pkg name $target-busybox-net-tools
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/bin/dnsdomainname
+#|pkg . /usr/bin/hostname
+#|pkg . /usr/sbin/arp
+#|pkg . /usr/sbin/ifconfig
+#|pkg . /usr/sbin/nameif
+#|pkg name $target-busybox-procps
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/bin/pgrep
+#|pkg . /usr/bin/pidof
+#|pkg . /usr/bin/pkill
+#|pkg . /usr/bin/pwdx
+#|pkg . /usr/sbin/sysctl
+#|pkg name $target-busybox-xz
+#|pkg auto $target
+#|pkg dep $target-busybox
+#|pkg . /usr/bin/lzcat
+#|pkg . /usr/bin/lzma
+#|pkg . /usr/bin/unlzma
+#|pkg . /usr/bin/unxz
+#|pkg . /usr/bin/xz
+#|pkg . /usr/bin/xzcat
+#|pkg name $target-busybox-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /sbin
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/sbin
+#|pkg . /usr/lib
+#|rcp strip_debug
+mkdir -p $destdir/usr/{bin,sbin}
+cp -a $srcdir/$target/sys-root/{bin,sbin} $destdir
+cat <<EOT > configs/crossbuild_defconfig
+# CONFIG_DESKTOP is not set
+CONFIG_FEATURE_BUFFERS_GO_ON_STACK=y
+# CONFIG_UNICODE_SUPPORT is not set
+CONFIG_PAM=y
+# CONFIG_FEATURE_SUID_CONFIG_QUIET is not set
+CONFIG_CROSS_COMPILER_PREFIX="$target-"
+CONFIG_DEBUG=y
+CONFIG_PREFIX="$destdir"
+# CONFIG_FEATURE_EDITING is not set
+# CONFIG_FEATURE_SKIP_ROOTFS is not set
+CONFIG_MONOTONIC_SYSCALL=y
+CONFIG_FEATURE_LZMA_FAST=y
+# CONFIG_LZOP is not set
+# CONFIG_RPM is not set
+# CONFIG_RPM2CPIO is not set
+# CONFIG_FEATURE_TAR_OLDGNU_COMPATIBILITY is not set
+# CONFIG_FEATURE_TAR_OLDSUN_COMPATIBILITY is not set
+CONFIG_FEATURE_DATE_NANO=y
+# CONFIG_FEATURE_DATE_COMPAT is not set
+# CONFIG_CAL is not set
+# CONFIG_DOS2UNIX is not set
+# CONFIG_LOGNAME is not set
+# CONFIG_FEATURE_LS_COLOR_IS_DEFAULT is not set
+# CONFIG_PRINTF is not set
+# CONFIG_FEATURE_STAT_FORMAT is not set
+# CONFIG_UUDECODE is not set
+# CONFIG_UUENCODE is not set
+# CONFIG_FEATURE_WC_LARGE is not set
+# CONFIG_DUMPKMAP is not set
+# CONFIG_KBD_MODE is not set
+# CONFIG_LOADFONT is not set
+# CONFIG_LOADKMAP is not set
+# CONFIG_SETFONT is not set
+# CONFIG_SETKEYCODES is not set
+# CONFIG_SHOWKEY is not set
+# CONFIG_ED is not set
+CONFIG_FEATURE_VI_MAX_LEN=1024
+CONFIG_FEATURE_VI_8BIT=y
+# CONFIG_FEATURE_FIND_INUM is not set
+# CONFIG_FEATURE_FIND_DELETE is not set
+# CONFIG_FEATURE_XARGS_SUPPORT_QUOTES is not set
+# CONFIG_FEATURE_XARGS_SUPPORT_TERMOPT is not set
+# CONFIG_FEATURE_XARGS_SUPPORT_ZERO_TERM is not set
+CONFIG_FEATURE_KILL_REMOVED=y
+# CONFIG_FEATURE_INIT_SCTTY is not set
+# CONFIG_FEATURE_EXTRA_QUIET is not set
+# CONFIG_FEATURE_INIT_COREDUMPS is not set
+# CONFIG_FEATURE_INITRD is not set
+CONFIG_ADD_SHELL=y
+CONFIG_REMOVE_SHELL=y
+# CONFIG_USE_BB_PWD_GRP is not set
+CONFIG_FEATURE_CHECK_NAMES=y
+# CONFIG_LOGIN_SESSION_AS_CHILD is not set
+# CONFIG_LOGIN_SCRIPTS is not set
+# CONFIG_CRYPTPW is not set
+# CONFIG_CHPASSWD is not set
+# CONFIG_SULOGIN is not set
+# CONFIG_CHATTR is not set
+# CONFIG_FSCK is not set
+# CONFIG_LSATTR is not set
+# CONFIG_MODINFO is not set
+# CONFIG_MODPROBE_SMALL is not set
+CONFIG_INSMOD=y
+CONFIG_RMMOD=y
+CONFIG_LSMOD=y
+CONFIG_FEATURE_LSMOD_PRETTY_2_6_OUTPUT=y
+CONFIG_MODPROBE=y
+# CONFIG_FEATURE_CHECK_TAINTED_MODULE is not set
+# CONFIG_BLOCKDEV is not set
+# CONFIG_MDEV is not set
+CONFIG_FEATURE_MOUNT_HELPERS=y
+CONFIG_FEATURE_MOUNT_NFS=y
+# CONFIG_FEATURE_MOUNT_CIFS is not set
+# CONFIG_REV is not set
+# CONFIG_ACPID is not set
+# CONFIG_FBSET is not set
+# CONFIG_FDFLUSH is not set
+# CONFIG_FDFORMAT is not set
+# CONFIG_FEATURE_FDISK_ADVANCED is not set
+# CONFIG_FSCK_MINIX is not set
+# CONFIG_MKFS_EXT2 is not set
+# CONFIG_MKFS_MINIX is not set
+# CONFIG_MKFS_VFAT is not set
+# CONFIG_FEATURE_HWCLOCK_LONG_OPTIONS is not set
+CONFIG_FEATURE_HWCLOCK_ADJTIME_FHS=y
+# CONFIG_LSPCI is not set
+# CONFIG_FEATURE_MKSWAP_UUID is not set
+# CONFIG_READPROFILE is not set
+# CONFIG_RTCWAKE is not set
+# CONFIG_SCRIPTREPLAY is not set
+# CONFIG_SETARCH is not set
+# CONFIG_FEATURE_SWAPON_PRI is not set
+CONFIG_FEATURE_MTAB_SUPPORT=y
+# CONFIG_FEATURE_VOLUMEID_BTRFS is not set
+# CONFIG_FEATURE_VOLUMEID_CRAMFS is not set
+# CONFIG_FEATURE_VOLUMEID_HFS is not set
+# CONFIG_FEATURE_VOLUMEID_ISO9660 is not set
+# CONFIG_FEATURE_VOLUMEID_JFS is not set
+# CONFIG_FEATURE_VOLUMEID_LINUXRAID is not set
+# CONFIG_FEATURE_VOLUMEID_LINUXSWAP is not set
+# CONFIG_FEATURE_VOLUMEID_LUKS is not set
+# CONFIG_FEATURE_VOLUMEID_NTFS is not set
+# CONFIG_FEATURE_VOLUMEID_OCFS2 is not set
+# CONFIG_FEATURE_VOLUMEID_REISERFS is not set
+# CONFIG_FEATURE_VOLUMEID_ROMFS is not set
+# CONFIG_FEATURE_VOLUMEID_SYSV is not set
+# CONFIG_FEATURE_VOLUMEID_UDF is not set
+# CONFIG_FEATURE_VOLUMEID_XFS is not set
+# CONFIG_CONSPY is not set
+# CONFIG_FEATURE_CROND_CALL_SENDMAIL is not set
+# CONFIG_FEATURE_LESS_MARKS is not set
+# CONFIG_FEATURE_LESS_DASHCMD is not set
+# CONFIG_NANDWRITE is not set
+# CONFIG_NANDDUMP is not set
+CONFIG_TASKSET=y
+# CONFIG_UBIATTACH is not set
+# CONFIG_UBIDETACH is not set
+CONFIG_BBCONFIG=y
+# CONFIG_BEEP is not set
+# CONFIG_CHAT is not set
+# CONFIG_EJECT is not set
+# CONFIG_FBSPLASH is not set
+CONFIG_INOTIFYD=y
+# CONFIG_HDPARM is not set
+# CONFIG_MAKEDEVS is not set
+# CONFIG_MAN is not set
+# CONFIG_MICROCOM is not set
+# CONFIG_MT is not set
+# CONFIG_RAIDAUTORUN is not set
+# CONFIG_RX is not set
+# CONFIG_NBDCLIENT is not set
+CONFIG_NC_110_COMPAT=y
+CONFIG_VERBOSE_RESOLUTION_ERRORS=y
+# CONFIG_BRCTL is not set
+# CONFIG_DNSD is not set
+# CONFIG_ETHER_WAKE is not set
+# CONFIG_FAKEIDENTD is not set
+# CONFIG_FTPD is not set
+# CONFIG_HTTPD is not set
+# CONFIG_FEATURE_IFCONFIG_SLIP is not set
+# CONFIG_FEATURE_IFCONFIG_MEMSTART_IOADDR_IRQ is not set
+# CONFIG_IFENSLAVE is not set
+# CONFIG_IFPLUGD is not set
+# CONFIG_IFUPDOWN is not set
+# CONFIG_IP is not set
+# CONFIG_FEATURE_IPCALC_FANCY is not set
+# CONFIG_FEATURE_IPCALC_LONG_OPTIONS is not set
+# CONFIG_NETSTAT is not set
+# CONFIG_NTPD is not set
+# CONFIG_SLATTACH is not set
+# CONFIG_FEATURE_TELNET_AUTOLOGIN is not set
+# CONFIG_FEATURE_TELNETD_STANDALONE is not set
+CONFIG_FEATURE_TRACEROUTE_USE_ICMP=y
+# CONFIG_TUNCTL is not set
+# CONFIG_DUMPLEASES is not set
+# CONFIG_FEATURE_UDHCPD_WRITE_LEASES_EARLY is not set
+CONFIG_UDHCP_DEBUG=0
+# CONFIG_FEATURE_UDHCP_RFC3397 is not set
+# CONFIG_ZCIP is not set
+# CONFIG_LPD is not set
+# CONFIG_LPR is not set
+# CONFIG_LPQ is not set
+# CONFIG_MAKEMIME is not set
+CONFIG_FEATURE_MIME_CHARSET=""
+# CONFIG_POPMAILDIR is not set
+# CONFIG_REFORMIME is not set
+# CONFIG_SENDMAIL is not set
+# CONFIG_PMAP is not set
+# CONFIG_POWERTOP is not set
+# CONFIG_TOP is not set
+# CONFIG_FREE is not set
+# CONFIG_KILLALL5 is not set
+# CONFIG_PS is not set
+# CONFIG_FEATURE_SHOW_THREADS is not set
+# CONFIG_WATCH is not set
+# CONFIG_RUNSVDIR is not set
+CONFIG_SV_DEFAULT_SERVICE_DIR=""
+# CONFIG_ENVUIDGID is not set
+# CONFIG_ENVDIR is not set
+# CONFIG_ASH is not set
+# CONFIG_CTTYHACK is not set
+# CONFIG_HUSH is not set
+# CONFIG_SYSLOGD is not set
+# CONFIG_FEATURE_KLOGD_KLOGCTL is not set
+EOT
+make CROSS_COMPILE=$target- crossbuild_defconfig
+make CROSS_COMPILE=$target- $parallel SKIP_STRIP=y
+make CROSS_COMPILE=$target- install
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
