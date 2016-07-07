@@ -1,4 +1,3 @@
-#|rcp gccbase64
 #|ins x86_64-build_pc-linux-gnu-gcc
 #|ins x86_64-build_pc-linux-gnu-bison
 #|ins x86_64-build_pc-linux-gnu-flex
@@ -26,9 +25,9 @@
 #|pkg + /share/locale
 #|pkg . /share/man
 #|pkg + /share/man/man7
-#|rcp strip_debug
 . $recipes/gccbase64 \
     --disable-libgomp \
+    --disable-libssp \
     --enable-languages=c,c++ \
     --disable-sjlj-exceptions \
     --with-dwarf2 \

@@ -10,7 +10,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/man
-#|rcp strip_debug
 cd userspace/arptables
 export CC=$target-gcc
 make $parallel PREFIX=/usr

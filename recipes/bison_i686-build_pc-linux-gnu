@@ -13,8 +13,6 @@
 #|pkg name nopackage
 #|pkg . /devel
 #|pkg . /lib*
-#|rcp toolcmi
-#|rcp strip_debug
 . $recipes/toolcmi $srcdir/src \
 	M4=m4
 rm -f $destdir/share/info/dir

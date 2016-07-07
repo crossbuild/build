@@ -16,8 +16,6 @@
 #|pkg name nopackage
 #|pkg . /lib
 #|pkg . /devel
-#|rcp toolcmi
-#|rcp strip_debug
 cd $srcdir/src
 ./buildconf
 cd -

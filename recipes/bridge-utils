@@ -11,8 +11,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/share
-#|rcp cmi
-#|rcp strip_debug
 autoreconf --verbose --force --install
 . $recipes/cmi . --without-bash-malloc --disable-nls
 

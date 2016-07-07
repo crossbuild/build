@@ -18,8 +18,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
-#|rcp cmi
-#|rcp strip_debug
 . $recipes/cmi $srcdir/src \
     --with-gmp-prefix=$sysroot/usr
 

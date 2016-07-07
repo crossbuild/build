@@ -10,7 +10,6 @@
 #|pkg name nopackage
 #|pkg . /devel
 #|pkg . /lib
-#|rcp strip_debug
 ./configure \
     --prefix=$destdir/ --libdir=$destdir/$lib --libexecdir=$destdir/$lib \
     --build=$target --host=$target \

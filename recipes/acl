@@ -29,7 +29,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/share
-#|rcp strip_debug
 export "${configure_vars[@]}"
 ./"${configure[@]}"
 make $parallel

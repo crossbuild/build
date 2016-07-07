@@ -14,7 +14,7 @@
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"
 export MAKEINFO=false
-CFLAGS='-O2 --std=gnu89' \
+CFLAGS=-std=gnu89 \
 $srcdir/src/configure \
     --target=$build64 \
     --prefix=/ --libexecdir=//lib \

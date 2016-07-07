@@ -12,7 +12,6 @@
 #|pkg . /devel/usr/lib*
 #|pkg . /devel/usr/lib*/lib*.la
 #|pkg + /share
-#|rcp toolcmi
 cp $srcdir/src/config/config.* $srcdir/src/popt/
 . $recipes/toolcmi $srcdir/src/popt --disable-shared
 

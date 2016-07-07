@@ -38,8 +38,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/lib*/security/*.la
-#|rcp cmi
-#|rcp strip_debug
 cd $srcdir/src/linux-pam
 touch ChangeLog
 touch doc/man/PAM.8

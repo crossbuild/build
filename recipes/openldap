@@ -45,8 +45,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg + /usr/share
-#|rcp cmi
-#|rcp strip_debug
 export PATH=$srcdir/bin
 cp $srcdir/src/config/config.* $srcdir/src/openldap/build/
 #sed -i -e "s|//bin|$srcdir/bin|g;s|//share|$srcdir/share|g" \

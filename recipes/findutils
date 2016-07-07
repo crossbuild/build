@@ -13,8 +13,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/share
-#|rcp cmi
-#|rcp strip_debug
 . $recipes/cmi $srcdir/src
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

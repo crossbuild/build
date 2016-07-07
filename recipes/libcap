@@ -27,7 +27,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
-#|rcp strip_debug
 export MAKEFLAGS= MAKELEVEL= MFLAGS=
 make BUILD_CC=i686-build_pc-linux-gnu-gcc CC=$target-gcc PAM_CAP=no DYNAMIC=yes RAISE_SETFCAP=no prefix=/usr lib=$lib -j1
 make BUILD_CC=i686-build_pc-linux-gnu-gcc CC=$target-gcc PAM_CAP=no DYNAMIC=yes RAISE_SETFCAP=no prefix=/usr lib=$lib install DESTDIR=$destdir

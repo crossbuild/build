@@ -1,6 +1,5 @@
 #|dep do_not_invoke_gccbase_directly
 #|src gcc /src
-#|rcp gccbase-settings
 . $recipes/gccbase-settings
 #export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 #export LEX="$FLEX"
@@ -24,6 +23,7 @@ $srcdir/src/"${toolconfigure64[@]}" \
     --with-host-libstdcxx="$srcdir/$build64/sys-root/usr/lib64/libstdc++.a -lm" \
     --disable-multilib $checking \
     --enable-linker-build-id \
+    --disable-plugin \
     "${extra_config[@]-}" "$@"
 lt_cv_shlibpath_overrides_runpath=no \
     make $parallel

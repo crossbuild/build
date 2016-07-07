@@ -21,8 +21,6 @@
 #|pkg . /share
 #|pkg + /share/info
 #|pkg + /share/locale
-#|rcp toolcmi
-#|rcp strip_debug
 test "${NOISOLATION:-0}" || export PATH=$srcdir/bin
 rm -rf $srcdir/src/{gdb,sim}
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
@@ -32,6 +30,7 @@ export LEX="$FLEX"
     --program-prefix=$target- \
     --with-sysroot=$sysroot \
     --enable-gold \
+    --enable-threads \
     --enable-plugins
 rm -f $destdir/share/info/dir
 

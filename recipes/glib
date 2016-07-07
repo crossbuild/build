@@ -49,8 +49,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 for i in aclocal.m4 configure Makefile.in config.h.in; do
     touch $(find $srcdir/src -name $i)
 done

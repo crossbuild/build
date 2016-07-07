@@ -13,7 +13,6 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
-#|rcp strip_debug
 make $parallel CC=$target-gcc
 make install prefix=$destdir/usr libdir=$destdir/usr/$lib
 

@@ -22,7 +22,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/pkgconfig
 #|pkg . /usr/share
-#|rcp strip_debug
 CHOST=$target \
     CFLAGS="$target_opt_flags" \
     ./configure \

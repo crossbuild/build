@@ -12,7 +12,6 @@
 #|pkg name nopackage
 #|pkg . /lib*
 #|pkg . /devel
-#|rcp strip_debug
 sed -i -e 's|^\("linux-elf",.*-O3\)\(.*\)|\1 -fPIC\2|p' Configure
 ./Configure --prefix=/ --openssldir=/etc/ssl --libdir=/$lib no-asm no-idea no-fips no-rc5 no-mdc2 no-camellia linux-elf no-shared no-dso
 make CC=$target-gcc AR="$target-ar r" AS=$target-as LD=$target-ld RANLIB=$target-ranlib NM=$target-nm MAKEDEPPROG=$target-gcc update

@@ -260,7 +260,6 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
-#|rcp strip_debug
 BLDDIR=$PWD/build
 mkdir -p $BLDDIR
 cd boost

@@ -36,9 +36,8 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/share
-#|rcp strip_debug
 for i in linux/audit.h linux/net.h sys/mount.h sys/personality.h \
-	bits/socket.h bits/socket_type.h; do
+	bits/socket.h bits/sockaddr.h bits/socket_type.h; do
     cp $sysroot/usr/include/$i $srcdir/i686-build_pc-linux-gnu/sys-root/usr/include/$i
 done
 cd $srcdir/src

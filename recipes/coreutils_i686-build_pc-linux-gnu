@@ -8,7 +8,6 @@
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /lib*
-#|rcp strip_debug
 touch $(find $srcdir/src -name configure -or -name Makefile.in -or -name config.hin)
 $srcdir/src/configure \
     gl_cv_func_memchr_works=yes \

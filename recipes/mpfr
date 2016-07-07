@@ -20,8 +20,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/libmpfr.la
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 . $recipes/cmi $srcdir/src --with-gmp=$sysroot/usr
 rm -f $destdir/usr/share/info/dir
 

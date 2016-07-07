@@ -1,4 +1,3 @@
-#|rcp gccbase
 #|ins $target-binutils
 #|ins $target-mingw-headers /$target/sys-root
 #|ins i686-build_pc-linux-gnu-gmp-devel /i686-build_pc-linux-gnu/sys-root
@@ -23,6 +22,8 @@
 #|pkg + /share/man/man7
 . $recipes/gccbase \
     --disable-libgomp \
+    --disable-libatomic \
+    --disable-libssp \
     --enable-languages=c \
     --disable-sjlj-exceptions \
     --with-dwarf2 \

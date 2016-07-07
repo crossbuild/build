@@ -114,7 +114,6 @@
 #|pkg . /usr/bin/kill
 #|pkg . /usr/lib*
 #|pkg + /usr/share
-#|rcp strip_debug
 touch $(find $srcdir/src -name configure -or -name Makefile.in -or -name config.hin)
 export "${configure_vars[@]}"
 $srcdir/src/"${configure[@]}" \

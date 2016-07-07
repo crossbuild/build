@@ -10,8 +10,6 @@
 #|pkg name nopackage
 #|pkg . /devel
 #|pkg . /lib
-#|rcp toolcmi
-#|rcp strip_debug
 . $recipes/toolcmi $srcdir/src
 rm -f $destdir/share/info/dir
 

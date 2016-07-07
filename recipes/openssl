@@ -30,7 +30,6 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
-#|rcp strip_debug
 case $target in
     powerpc*)  arch=linux-ppc;;
     mips64*)   arch=linux-generic64;;

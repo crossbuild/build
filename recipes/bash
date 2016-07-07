@@ -21,7 +21,6 @@
 #|pkg . /usr/bin/bashbug
 #|pkg . /usr/lib*
 #|pkg + /usr/share
-#|rcp strip_debug
 export PATH=$srcdir/bin
 case $target in
     mips64-octeon2-linux-gnu)

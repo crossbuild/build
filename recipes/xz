@@ -60,8 +60,6 @@
 #|pkg . /usr/lib*/liblzma.la
 #|pkg . /usr/lib*/pkgconfig
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 cd $srcdir/src
 ./autogen.sh
 cd -

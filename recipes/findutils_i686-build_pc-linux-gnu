@@ -11,8 +11,6 @@
 #|pkg name nopackage
 #|pkg . /lib
 #|pkg . /var
-#|rcp toolcmi
-#|rcp strip_debug
 . $recipes/toolcmi $srcdir/src
 rm -f $destdir/share/info/dir
 

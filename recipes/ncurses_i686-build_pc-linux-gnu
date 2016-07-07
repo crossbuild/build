@@ -3,16 +3,19 @@
 #|pkg name $target-ncurses
 #|pkg + /bin
 #|pkg . /lib/terminfo
-#|pkg + /share
+#|pkg + /share/tabset
+#|pkg + /share/terminfo
+#|pkg + /sdksetup
 #|pkg name $target-ncurses-devel /devel
 #|pkg + /usr
+#|pkg name $target-ncurses-man
+#|pkg + /share/man
 #|pkg name $target-ncurses-debug
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /devel
 #|pkg . /lib*
-#|rcp toolcmi
-#|rcp strip_debug
+#|pkg . /share
 mkdir -p $destdir/lib
 . $recipes/toolcmi $srcdir/src \
     --without-shared \
@@ -22,7 +25,8 @@ mkdir -p $destdir/lib
     --without-cxx-bindings \
     --disable-leaks \
     --disable-termcap \
-    --without-termlib
+    --without-termlib \
+    --with-default-terminfo-dir=/share/terminfo
 for i in curses ncurses term termcap; do
     ln -s ncurses/$i.h $destdir/include/
 done
@@ -32,3 +36,8 @@ $recipes/strip_debug --strip-all $target $destdir /lib/debug /
 
 mv $destdir/$lib/lib*.a $destdir/devel/usr/$lib
 mv $destdir/include $destdir/devel/usr
+
+mkdir -p $destdir/sdksetup
+cat <<'EOT' > $destdir/sdksetup/ncurses
+export TERMINFO=$SDKROOT/share/terminfo
+EOT

@@ -35,8 +35,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/libkmod.la
 #|pkg . /usr/sbin
-#|rcp cmi
-#|rcp strip_debug
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root

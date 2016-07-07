@@ -11,8 +11,6 @@
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /lib
-##|rcp toolcmi
-#|rcp strip_debug
 #. $recipes/toolcmi . ac_cv_prog_PYTHON= --bindir=/bin --libdir=/$lib
 ./Configure -des \
     -Dcc=$target-gcc \

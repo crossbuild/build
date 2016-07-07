@@ -12,7 +12,6 @@
 #|pkg . /share/info
 #|pkg .? /share/info/dir
 #|pkg . /share/info/standards.info
-#|rcp toolcmi
 for i in aclocal.m4 configure Makefile.in; do
     touch $(find $srcdir/src -name $i)
 done

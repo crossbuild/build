@@ -9,8 +9,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/share
-#|rcp cmi
-#|rcp strip_debug
 for i in aclocal.m4 configure Makefile.in config.hin; do
     touch $(find $srcdir/src -name $i)
 done

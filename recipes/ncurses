@@ -189,13 +189,12 @@
 #|pkg . /usr/bin
 #|pkg . /usr/lib*
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 cp $srcdir/src/config/config.* $srcdir/src/ncurses
 mkdir -p $destdir/usr/lib
 . $recipes/cmi $srcdir/src/ncurses --with-shared --enable-symlinks \
     --without-debug -enable-overwrite --without-ada \
     --without-cxx-bindings --disable-leaks --disable-termcap \
-    --with-install-prefix=$destdir --without-termlib
+    --with-install-prefix=$destdir --without-termlib \
+    --with-default-terminfo-dir=/usr/share/terminfo
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

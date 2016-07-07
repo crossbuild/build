@@ -10,11 +10,9 @@
 #|pkg name $target-file-debug
 #|pkg + /lib/debug
 #|pkg name nopackage
-#|pkg . /lib
-#|pkg . /lib/lib*
+#|pkg . /lib*
+#|pkg . /lib*/lib*
 #|pkg + /include
-#|rcp toolcmi
-#|rcp strip_debug
 cd $srcdir/src
 autoreconf -f -i
 cd -

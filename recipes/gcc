@@ -1,4 +1,3 @@
-#|rcp gccbase
 #|ins i686-build_pc-linux-gnu-gcc
 #|ins i686-build_pc-linux-gnu-bison
 #|ins i686-build_pc-linux-gnu-flex
@@ -23,6 +22,7 @@
 #|pkg name $target-gcc-libs-devel /$target/sys-root
 #|pkg auto $target
 #|pkg . /usr/lib*/libssp_nonshared.a
+#|pkg . /usr/lib*/libstdc++fs.a
 #|pkg . /usr/lib*/libsupc++.a
 #|pkg . /usr/lib*/lib*.so
 #|pkg name $target-gcc-libs-devel-static /$target/sys-root
@@ -48,6 +48,9 @@
 #|pkg name $target-libgomp-1 /$target/sys-root
 #|pkg auto $target
 #|pkg . /usr/lib*/libgomp.so.1*
+#|pkg name $target-libgomp-plugin-host_nonshm-1 /$target/sys-root
+#|pkg auto $target
+#|pkg . /usr/lib*/libgomp-plugin-host_nonshm.so.1*
 #|pkg name $target-libatomic-1 /$target/sys-root
 #|pkg auto $target
 #|pkg . /usr/lib*/libatomic.so.1*
@@ -69,7 +72,6 @@
 #|pkg + /share/locale
 #|pkg . /share/man
 #|pkg + /share/man/man7
-#|rcp strip_debug
 . $recipes/gccbase \
     --enable-__cxa_atexit \
     --enable-libmudflap --enable-libgomp --enable-libssp \
@@ -93,20 +95,16 @@ $recipes/strip_debug --strip-all $build $destdir /lib/debug / -path "$destdir/$t
 mkdir -p .pkg
 > .pkg/dynamic
 case $target in
-    aarch64-linux-gnu | arm-*-linux-gnueabi* | i686-*-linux-gnu | x86_64-*-linux-gnu)
+    mips64-*-linux-gnu)
+	;;
+    *)
 	cat << EOT | cut -c9- >> .pkg/dynamic
         #|pkg name $target-libitm-1 /$target/sys-root
         #|pkg auto $target
         #|pkg . /usr/lib*/libitm.so.1*
-EOT
-	;;
-esac
-case $target in
-    arm-*-linux-gnueabi* | i686-*-linux-gnu | x86_64-*-linux-gnu)
-	cat << EOT | cut -c9- >> .pkg/dynamic
-        #|pkg name $target-libasan-1 /$target/sys-root
+        #|pkg name $target-libasan-2 /$target/sys-root
         #|pkg auto $target
-        #|pkg . /usr/lib*/libasan.so.1*
+        #|pkg . /usr/lib*/libasan.so.2*
         #|pkg name $target-libubsan-0 /$target/sys-root
         #|pkg auto $target
         #|pkg . /usr/lib*/libubsan.so.0*

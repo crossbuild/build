@@ -3,7 +3,6 @@
 ##|ins $target-autoconf
 #|pkg name $target-gettext
 #|pkg + /
-#|rcp toolcmi
 #touch $(find $srcdir/src -name aclocal.m4 -or -name configure -or -name Makefile.in -or -name config.hin)
 . $recipes/toolcmi $srcdir/src --disable-shared --enable-static
 #sed -i -e 's|//share|$SDKROOT/share|' \

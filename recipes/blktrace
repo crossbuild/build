@@ -10,7 +10,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/man
-#|rcp strip_debug
 
 # Makefile is not thread safe
 make -j1 CC=$target-gcc

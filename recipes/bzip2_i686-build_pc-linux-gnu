@@ -10,7 +10,6 @@
 #|pkg name nopackage
 #|pkg . /devel
 #|pkg . /lib
-#|rcp strip_debug
 make $parallel CC=$target-gcc AR=$target-ar RANLIB=$target-ranlib libbz2.a bzip2 bzip2recover
 make install CC=$target-gcc AR=$target-ar RANLIB=$target-ranlib PREFIX=$destdir
 mkdir -p $destdir/share

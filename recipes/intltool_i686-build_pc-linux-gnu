@@ -2,7 +2,6 @@
 #|ins $target-perl-XML-Parser
 #|pkg name $target-intltool
 #|pkg + /
-#|rcp toolcmi
 . $recipes/toolcmi $srcdir/src
 sed -i -e 's|^prefix=/$|prefix=$SDKROOT|
 	   s|^datadir=//share$|datadir=$SDKROOT/share|' \

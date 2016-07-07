@@ -13,8 +13,6 @@
 #|pkg name nopackage
 #|pkg . /devel
 #|pkg . /lib*
-#|rcp toolcmi
-#|rcp strip_debug
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"
 . $recipes/toolcmi . \

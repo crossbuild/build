@@ -13,7 +13,6 @@
 #|pkg . /bin
 #|pkg . /lib*
 #|pkg . /sbin
-#|rcp strip_debug
 mkdir $destdir/usr
 cp -a $srcdir/usr/{bin,$lib,sbin} $destdir/usr
 cp -a $srcdir/{bin,$lib,sbin} $destdir

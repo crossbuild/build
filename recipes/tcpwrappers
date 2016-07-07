@@ -19,7 +19,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
-#|rcp strip_debug
 make $parallel linux CC=$target-gcc
 mkdir -p $destdir/usr/{include,$lib,sbin,share/man/man{3,5,8}}
 cp -a ip6utils.h tcpd.h $destdir/usr/include/

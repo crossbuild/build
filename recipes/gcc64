@@ -1,4 +1,4 @@
-#|rcp gccbase64
+#|dep gcc
 #|ins x86_64-build_pc-linux-gnu-gcc
 #|ins x86_64-build_pc-linux-gnu-bison
 #|ins x86_64-build_pc-linux-gnu-flex
@@ -31,7 +31,6 @@
 #|pkg + /share/locale
 #|pkg . /share/man
 #|pkg + /share/man/man7
-#|rcp strip_debug
 . $recipes/gccbase64 \
     --enable-__cxa_atexit \
     --enable-libmudflap --enable-libgomp --enable-libssp \

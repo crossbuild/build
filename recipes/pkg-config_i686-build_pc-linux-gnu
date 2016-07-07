@@ -3,7 +3,6 @@
 #|ins $target-glib-devel /$target/sys-root
 #|pkg name $target-pkg-config
 #|pkg + /
-#|rcp toolcmi
 for i in aclocal.m4 configure Makefile.in config.h.in; do
     touch $(find $srcdir/src -name $i)
 done

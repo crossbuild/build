@@ -37,8 +37,6 @@
 #|pkg . /usr/bin
 #|pkg . /usr/lib*
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 export PATH=$srcdir/bin
 
 sed -i -e 's|\(^.*\$(SHOBJ_LD).*\$(SHARED_OBJ) \$(SHLIB_LIBS)\)$|\1 -lcurses|' $srcdir/src/shlib/Makefile.in

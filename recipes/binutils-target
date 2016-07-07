@@ -3,15 +3,15 @@
 #|ins i686-build_pc-linux-gnu-bison
 #|ins i686-build_pc-linux-gnu-flex
 #|pkg name $target-binutils-target
-#|pkg dep $target-libbfd-2-25-2
-#|pkg dep $target-libopcodes-2-25-2
+#|pkg dep $target-libbfd-2-26-0-20160602
+#|pkg dep $target-libopcodes-2-26-0-20160602
 #|pkg auto $target
 #|pkg + /usr/bin
 #|pkg + /usr/*-*
 #|pkg name $target-binutils-target-devel
 #|pkg auto $target
-#|pkg dep $target-libbfd-2-25-2
-#|pkg dep $target-libopcodes-2-25-2
+#|pkg dep $target-libbfd-2-26-0-20160602
+#|pkg dep $target-libopcodes-2-26-0-20160602
 #|pkg dep $target-glibc-devel
 #|pkg . /usr/include/ansidecl.h
 #|pkg . /usr/include/bfd.h
@@ -26,12 +26,12 @@
 #|pkg dep $target-binutils-target-devel
 #|pkg . /usr/lib*/libbfd.a
 #|pkg . /usr/lib*/libopcodes.a
-#|pkg name $target-libbfd-2-25-2
+#|pkg name $target-libbfd-2-26-0-20160602
 #|pkg auto $target
-#|pkg . /usr/lib*/libbfd-2.25.2.so
-#|pkg name $target-libopcodes-2-25-2
+#|pkg . /usr/lib*/libbfd-2.26.0.20160602.so
+#|pkg name $target-libopcodes-2-26-0-20160602
 #|pkg auto $target
-#|pkg . /usr/lib*/libopcodes-2.25.2.so
+#|pkg . /usr/lib*/libopcodes-2.26.0.20160602.so
 #|pkg name $target-libiberty-devel
 #|pkg auto $target
 #|pkg dep $target-glibc-devel
@@ -51,8 +51,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 rm -rf $srcdir/src/{gdb,sim}
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"

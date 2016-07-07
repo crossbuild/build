@@ -11,8 +11,6 @@
 #|pkg name nopackage
 #|pkg . /lib*
 #|pkg . /devel
-#|rcp toolcmi
-#|rcp strip_debug
 . $recipes/toolcmi $srcdir/src
 
 $recipes/strip_debug --strip-all $target $destdir /lib/debug /

@@ -21,8 +21,6 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 cd $srcdir/src/cpio
 sed -i -e '
 	s|^git submodule|#git submodule|

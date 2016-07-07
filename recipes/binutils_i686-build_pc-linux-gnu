@@ -1,5 +1,4 @@
 #|dep auto i686-bootstrap-linux-gnu
-#|rcp binutils
 #|ins i686-bootstrap-linux-gnu-gcc /bootstrap
 #|pkg name $target-binutils
 #|pkg dep $target-binutils-common

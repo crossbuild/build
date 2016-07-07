@@ -1,7 +1,9 @@
-#|src expat /src/expat
-#|src config /src/config
+#|src expat /src
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
 #|pkg name $target-libexpat-1
 #|pkg auto $target
 #|pkg . /usr/lib*/libexpat.so.1*
@@ -27,9 +29,10 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/libexpat.la
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
-cp $srcdir/src/config/config.* $srcdir/src/expat/conftools/
+cd $srcdir/src/expat
+./buildconf.sh
+touch doc/xmlwf.1
+cd -
 . $recipes/cmi $srcdir/src/expat
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

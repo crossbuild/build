@@ -27,8 +27,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 cd $srcdir/src
 ./autogen.sh
 cd -

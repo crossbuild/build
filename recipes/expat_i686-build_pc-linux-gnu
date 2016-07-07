@@ -1,5 +1,8 @@
 #|src expat /src
 #|ins $target-gcc
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-libtool
 #|pkg name $target-expat
 #|pkg + /bin
 #|pkg + /share
@@ -10,9 +13,11 @@
 #|pkg name nopackage
 #|pkg . /devel
 #|pkg . /lib
-#|rcp toolcmi
-#|rcp strip_debug
-. $recipes/toolcmi $srcdir/src CFLAGS='-O2 -g -fPIC' --disable-shared --enable-static
+cd $srcdir/src/expat
+./buildconf.sh
+touch doc/xmlwf.1
+cd -
+. $recipes/toolcmi $srcdir/src/expat CFLAGS='-O2 -g -fPIC' --disable-shared --enable-static
 rm $destdir/$lib/libexpat.la
 
 $recipes/strip_debug --strip-all $target $destdir /lib/debug /

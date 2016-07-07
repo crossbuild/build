@@ -1,4 +1,3 @@
-#|rcp gccbase
 #|ins i686-bootstrap-linux-gnu-gcc /bootstrap
 #|ins $target-binutils
 #|ins $target-glibc-devel /$target/sys-root
@@ -26,7 +25,6 @@
 #|pkg . /lib*
 #|pkg . /share
 #|pkg . /share/man
-#|rcp strip_debug
 cp $srcdir/bin/* $srcdir/bootstrap/bin/
 mkdir -p $srcdir/$target/sys-root/usr/$lib
 cp $srcdir/bootstrap/$target/$lib/libstdc++.a $srcdir/$target/sys-root/usr/$lib
@@ -37,7 +35,7 @@ PATH=$srcdir/bootstrap/bin:$PATH . $recipes/gccbase --enable-__cxa_atexit \
         --enable-languages=c,c++ \
         --enable-threads=posix --disable-libstdcxx-pch \
         --enable-c99 --enable-long-long --disable-shared \
-	--disable-libsanitizer
+	--disable-libsanitizer --disable-plugin
 rm $destdir/$lib/lib*.la
 rm -f $destdir/share/info/dir
 mkdir -p $destdir/$target/sys-root/usr/$lib

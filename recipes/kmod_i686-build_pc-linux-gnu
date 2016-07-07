@@ -12,7 +12,6 @@
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /lib
-#|rcp strip_debug
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root

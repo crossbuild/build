@@ -1,5 +1,4 @@
 #|dep auto x86_64-bootstrap-linux-gnu
-#|rcp binutils64
 #|ins x86_64-bootstrap-linux-gnu-gcc /bootstrap
 #|pkg name $target-binutils
 #|pkg dep $target-binutils-common

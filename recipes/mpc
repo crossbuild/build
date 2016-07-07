@@ -19,8 +19,6 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/libmpc.la
 #|pkg . /usr/share
-#|rcp cmi
-#|rcp strip_debug
 . $recipes/cmi $srcdir/src \
     --with-gmp=$sysroot/usr \
     --with-mpfr=$sysroot/usr

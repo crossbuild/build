@@ -17,7 +17,6 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
-#|rcp strip_debug
 make $parallel CC=$target-gcc CFLAGS="-fpic -fPIC -Wall -Winline $target_opt_flags -D_FILE_OFFSET_BITS=64" AR=$target-ar RANLIB=$target-ranlib libbz2.a bzip2 bzip2recover
 $target-gcc -shared -Wl,-soname -Wl,libbz2.so.1 -o libbz2.so.1.0.6 blocksort.o huffman.o crctable.o randtable.o compress.o decompress.o bzlib.o
 $target-gcc -Wall -Winline $target_opt_flags -D_FILE_OFFSET_BITS=64 -o bzip2 bzip2.c libbz2.so.1.0.6

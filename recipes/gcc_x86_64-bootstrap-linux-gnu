@@ -35,7 +35,8 @@ $srcdir/src/configure \
     --enable-threads=posix --disable-libstdcxx-pch \
     --enable-c99 --enable-long-long --disable-shared \
     --disable-libsanitizer --disable-libcilkrts \
-    --disable-lto
+    --disable-lto --disable-plugin \
+    --disable-sjlj-exceptions
 make $parallel
 make install DESTDIR=$destdir
 rm -f $destdir/share/info/dir

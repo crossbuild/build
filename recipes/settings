@@ -1,7 +1,7 @@
 #|dep do_not_invoke_settings_directly
 build=i686-build_pc-linux-gnu
 build64=x86_64-build_pc-linux-gnu
-checking=--disable-checking
+checking=--enable-checking=release
 
 extra_glibc=()
 cflags_glibc=()

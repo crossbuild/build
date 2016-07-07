@@ -5,7 +5,6 @@
 #|ins $target-libtool
 #|pkg name $target-libffi-devel
 #|pkg + /usr
-#|rcp toolcmi
 cd $srcdir/src
 ./autogen.sh
 cd -

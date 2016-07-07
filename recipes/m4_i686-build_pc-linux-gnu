@@ -7,8 +7,6 @@
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /lib
-#|rcp toolcmi
-#|rcp strip_debug
 for i in aclocal.m4 configure Makefile.in config.hin; do
     touch $(find $srcdir/src -name $i)
 done

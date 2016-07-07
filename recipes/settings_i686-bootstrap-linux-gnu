@@ -1,4 +1,3 @@
 #|dep do_not_invoke_settings_directly
-#|rcp settings
 . $recipes/settings
 sysroot=$srcdir/$build/sys-root

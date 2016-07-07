@@ -23,7 +23,6 @@
 #|pkg . /usr/lib*/libattr.la
 #|pkg . /usr/lib*
 #|pkg . /usr
-#|rcp strip_debug
 ./configure \
     --prefix=$destdir/usr --libdir=$destdir/usr/$lib --libexecdir=$destdir/usr/$lib \
     --build=$build --host=$target

@@ -9,7 +9,6 @@
 #|pkg + /usr
 #|pkg name nopackage
 #|pkg . /devel
-#|rcp toolcmi
 for i in aclocal.m4 configure Makefile.in config.h.in; do
     touch $(find $srcdir/src -name $i)
 done

@@ -7,8 +7,6 @@
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /lib
-#|rcp toolcmi
-#|rcp strip_debug
 . $recipes/toolcmi $srcdir/src am_cv_prog_tar_ustar=false
 rm -f $destdir/share/info/dir
 

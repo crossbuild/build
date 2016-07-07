@@ -2,7 +2,7 @@
 case $target in
     arm*)
         extra_config=(--with-cpu=cortex-a15
-		      #--with-fpu=vfpv3-d16
+		      --with-fpu=neon-vfpv4
 		      --with-float=hard
 		      --with-mode=thumb
 		      )
@@ -12,6 +12,8 @@ case $target in
         ;;
 esac
 case $target in
+    mips*)
+	;;
     *-linux-gnu*)
 	extra_config=("${extra_config[@]-}" --with-linker-hash-style=gnu)
 	;;

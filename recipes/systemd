@@ -472,8 +472,6 @@
 #|pkg . /var/lib
 #|pkg . /var/log
 #|pkg . /var/log/README
-#|rcp cmi
-#|rcp strip_debug
 #export PATH=$srcdir/bin
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib

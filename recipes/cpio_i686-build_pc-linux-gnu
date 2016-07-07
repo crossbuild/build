@@ -8,13 +8,15 @@
 #|pkg name $target-cpio
 #|pkg + /bin
 #|pkg . /lib/rmt
-#|pkg + /share
+#|pkg name $target-cpio-info
+#|pkg + /share/info
+#|pkg name $target-cpio-man
+#|pkg + /share/man
 #|pkg name $target-cpio-debug
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /lib
-#|rcp toolcmi
-#|rcp strip_debug
+#|pkg . /share
 cd $srcdir/src/cpio
 sed -i -e '
 	s|^git submodule|#git submodule|
