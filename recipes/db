@@ -1,0 +1,31 @@
+#|src db /src
+#|ins $target-gcc
+#|pkg name $target-db
+#|pkg auto $target
+#|pkg . /usr/lib*/libdb-6.1.so
+#|pkg name $target-db-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg dep $target-db
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libdb.so
+#|pkg . /usr/lib*/libdb-6.so
+#|pkg name $target-db-devel-static
+#|pkg auto $target
+#|pkg dep $target-db-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-db-docs
+#|pkg auto $target
+#|pkg + /usr/docs
+#|pkg name $target-db-utils
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-db-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+. $recipes/cmi $srcdir/src/dist --enable-compat185
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

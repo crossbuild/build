@@ -1,0 +1,14 @@
+#|src linux /src
+#|ins $target-gcc
+#|pkg name $target-ihex2fw
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-ihex2fw-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+mkdir -p $destdir/usr/bin
+$target-gcc $target_opt_flags $srcdir/src/firmware/ihex2fw.c -o $destdir/usr/bin/ihex2fw
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

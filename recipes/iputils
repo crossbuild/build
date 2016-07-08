@@ -1,0 +1,29 @@
+#|src iputils
+#|ins $target-gcc
+#|ins $target-libcap-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|pkg name $target-iputils-nobusybox
+#|pkg auto $target
+#|pkg . /usr/sbin/clockdiff
+#|pkg . /usr/sbin/tracepath
+#|pkg . /usr/sbin/tracepath6
+#|pkg . /usr/sbin/in.rdisc
+#|pkg name $target-iputils
+#|pkg auto $target
+#|pkg dep $target-iputils-nobusybox
+#|pkg + /usr/bin
+#|pkg . /usr/sbin/arping
+#|pkg name $target-iputils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/sbin
+#|pkg . /usr/lib*
+make USE_GNUTLS=no USE_IDN=no USE_NETTLE=no CC=$target-gcc $parallel
+mkdir -p $destdir/usr/bin $destdir/usr/sbin
+cp -a ping $destdir/usr/bin/
+ln -s ping $destdir/usr/bin/ping6
+cp -a arping clockdiff tracepath tracepath6 $destdir/usr/sbin
+cp -a rdisc $destdir/usr/sbin/in.rdisc
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

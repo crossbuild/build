@@ -1,0 +1,39 @@
+#|src ipsec-tools /src/ipsec-tools
+#|src config /src/config
+#|ins $target-gcc
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-flex-devel-staticonly /$target/sys-root
+#|ins i686-build_pc-linux-gnu-flex
+#|ins $target-glibc-linux /$target/sys-root
+#|pkg name $target-ipsec-tools
+#|pkg auto $target
+#|pkg + /var
+#|pkg + /usr/sbin
+#|pkg name $target-libipsec-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libipsec.so.0*
+#|pkg name $target-libracoon-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libracoon.so.0*
+#|pkg name $target-ipsec-tools-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg + /usr/share
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-ipsec-tools-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg dep $target-glibc-linux
+cp $srcdir/src/config/config.* $srcdir/src/ipsec-tools/
+export LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEXLIB=-lfl
+. $recipes/cmi $srcdir/src/ipsec-tools \
+    --disable-security-context \
+    --enable-shared --disable-static \
+    --with-kernel-headers=$sysroot/usr/include
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

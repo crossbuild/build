@@ -1,0 +1,49 @@
+#|src iproute2
+#|ins $target-gcc
+#|ins $target-db-devel /$target/sys-root
+#|ins $target-iptables-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-iproute2-limited
+#|pkg auto $target
+#|pkg + /etc
+#|pkg . /usr/sbin/ctstat
+#|pkg . /usr/sbin/genl
+#|pkg . /usr/sbin/ifcfg
+#|pkg . /usr/sbin/ifstat
+#|pkg . /usr/sbin/ip
+#|pkg . /usr/sbin/lnstat
+#|pkg . /usr/sbin/nstat
+#|pkg . /usr/sbin/routef
+#|pkg . /usr/sbin/routel
+#|pkg . /usr/sbin/rtacct
+#|pkg . /usr/sbin/rtmon
+#|pkg . /usr/sbin/rtpr
+#|pkg . /usr/sbin/rtstat
+#|pkg . /usr/sbin/ss
+#|pkg name $target-iproute2
+#|pkg auto $target
+#|pkg dep $target-iproute2-limited
+#|pkg . /usr/sbin/arpd
+#|pkg . /usr/sbin/bridge
+#|pkg . /usr/sbin/tc
+#|pkg + /usr/lib/tc
+#|pkg + /var
+#|pkg name $target-iproute2-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /sbin
+#|pkg . /usr
+#|pkg . /usr/sbin
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+mkdir -p $destdir/usr/sbin
+ln -s usr/sbin $destdir/sbin
+make AR=$target-ar CC=$target-gcc HOSTCC=$build-gcc RANLIB=$target-ranlib LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t' DESTDIR=$destdir $parallel
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

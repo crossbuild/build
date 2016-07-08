@@ -1,0 +1,24 @@
+#|src iperf
+#|ins $target-gcc
+#|ins $target-lksctp-tools-devel /$target/sys-root
+#|pkg name $target-iperf
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libiperf-0
+#|pkg auto $target
+#|pkg + /usr/lib*/libiperf.so.0*
+#|pkg name $target-iperf-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg + /usr/lib*/lib*.a
+#|pkg + /usr/lib*/lib*.so
+#|pkg + /usr/share
+#|pkg name $target-iperf-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/lib*/lib*.la
+. $recipes/cmi .
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

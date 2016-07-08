@@ -1,0 +1,47 @@
+#|src iptables /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-iptables
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg name $target-libip4tc-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libip4tc.so.0*
+#|pkg name $target-libip6tc-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libip6tc.so.0*
+#|pkg name $target-libiptc-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libiptc.so.0*
+#|pkg name $target-libxtables-10
+#|pkg auto $target
+#|pkg . /usr/lib*/libxtables.so.10*
+#|pkg . /usr/lib*/xtables
+#|pkg . /usr/lib*/xtables/libipt*.so
+#|pkg . /usr/lib*/xtables/libxt*.so
+#|pkg name $target-iptables-ip6t
+#|pkg auto $target
+#|pkg . /usr/lib*/xtables/libip6t*.so
+#|pkg name $target-iptables-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share
+#|pkg name $target-iptables-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

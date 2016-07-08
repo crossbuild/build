@@ -39,4 +39,15 @@
 #|dep gpsd
 #|dep grep
 #|dep gzip
+#|dep iana-etc
+#|dep ihex2fw
+#|dep inetutils
+#|dep inotify-tools
+#|dep iperf
+#|dep iproute2
+#|dep ipsec-tools
+#|dep iptables
+#|dep iputils
+#|dep kmod
+#|dep ktap
 #|dep zlib

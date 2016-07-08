@@ -1,0 +1,42 @@
+#|src inetutils /src
+#|ins $target-gcc
+#|pkg name $target-inetutils
+#|pkg auto $target
+#|pkg . /usr/bin/ftp
+#|pkg . /usr/bin/rcp
+#|pkg . /usr/bin/rexec
+#|pkg . /usr/bin/rlogin
+#|pkg . /usr/bin/rsh
+#|pkg . /usr/bin/telnet
+#|pkg . /usr/bin/tftp
+#|pkg . /usr/bin/traceroute
+#|pkg . /usr/bin/whois
+#|pkg . /usr/lib*/ftpd
+#|pkg . /usr/lib*/inetd
+#|pkg . /usr/lib*/rexecd
+#|pkg . /usr/lib*/rlogind
+#|pkg . /usr/lib*/rshd
+#|pkg . /usr/lib*/syslogd
+#|pkg . /usr/lib*/talkd
+#|pkg . /usr/lib*/telnetd
+#|pkg . /usr/lib*/tftpd
+#|pkg . /usr/lib*/uucpd
+#|pkg name $target-inetutils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/bin/dnsdomainname
+#|pkg . /usr/bin/hostname
+#|pkg . /usr/bin/ifconfig
+#|pkg . /usr/bin/logger
+#|pkg . /usr/bin/ping
+#|pkg . /usr/bin/ping6
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+export "${configure_vars[@]}"
+$srcdir/src/"${configure[@]}"
+make $parallel
+make install DESTDIR=$destdir SUIDMODE='-m 4775'
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

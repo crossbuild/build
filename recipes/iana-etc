@@ -1,0 +1,7 @@
+#|src iana-etc
+#|pkg name $target-iana-etc
+#|pkg auto $target
+#|pkg + /etc
+make STRIP=yes
+make install DESTDIR=$destdir
+sed -i -e 's|^\(sunrpc.*\)|\1 rpcbind|' $destdir/etc/services

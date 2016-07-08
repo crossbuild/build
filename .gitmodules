@@ -897,3 +897,51 @@
 	path = src/sqlite
 	url = ../sqlite
 	ignore = dirty
+[submodule "src/ktap"]
+	path = src/ktap
+	url = ../ktap
+	ignore = dirty
+[submodule "src/iputils"]
+	path = src/iputils
+	url = ../iputils
+	ignore = dirty
+[submodule "src/iptables"]
+	path = src/iptables
+	url = ../iptables
+	ignore = dirty
+[submodule "src/ipsec-tools"]
+	path = src/ipsec-tools
+	url = ../ipsec-tools
+	ignore = dirty
+[submodule "src/iproute2"]
+	path = src/iproute2
+	url = ../iproute2
+	ignore = dirty
+[submodule "src/iperf"]
+	path = src/iperf
+	url = ../iperf
+	ignore = dirty
+[submodule "src/inotify-tools"]
+	path = src/inotify-tools
+	url = ../inotify-tools
+	ignore = dirty
+[submodule "src/inetutils"]
+	path = src/inetutils
+	url = ../inetutils
+	ignore = dirty
+[submodule "src/linux"]
+	path = src/linux
+	url = ../linux
+	ignore = dirty
+[submodule "src/iana-etc"]
+	path = src/iana-etc
+	url = ../iana-etc
+	ignore = dirty
+[submodule "src/lksctp"]
+	path = src/lksctp
+	url = ../lksctp
+	ignore = dirty
+[submodule "src/db"]
+	path = src/db
+	url = ../db
+	ignore = dirty

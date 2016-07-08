@@ -1,0 +1,42 @@
+#|src lksctp /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-lksctp-tools
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg . /usr/lib*/lksctp-tools
+#|pkg . /usr/lib*/lksctp-tools/lib*.so.*
+#|pkg name $target-libsctp-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libsctp.so.1*
+#|pkg name $target-lksctp-tools-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg dep $target-lksctp-tools
+#|pkg + /usr/include
+#|pkg + /usr/share/lksctp-tools
+#|pkg . /usr/lib*/lib*.so
+#|pkg . /usr/lib*/lksctp-tools/lib*.so
+#|pkg name $target-lksctp-tools-devel-static
+#|pkg auto $target
+#|pkg dep $target-lksctp-tools-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lksctp-tools/lib*.a
+#|pkg name $target-lksctp-tools-man
+#|pkg + /usr/share/man
+#|pkg name $target-lksctp-tools-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/lib*/lksctp-tools/lib*.la
+#|pkg . /usr/share
+cd $srcdir/src
+./bootstrap
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
