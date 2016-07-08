@@ -1,0 +1,24 @@
+#|src sqlite /src
+#|ins $target-gcc
+#|pkg name $target-sqlite
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-sqlite-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg + /usr/share
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-libsqlite3-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libsqlite3.so.0*
+#|pkg name $target-sqlite-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

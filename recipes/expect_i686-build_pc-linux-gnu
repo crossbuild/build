@@ -1,0 +1,7 @@
+#|src expect /src
+#|ins $target-gcc
+#|ins $target-tcl
+#|pkg name $target-expect
+#|pkg dep $target-tcl
+#|pkg + /
+. $recipes/toolcmi $srcdir/src --disable-shared

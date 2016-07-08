@@ -1,0 +1,27 @@
+#|src rlog
+#|src config /src/config
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-librlog-5
+#|pkg auto $target
+#|pkg . /usr/lib*/librlog.so.5*
+#|pkg name $target-rlog-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/librlog.so
+#|pkg + /usr/share
+#|pkg name $target-rlog-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/librlog.la
+autoreconf -i -f
+cp $srcdir/src/config/config.* config
+. $recipes/cmi . --disable-variable-clustering
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

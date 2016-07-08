@@ -1,0 +1,50 @@
+#|src libxml2 /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-libxml2-2
+#|pkg auto $target
+#|pkg . /usr/lib*/lib*.so.*
+#|pkg name $target-libxml2-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg . /usr/bin/xml2-config
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/cmake
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/xml2Conf.sh
+#|pkg + /usr/share/aclocal
+#|pkg name $target-libxml2-devel-static
+#|pkg auto $target
+#|pkg dep $target-libxml2-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libxml2-tools
+#|pkg auto $target
+#|pkg . /usr/bin/xmlcatalog
+#|pkg . /usr/bin/xmllint
+#|pkg name $target-libxml2-doc
+#|pkg + /usr/share/doc
+#|pkg + /usr/share/gtk-doc
+#|pkg name $target-libxml2-man
+#|pkg + /usr/share/man
+#|pkg name $target-libxml2-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+##|pkg + /usr/lib*/python*
+#|pkg . /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+NOCONFIGURE=1 ./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src --without-python
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

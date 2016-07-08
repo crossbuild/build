@@ -1,0 +1,43 @@
+#|src gpsd
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-scons
+#|pkg name $target-gpsd
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg name $target-gpsd-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libgps-21
+#|pkg auto $target
+#|pkg + /usr/lib*/libgps.so.21*
+#|pkg name $target-libgpsd-22
+#|pkg auto $target
+#|pkg + /usr/lib*/libgpsd.so.22*
+##|pkg name $target-gpsd-man
+##|pkg + /usr/share/man
+#|pkg name $target-gpsd-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+##|pkg . /usr/share
+SCONS="scons
+	prefix=/usr
+	libdir=/usr/$lib
+	target=$target
+	sysroot=$sysroot
+	libQgpsmm=no
+	chrpath=no
+	strip=no
+	python=no
+	manbuild=false
+	"
+$SCONS $parallel
+DESTDIR=$destdir $SCONS install
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

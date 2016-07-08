@@ -1,0 +1,151 @@
+#|src elfutils /src
+#|ins $target-gcc
+#|pkg name $target-elfutils
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-elfutils-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg + /include
+#|pkg . /lib*
+#|pkg + /lib*/elfutils
+#|pkg . /lib*/lib*
+sed -i -e 's|test "$use_mudflap" = yes -o "$use_gprof" = yes -o "$use_gcov" = yes|true|' $srcdir/src/configure{.ac,}
+cd $srcdir/src
+patch -p1 <<'EOT'
+diff --git a/src/readelf.c b/src/readelf.c
+index 739156c..4ae7bfe 100644
+--- a/src/readelf.c
++++ b/src/readelf.c
+@@ -4171,10 +4171,12 @@ listptr_base (struct listptr *p)
+   return base;
+ }
+ 
++static const char *name_compare_listptr;
++
+ static int
+-compare_listptr (const void *a, const void *b, void *arg)
++compare_listptr (const void *a, const void *b)
+ {
+-  const char *name = arg;
++  const char *name = name_compare_listptr;
+   struct listptr *p1 = (void *) a;
+   struct listptr *p2 = (void *) b;
+ 
+@@ -4263,8 +4265,10 @@ static void
+ sort_listptr (struct listptr_table *table, const char *name)
+ {
+   if (table->n > 0)
+-    qsort_r (table->table, table->n, sizeof table->table[0],
+-	     &compare_listptr, (void *) name);
++    {
++      name_compare_listptr = name;
++      qsort (table->table, table->n, sizeof table->table[0], &compare_listptr);
++    }
+ }
+ 
+ static bool
+diff --git a/src/ar.c b/src/ar.c
+index 1320d07..caed7f3 100644
+--- a/src/ar.c
++++ b/src/ar.c
+@@ -679,13 +679,13 @@ do_oper_extract (int oper, const char *arfname, char **argv, int argc,
+ 
+ 	      if (preserve_dates)
+ 		{
+-		  struct timespec tv[2];
++		  struct timeval tv[2];
+ 		  tv[0].tv_sec = arhdr->ar_date;
+-		  tv[0].tv_nsec = 0;
++		  tv[0].tv_usec = 0;
+ 		  tv[1].tv_sec = arhdr->ar_date;
+-		  tv[1].tv_nsec = 0;
++		  tv[1].tv_usec = 0;
+ 
+-		  if (unlikely (futimens (xfd, tv) != 0))
++		  if (unlikely (futimes (xfd, tv) != 0))
+ 		    {
+ 		      error (0, errno,
+ 			     gettext ("cannot change modification time of %s"),
+diff --git a/src/strip.c b/src/strip.c
+index 5e69334..d1bae9e 100644
+--- a/src/strip.c
++++ b/src/strip.c
+@@ -109,11 +109,11 @@ static int process_file (const char *fname);
+ 
+ /* Handle one ELF file.  */
+ static int handle_elf (int fd, Elf *elf, const char *prefix,
+-		       const char *fname, mode_t mode, struct timespec tvp[2]);
++		       const char *fname, mode_t mode, struct timeval tvp[2]);
+ 
+ /* Handle all files contained in the archive.  */
+ static int handle_ar (int fd, Elf *elf, const char *prefix, const char *fname,
+-		      struct timespec tvp[2]) __attribute__ ((unused));
++		      struct timeval tvp[2]) __attribute__ ((unused));
+ 
+ static int debug_fd = -1;
+ static char *tmp_debug_fname = NULL;
+@@ -311,7 +311,7 @@ process_file (const char *fname)
+      now.  We cannot use fstat() after opening the file since the open
+      would change the access time.  */
+   struct stat64 pre_st;
+-  struct timespec tv[2];
++  struct timeval tv[2];
+  again:
+   if (preserve_dates)
+     {
+@@ -323,8 +323,8 @@ process_file (const char *fname)
+ 
+       /* If we have to preserve the timestamp, we need it in the
+ 	 format utimes() understands.  */
+-      tv[0] = pre_st.st_atim;
+-      tv[1] = pre_st.st_mtim;
++      TIMESPEC_TO_TIMEVAL (&tv[0], &pre_st.st_atim);
++      TIMESPEC_TO_TIMEVAL (&tv[1], &pre_st.st_mtim);
+     }
+ 
+   /* Open the file.  */
+@@ -407,7 +407,7 @@ process_file (const char *fname)
+ 
+ static int
+ handle_elf (int fd, Elf *elf, const char *prefix, const char *fname,
+-	    mode_t mode, struct timespec tvp[2])
++	    mode_t mode, struct timeval tvp[2])
+ {
+   size_t prefix_len = prefix == NULL ? 0 : strlen (prefix);
+   size_t fname_len = strlen (fname) + 1;
+@@ -2191,7 +2191,7 @@ while computing checksum for debug information"));
+   /* If requested, preserve the timestamp.  */
+   if (tvp != NULL)
+     {
+-      if (futimens (fd, tvp) != 0)
++      if (futimes (fd, tvp) != 0)
+ 	{
+ 	  error (0, errno, gettext ("\
+ cannot set access and modification date of '%s'"),
+@@ -2225,7 +2225,7 @@ cleanup_debug ()
+ 
+ static int
+ handle_ar (int fd, Elf *elf, const char *prefix, const char *fname,
+-	   struct timespec tvp[2])
++	   struct timeval tvp[2])
+ {
+   size_t prefix_len = prefix == NULL ? 0 : strlen (prefix);
+   size_t fname_len = strlen (fname) + 1;
+@@ -2263,7 +2263,7 @@ handle_ar (int fd, Elf *elf, const char *prefix, const char *fname,
+ 
+   if (tvp != NULL)
+     {
+-      if (unlikely (futimens (fd, tvp) != 0))
++      if (unlikely (futimes (fd, tvp) != 0))
+ 	{
+ 	  error (0, errno, gettext ("\
+ cannot set access and modification date of '%s'"), fname);
+EOT
+cd -
+
+. $recipes/toolcmi $srcdir/src \
+	CFLAGS='-O2 -g -Dbe32toh\(x\)=__builtin_bswap32\(x\) -Dle32toh\(x\)=\(x\) -Dbe64toh\(x\)=__builtin_bswap64\(x\) -Dle64toh\(x\)=\(x\) ' \
+	--program-prefix=eu-
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

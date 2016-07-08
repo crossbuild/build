@@ -1,0 +1,45 @@
+#|src libxml2 /src
+#|ins $target-gcc
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-libtool
+#|ins $target-pkg-config
+#|pkg name $target-libxml2-devel /devel
+#|pkg + /usr
+#|pkg name $target-libxml2-tools
+#|pkg + /bin
+#|pkg name $target-libxml2-doc
+#|pkg + /share/doc
+#|pkg + /share/gtk-doc
+#|pkg name $target-libxml2-man
+#|pkg + /share/man
+#|pkg name $target-libxml2-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /devel
+#|pkg . /share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+NOCONFIGURE=1 ./autogen.sh
+cd -
+. $recipes/toolcmi $srcdir/src \
+	--disable-shared \
+	--without-python
+rm $destdir/$lib/lib*.la
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr/bin
+mkdir -p $destdir/devel/usr/share
+mv $destdir/include $destdir/devel/usr
+mv $destdir/$lib $destdir/devel/usr
+mv $destdir/bin/xml2-config $destdir/devel/usr/bin
+mv $destdir/share/aclocal $destdir/devel/usr/share
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi
+sed -i -e 's|//|/usr/|' $destdir/devel/usr/$lib/pkgconfig/*.pc

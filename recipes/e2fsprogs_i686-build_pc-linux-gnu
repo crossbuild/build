@@ -1,0 +1,102 @@
+#|src e2fsprogs /src
+#|ins $target-gcc
+#|pkg name $target-e2fsprogs
+#|pkg . /bin/chattr
+#|pkg . /bin/compile_et
+#|pkg . /bin/lsattr
+#|pkg . /bin/mk_cmds
+#|pkg + /etc
+#|pkg . /lib*/e2initrd_helper
+#|pkg . /bin/badblocks
+#|pkg . /bin/debugfs
+#|pkg . /bin/dumpe2fs
+#|pkg . /bin/e2*
+#|pkg . /bin/filefrag
+#|pkg . /bin/fsck.ext*
+#|pkg . /bin/logsave
+#|pkg . /bin/mke2fs
+#|pkg . /bin/mkfs.ext*
+#|pkg . /bin/mklost+found
+#|pkg . /bin/resize2fs
+#|pkg . /bin/tune2fs
+#|pkg + /share/et
+#|pkg + /share/info
+#|pkg . /share/man/man1/chattr.1
+#|pkg . /share/man/man1/compile_et.1
+#|pkg . /share/man/man1/lsattr.1
+#|pkg . /share/man/man1/mk_cmds.1
+#|pkg . /share/man/man3/com_err.3
+#|pkg + /share/man/man5
+#|pkg . /share/man/man8/badblocks.8
+#|pkg . /share/man/man8/debugfs.8
+#|pkg . /share/man/man8/dumpe2fs.8
+#|pkg . /share/man/man8/e2*.8
+#|pkg . /share/man/man8/filefrag.8
+#|pkg . /share/man/man8/fsck.ext*.8
+#|pkg . /share/man/man8/logsave.8
+#|pkg . /share/man/man8/mke2fs.8
+#|pkg . /share/man/man8/mkfs.ext*.8
+#|pkg . /share/man/man8/mklost+found.8
+#|pkg . /share/man/man8/resize2fs.8
+#|pkg . /share/man/man8/tune2fs.8
+#|pkg + /share/ss
+#|pkg name $target-e2fsprogs-devel /devel
+#|pkg . /usr/include/blkid/blkid_types.h
+#|pkg . /usr/include/com_err.h
+#|pkg + /usr/include/e2p
+#|pkg + /usr/include/et
+#|pkg + /usr/include/ext2fs
+#|pkg + /usr/include/ss
+#|pkg . /usr/lib*/libcom_err.a
+#|pkg . /usr/lib*/libe2p.a
+#|pkg . /usr/lib*/libext2fs.a
+#|pkg . /usr/lib*/libss.a
+#|pkg . /usr/lib*/pkgconfig/com_err.pc
+#|pkg . /usr/lib*/pkgconfig/e2p.pc
+#|pkg . /usr/lib*/pkgconfig/ext2fs.pc
+#|pkg . /usr/lib*/pkgconfig/ss.pc
+#|pkg name $target-e2fsprogs-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /bin/uuidgen
+#|pkg . /lib*
+#|pkg . /devel
+#|pkg . /devel/usr
+#|pkg . /devel/usr/include
+#|pkg . /devel/usr/include/blkid
+#|pkg . /devel/usr/include/blkid/blkid.h
+#|pkg + /devel/usr/include/uuid
+#|pkg . /devel/usr/lib*
+#|pkg . /devel/usr/lib*/libblkid.a
+#|pkg . /devel/usr/lib*/libuuid.a
+#|pkg . /devel/usr/lib*/pkgconfig
+#|pkg . /devel/usr/lib*/pkgconfig/blkid.pc
+#|pkg . /devel/usr/lib*/pkgconfig/uuid.pc
+#|pkg . /bin/blkid
+#|pkg . /bin/findfs
+#|pkg . /bin/fsck
+#|pkg . /bin/uuidd
+#|pkg . /share
+#|pkg . /share/man
+#|pkg . /share/man/man1
+#|pkg . /share/man/man1/uuidgen.1
+#|pkg . /share/man/man3
+#|pkg . /share/man/man3/libblkid.3
+#|pkg . /share/man/man3/uuid*.3
+#|pkg . /share/man/man8
+#|pkg . /share/man/man8/blkid.8
+#|pkg . /share/man/man8/findfs.8
+#|pkg . /share/man/man8/fsck.8
+#|pkg . /share/man/man8/uuidd.8
+export "${toolconfigure_vars[@]}"
+$srcdir/src/"${toolconfigure[@]}" \
+    --disable-nls --disable-defrag
+make $parallel
+make install install-libs DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr/$lib
+mv $destdir/include $destdir/devel/usr
+mv $destdir/$lib/{lib*.a,pkgconfig} $destdir/devel/usr/$lib

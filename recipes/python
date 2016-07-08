@@ -1,0 +1,78 @@
+#|src python
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-bzip2-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-expat-devel /$target/sys-root
+#|ins $target-libffi-devel /$target/sys-root
+#|ins $target-readline-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-python
+#|pkg name $target-python
+#|pkg auto $target
+#|pkg . /usr/lib*/python*/*.py
+#|pkg . /usr/lib*/python*/*.pyc
+#|pkg . /usr/lib*/python*/*.pyo
+#|pkg . /usr/lib*/python*/*.doc
+#|pkg . /usr/lib*/python*/*.txt
+#|pkg + /usr/lib*/python*/bsddb
+#|pkg + /usr/lib*/python*/compiler
+#|pkg + /usr/lib*/python*/ctypes
+#|pkg + /usr/lib*/python*/curses
+#|pkg + /usr/lib*/python*/distutils
+#|pkg + /usr/lib*/python*/email
+#|pkg + /usr/lib*/python*/encodings
+#|pkg + /usr/lib*/python*/ensurepip
+#|pkg + /usr/lib*/python*/hotshot
+#|pkg + /usr/lib*/python*/idlelib
+#|pkg + /usr/lib*/python*/importlib
+#|pkg + /usr/lib*/python*/json
+#|pkg + /usr/lib*/python*/lib-dynload
+#|pkg + /usr/lib*/python*/lib-tk
+#|pkg + /usr/lib*/python*/lib2to3
+#|pkg + /usr/lib*/python*/logging
+#|pkg + /usr/lib*/python*/multiprocessing
+#|pkg + /usr/lib*/python*/plat-linux2
+#|pkg + /usr/lib*/python*/pydoc_data
+#|pkg + /usr/lib*/python*/site-packages
+#|pkg + /usr/lib*/python*/sqlite3
+#|pkg + /usr/lib*/python*/test
+#|pkg + /usr/lib*/python*/unittest
+#|pkg + /usr/lib*/python*/wsgiref*
+#|pkg + /usr/lib*/python*/xml
+#|pkg . /usr/bin/python2
+#|pkg . /usr/bin/python2.7
+#|pkg . /usr/bin/smtpd.py
+#|pkg . /usr/bin/python
+#|pkg name $target-libpython2-7-1-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libpython2.7.so.1.0
+#|pkg name $target-python-devel
+#|pkg auto $target
+#|pkg . /usr/bin/2to3
+#|pkg . /usr/bin/pydoc
+#|pkg . /usr/bin/idle
+#|pkg . /usr/bin/python-config
+#|pkg . /usr/bin/python2-config
+#|pkg . /usr/bin/python2.7-config
+#|pkg + /usr/include
+#|pkg + /usr/lib*/python2.7/config
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/share
+#|pkg name $target-python-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/python2.7
+#|pkg . /usr/bin
+. $recipes/cmi . \
+    ac_cv_buggy_getaddrinfo=no \
+    ac_cv_file__dev_ptc=no \
+    ac_cv_file__dev_ptmx=yes \
+    --with-system-expat \
+    --with-system-ffi
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

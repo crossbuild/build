@@ -1,0 +1,14 @@
+#|src genext2fs /src
+#|ins $target-gcc
+#|pkg name $target-genext2fs
+#|pkg + /bin
+#|pkg name $target-genext2fs-man
+#|pkg + /share/man
+#|pkg name $target-genext2fs-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /share
+. $recipes/toolcmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

@@ -1,0 +1,5 @@
+#|src python
+#|ins $target-gcc
+#|pkg name $target-python-bootstrap
+#|pkg + /
+. $recipes/toolcmi . ac_cv_prog_PYTHON= --bindir=/bin --libdir=/$lib

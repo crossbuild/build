@@ -1,0 +1,19 @@
+#|src ethtool /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|pkg name $target-ethtool
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-ethtool-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

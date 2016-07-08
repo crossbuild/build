@@ -1,0 +1,30 @@
+#|src expect /src/expect
+#|src config /src/config
+#|ins $target-gcc
+#|ins $target-tcl-devel-private /$target/sys-root
+#|ins i686-build_pc-linux-gnu-tcl
+#|pkg name $target-expect
+#|pkg auto $target
+#|pkg dep $target-tcl
+#|pkg + /usr/lib*/expect*
+#|pkg + /usr/bin
+#|pkg name $target-expect-devel
+#|pkg auto $target
+#|pkg dep $target-expect
+#|pkg + /usr/include
+#|pkg + /usr/share
+#|pkg name $target-expect-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+cp $srcdir/src/config/config.* $srcdir/src/expect/tclconfig/
+export "${configure_vars[@]}"
+$srcdir/src/expect/"${configure[@]}" \
+	ac_cv_func_setpgrp_void=yes \
+	--with-tcl=$srcdir/$target/sys-root/usr/$lib \
+	--with-tclinclude=$srcdir/$target/sys-root/usr/include
+make $parallel
+make install DESTDIR=$destdir TCLSH_PROG=tclsh8.6
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

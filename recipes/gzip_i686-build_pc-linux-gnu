@@ -1,0 +1,13 @@
+#|src gzip /src
+#|ins $target-gcc
+#|pkg name $target-gzip
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-gzip-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+. $recipes/toolcmi $srcdir/src
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

@@ -1,0 +1,8 @@
+#|src scons
+#|ins $target-python
+#|pkg name $target-scons
+#|pkg dep $target-python
+#|pkg + /
+$srcdir/bin/python setup.py install --prefix=$destdir
+mkdir -p $destdir/share
+mv $destdir/man $destdir/share

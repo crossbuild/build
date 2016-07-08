@@ -1,0 +1,36 @@
+#|src gdb /src
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-expat-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-ncurses-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-xz-devel /i686-build_pc-linux-gnu/sys-root
+# babeltrace support causes lexer conflict
+##|ins i686-build_pc-linux-gnu-babeltrace-devel /i686-build_pc-linux-gnu/sys-root
+##|ins i686-build_pc-linux-gnu-glib-devel /i686-build_pc-linux-gnu/sys-root
+##|ins i686-build_pc-linux-gnu-util-linux-devel /i686-build_pc-linux-gnu/sys-root
+#|pkg name $target-gdb
+#|pkg dep i686-build_pc-linux-gnu-gdb-common
+#|pkg + /bin
+#|pkg + /share/man
+#|pkg name $target-gdb-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg + /include
+#|pkg . /lib*
+#|pkg .? /lib*/lib*-*-*-sim.a
+#|pkg . /share
+#|pkg + /share/gdb
+#|pkg + /share/info
+#|pkg + /share/locale
+rm -rf $srcdir/src/{binutils,gas,gprof,ld,gold}
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+#sed -i -e 's|babeltrace babeltrace-ctf|babeltrace-ctf babeltrace glib-2.0 uuid pthread rt|' $srcdir/src/gdb/configure
+. $recipes/toolcmi $srcdir/src \
+	--target=$target \
+	--enable-tui \
+	--with-sysroot \
+	--with-separate-debug-dir=//$target/sys-root/usr/lib/debug
+
+$recipes/strip_debug --strip-all $build $destdir /lib/debug /

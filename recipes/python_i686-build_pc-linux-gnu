@@ -1,0 +1,32 @@
+#|src python
+#|ins $target-gcc
+#|ins $target-python-bootstrap
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-bzip2-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-sqlite-devel /$target/sys-root
+#|pkg name $target-python
+#|pkg + /bin
+#|pkg + /lib*/python*
+#|pkg + /share
+#|pkg name $target-python-devel /devel
+#|pkg + /usr
+#|pkg name $target-python-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib*
+. $recipes/toolcmi . \
+	ac_cv_buggy_getaddrinfo=no \
+	ac_cv_file__dev_ptc=no \
+	ac_cv_file__dev_ptmx=yes \
+	--build=${target/build_pc/xbuild_pc} \
+	--bindir=/bin \
+	--libdir=/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr/$lib
+mv $destdir/include $destdir/devel/usr
+mv $destdir/$lib/{lib*.a,pkgconfig} $destdir/devel/usr/$lib

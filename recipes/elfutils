@@ -1,0 +1,39 @@
+#|src elfutils /src
+#|ins $target-gcc
+#|pkg name $target-elfutils
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/lib*/elfutils
+#|pkg name $target-libasm-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libasm.so.1
+#|pkg . /usr/lib*/libasm-*.so
+#|pkg name $target-libdw-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libdw.so.1
+#|pkg . /usr/lib*/libdw-*.so
+#|pkg name $target-libelf-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libelf.so.1
+#|pkg . /usr/lib*/libelf-*.so
+#|pkg name $target-elfutils-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libebl.a
+#|pkg . /usr/lib*/lib*[a-z].so
+#|pkg name $target-elfutils-devel-static
+#|pkg auto $target
+#|pkg dep $target-elfutils-devel
+#|pkg . /usr/lib*/libasm.a
+#|pkg . /usr/lib*/libdw.a
+#|pkg . /usr/lib*/libelf.a
+#|pkg name $target-elfutils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+. $recipes/cmi $srcdir/src utrace_cv_cc_biarch=no --program-prefix=eu-
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

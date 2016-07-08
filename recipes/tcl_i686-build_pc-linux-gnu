@@ -1,0 +1,5 @@
+#|src tcl /src
+#|ins $target-gcc
+#|pkg name $target-tcl
+#|pkg + /
+. $recipes/toolcmi $srcdir/src/unix --disable-shared

@@ -1,0 +1,29 @@
+#|src dtc
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-bison
+#|pkg name $target-dtc
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libfdt-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libfdt.so.1
+#|pkg . /usr/lib*/libfdt-*.so
+#|pkg name $target-libfdt-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libfdt.so
+#|pkg name $target-libfdt-devel-static
+#|pkg auto $target
+#|pkg dep $target-libfdt-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-dtc-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+make CC=$target-gcc AR=$target-ar LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t' PREFIX=/usr LIBDIR=/usr/$lib DESTDIR=$destdir $parallel
+make CC=$target-gcc AR=$target-ar LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t' PREFIX=/usr LIBDIR=/usr/$lib DESTDIR=$destdir install
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

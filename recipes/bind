@@ -1,0 +1,51 @@
+#|src bind
+#|ins $target-gcc
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-libxml2-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-libxml2-devel /i686-build_pc-linux-gnu/sys-root
+#|pkg name $target-bind
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /var
+#|pkg . /usr/bin/bind9-config
+#|pkg . /usr/bin/host
+#|pkg . /usr/bin/isc-config.sh
+#|pkg . /usr/bin/nslookup
+#|pkg . /usr/bin/nsupdate
+#|pkg + /usr/sbin
+#|pkg name $target-bind-dig
+#|pkg auto $target
+#|pkg . /usr/bin/dig
+#|pkg name $target-bind-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-bind-export /export
+#|pkg auto $target
+#|pkg dep $target-openssl-devel
+#|pkg + /
+#|pkg name $target-bind-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /export
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+sed -i -e "s|/usr|$sysroot/usr|g" $sysroot/usr/bin/xml2-config
+export "${configure_vars[@]}"
+./"${configure[@]}" \
+    --with-ecdsa \
+    --with-gost \
+    --with-libxml2=$sysroot/usr \
+    --enable-exportlib \
+    --with-export-libdir=/export/usr/$lib/bind9 \
+    --with-export-includedir=/export/usr/include/bind9 \
+    --with-gssapi=no \
+    --with-randomdev=/dev/random \
+    BUILD_CC=$build-gcc
+make -j1
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

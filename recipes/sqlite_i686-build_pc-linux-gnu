@@ -1,0 +1,22 @@
+#|src sqlite /src
+#|ins $target-gcc
+#|pkg name $target-sqlite
+#|pkg + /bin
+#|pkg name $target-sqlite-devel /devel
+#|pkg + /usr
+#|pkg name $target-sqlite-man
+#|pkg + /share/man
+#|pkg name $target-sqlite-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib*
+#|pkg . /share
+. $recipes/toolcmi $srcdir/src CFLAGS='-O2 -g -fPIC' --disable-shared
+rm $destdir/$lib/lib*.la
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr/$lib
+mv $destdir/include $destdir/devel/usr
+mv $destdir/$lib/{lib*.a,pkgconfig} $destdir/devel/usr/$lib

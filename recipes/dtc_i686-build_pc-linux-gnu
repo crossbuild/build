@@ -1,0 +1,25 @@
+#|src dtc
+#|ins $target-gcc
+#|ins $target-flex
+#|ins $target-bison
+#|pkg name $target-dtc
+#|pkg + /bin
+#|pkg name $target-libfdt-devel /devel
+#|pkg + /usr
+#|pkg name $target-dtc-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib
+make CC=$target-gcc AR=$target-ar LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t' PREFIX=/ LIBDIR=/$lib DESTDIR=$destdir $parallel
+make CC=$target-gcc AR=$target-ar LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t' PREFIX=/ LIBDIR=/$lib DESTDIR=$destdir install
+rm $destdir/$lib/lib*.so*
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

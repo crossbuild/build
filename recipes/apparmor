@@ -1,0 +1,218 @@
+#|src apparmor
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-bash
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-python
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|ins $target-python-devel /$target/sys-root
+#|ins $target-python /$target/sys-root
+#|ins $target-pam-devel /$target/sys-root
+#|ins $target-gcc-libs-devel-static /$target/sys-root
+#|pkg name $target-libapparmor-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libapparmor.so.1*
+#|pkg name $target-libapparmor-python
+#|pkg auto $target
+#|pkg . /usr/lib*/python*/site-packages/LibAppArmor-*.egg-info
+#|pkg . /usr/lib*/python*/site-packages/LibAppArmor/*.so
+#|pkg . /usr/lib*/python*/site-packages/LibAppArmor/*.py*
+#|pkg name $target-apparmor-python
+#|pkg auto $target
+#|pkg dep $target-libapparmor-python
+#|pkg + /usr/lib*/python*/site-packages/apparmor
+#|pkg . /usr/lib*/python*/site-packages/apparmor-*-py*.egg-info
+#|pkg name $target-apparmor-easyprof
+#|pkg auto $target
+#|pkg dep $target-apparmor-python
+#|pkg . /etc/apparmor/easyprof.conf
+#|pkg . /usr/bin/aa-easyprof
+#|pkg + /usr/share/apparmor/easyprof
+#|pkg name $target-apparmor-notify
+#|pkg auto $target
+#|pkg dep $target-apparmor-python
+#|pkg . /etc/apparmor/notify.conf
+#|pkg . /usr/sbin/aa-notify
+#|pkg name $target-apparmor-vim
+#|pkg . /usr/share/apparmor/apparmor.vim
+#|pkg name $target-apparmor-excluded
+#|pkg . /usr/sbin/aa-genprof
+#|pkg . /usr/sbin/aa-logprof
+#|pkg name $target-apparmor-utils
+#|pkg auto $target
+#|pkg dep $target-apparmor-python
+#|pkg . /etc/apparmor/logprof.conf
+#|pkg . /etc/apparmor/severity.db
+#|pkg . /usr/sbin/aa-audit
+#|pkg . /usr/sbin/aa-autodep
+#|pkg . /usr/sbin/aa-cleanprof
+#|pkg . /usr/sbin/aa-complain
+#|pkg . /usr/sbin/aa-decode
+#|pkg . /usr/sbin/aa-disable
+#|pkg . /usr/sbin/aa-enforce
+#|pkg . /usr/sbin/aa-mergeprof
+#|pkg . /usr/sbin/aa-unconfined
+#|pkg name $target-apparmor-pam
+#|pkg auto $target
+#|pkg . /usr/lib*/security/pam_apparmor.so
+#|pkg name $target-apparmor-perl
+#|pkg . /usr/sbin/aa-exec
+#|pkg name $target-apparmor
+#|pkg auto $target
+#|pkg dep $target-apparmor-python
+#|pkg . /etc/apparmor/parser.conf
+#|pkg . /etc/apparmor/subdomain.conf
+#|pkg + /etc/apparmor.d/abstractions
+#|pkg + /etc/apparmor.d/local
+#|pkg + /etc/apparmor.d/tunables
+##|pkg . /etc/init.d/apparmor
+##|pkg . /usr/sbin/apparmor_parser
+##|pkg . /usr/sbin/rcapparmor
+##|pkg . /usr/sbin/rcsubdomain
+#|pkg + /usr/lib*/apparmor
+#|pkg . /usr/sbin/aa-status
+#|pkg . /usr/sbin/apparmor_status
+#|pkg name $target-apparmor-profiles
+#|pkg dep $target-apparmor
+#|pkg + /etc/apparmor.d/apache2.d
+#|pkg . /etc/apparmor.d/disable
+#|pkg . /etc/apparmor.d/bin.*
+#|pkg . /etc/apparmor.d/sbin.*
+#|pkg . /etc/apparmor.d/usr.*
+#|pkg name $target-apparmor-profiles-extra
+#|pkg dep $target-apparmor
+#|pkg + /usr/share/apparmor/extra-profiles
+#|pkg name $target-apparmor-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-apparmor-devel
+#|pkg dep $target-glibc-devel
+#|pkg auto $target
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libapparmor.so
+#|pkg . /usr/lib*/libapparmor.a
+#|pkg . /usr/lib*/libapparmor.la
+#|pkg name $target-apparmor-man
+#|pkg + /usr/share/man
+#|pkg name $target-apparmor-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /etc
+#|pkg . /etc/apparmor
+#|pkg . /etc/apparmor.d
+##|pkg . /etc/init.d
+#|pkg . /usr/lib*/security
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg . /usr/lib/python2.7
+#|pkg . /usr/lib/python2.7/site-packages
+#|pkg . /usr/lib/python2.7/site-packages/LibAppArmor
+#|pkg . /usr/sbin
+#|pkg . /usr/share
+#|pkg . /usr/share/apparmor
+#|pkg . /var
+#|pkg . /var/lib
+#|pkg . /var/lib/apparmor
+
+# patch wrong shebang in python-config
+sed -i "1 i\#!/usr/bin/env python2.7" $srcdir/bin/python2.7-config
+
+#
+# cross config (could possibly be moved to the python-dev package)
+#
+cat > $srcdir/lib/python2.7/site-packages/sitecustomize.py << EOF
+import os
+from distutils import sysconfig
+
+_cross_build = False
+
+if "PYTHON_CROSS_PREFIX" in os.environ:
+    _cross_build = True
+    sysconfig.PREFIX = os.environ["PYTHON_CROSS_PREFIX"]
+
+if "PYTHON_CROSS_EXEC_PREFIX" in os.environ:
+    _cross_build = True
+    sysconfig.EXEC_PREFIX = os.environ["PYTHON_CROSS_EXEC_PREFIX"]
+
+
+_get_config_vars_orig = sysconfig.get_config_vars
+def _get_config_vars(*args):
+    config_vars = _get_config_vars_orig(*args)
+
+    if not args:
+        result_dict = config_vars
+    else:
+        result_dict = {}
+        for idx, name in enumerate(args):
+            result_dict[name] = config_vars[idx]
+
+    if "LIBPL" in args:
+        version = _get_config_vars_orig().get("VERSION")
+        lib = _get_config_vars_orig().get("LIB")
+        result_dict["LIBPL"] = os.path.join(sysconfig.PREFIX,
+                                            lib,
+                                            "python" + version,
+                                            "config")
+
+    if not args:
+        result = result_dict
+    else:
+        result = []
+        for name in args:
+            result.append(result_dict.get(name))
+
+    return result
+
+if _cross_build:
+    sysconfig.get_config_vars = _get_config_vars
+EOF
+
+#
+# compilation environment
+#
+
+# needed to use _sysconfigdata.py from the target architecture
+# note: full python (not devel package) needs to be installed in sysroot
+export PYTHONPATH=${sysroot}/$lib/python2.7
+
+# apparmor is calling incorrect cpp
+sed -i -e "s| cpp | $target-cpp |" common/Make.rules
+
+# PYTHON_CROSS_* needed for distutils to work in cross environment.
+# These variables have only any effect if sitecustomize.py is installed.
+export PYTHON_CROSS_PREFIX=${sysroot}/usr
+export PYTHON_CROSS_EXEC_PREFIX=${sysroot}/usr
+export CC=$target-gcc
+export CXX=$target-g++
+
+# libapparmor (needs to be built first)
+pushd $PWD
+cd ./libraries/libapparmor
+./autogen.sh
+. $recipes/cmi . --with-python
+popd
+
+# build rest of apparmor
+for DIR in utils \
+           parser \
+           changehat/pam_apparmor \
+           profiles
+do
+    pushd $PWD
+    cd $DIR
+    make $parallel YACC=bison LEX=flex
+    # skip "make check", it has too many dependencies on python modules
+    # which need to be installed via pip
+    make install DESTDIR=$destdir SECDIR=${destdir}/usr/$lib/security
+    popd
+done
+
+mv $destdir/lib/apparmor $destdir/usr/lib/
+rmdir $destdir/lib
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

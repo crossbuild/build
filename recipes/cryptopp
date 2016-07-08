@@ -1,0 +1,30 @@
+#|src cryptopp
+#|ins $target-gcc
+#|pkg name $target-cryptopp
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libcryptopp
+#|pkg auto $target
+#|pkg . /usr/lib*/libcryptopp.so
+#|pkg name $target-cryptopp-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg dep $target-libcryptopp
+#|pkg + /usr/include
+#|pkg name $target-cryptopp-devel-static
+#|pkg auto $target
+#|pkg dep $target-cryptopp-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-cryptopp-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+cd c5
+make CXX=$target-g++ AR=$target-ar RANLIB=$target-ranlib CXXFLAGS="-DNDEBUG $target_opt_flags -fPIC" $parallel all dynamic
+make CXX=$target-g++ AR=$target-ar RANLIB=$target-ranlib CXXFLAGS="-DNDEBUG $target_opt_flags -fPIC" install PREFIX=$destdir/usr
+if test $lib != lib; then
+    mv $destdir/usr/lib $destdir/usr/$lib
+fi
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

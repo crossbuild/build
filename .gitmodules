@@ -809,3 +809,91 @@
 	path = src/paxutils
 	url = ../paxutils
 	ignore = dirty
+[submodule "src/gzip"]
+	path = src/gzip
+	url = ../gzip
+	ignore = dirty
+[submodule "src/gpsd"]
+	path = src/gpsd
+	url = ../gpsd
+	ignore = dirty
+[submodule "src/genext2fs"]
+	path = src/genext2fs
+	url = ../genext2fs
+	ignore = dirty
+[submodule "src/gdb"]
+	path = src/gdb
+	url = ../binutils-gdb
+	ignore = dirty
+[submodule "src/fuse"]
+	path = src/fuse
+	url = ../fuse
+	ignore = dirty
+[submodule "src/fec"]
+	path = src/fec
+	url = ../fec
+	ignore = dirty
+[submodule "src/expect"]
+	path = src/expect
+	url = ../expect
+	ignore = dirty
+[submodule "src/ethtool"]
+	path = src/ethtool
+	url = ../ethtool
+	ignore = dirty
+[submodule "src/encfs"]
+	path = src/encfs
+	url = ../encfs
+	ignore = dirty
+[submodule "src/elfutils"]
+	path = src/elfutils
+	url = ../elfutils
+	ignore = dirty
+[submodule "src/e2fsprogs"]
+	path = src/e2fsprogs
+	url = ../e2fsprogs
+	ignore = dirty
+[submodule "src/dtc"]
+	path = src/dtc
+	url = ../dtc
+	ignore = dirty
+[submodule "src/dhcp"]
+	path = src/dhcp
+	url = ../dhcp
+	ignore = dirty
+[submodule "src/cryptopp"]
+	path = src/cryptopp
+	url = ../cryptopp
+	ignore = dirty
+[submodule "src/apparmor"]
+	path = src/apparmor
+	url = ../apparmor
+	ignore = dirty
+[submodule "src/tcl"]
+	path = src/tcl
+	url = ../tcl
+	ignore = dirty
+[submodule "src/bind"]
+	path = src/bind
+	url = ../bind
+	ignore = dirty
+[submodule "src/scons"]
+	path = src/scons
+	url = ../scons
+	ignore = dirty
+[submodule "src/python"]
+	path = src/python
+	url = ../python
+	ignore = dirty
+[submodule "src/libxml2"]
+	path = src/libxml2
+	url = ../libxml2
+	ignore = dirty
+[submodule "src/rlog"]
+	path = src/rlog
+	url = ../rlog
+	ignore = dirty
+[submodule "src/sqlite"]
+	path = src/sqlite
+	url = ../sqlite
+	ignore = dirty

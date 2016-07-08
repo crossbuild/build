@@ -1,0 +1,32 @@
+#|src fec /src/fec
+#|src config /src/config
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-gcc
+#|pkg name $target-libfec
+#|pkg auto $target
+#|pkg . /usr/lib*/libfec.so
+#|pkg name $target-libfec-devel
+#|pkg auto $target
+#|pkg dep $target-libfec
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg name $target-libfec-devel-static
+#|pkg auto $target
+#|pkg dep $target-libfec-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libfec-man
+#|pkg + /usr/share/man
+#|pkg name $target-libfec-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+cp $srcdir/src/config/config.* $srcdir/src/fec/
+export "${configure_vars[@]}"
+$srcdir/src/fec/"${configure[@]}" \
+    ARCH_OPTION=-fPIC
+make $parallel HOSTCC=$build-gcc HOSTCFLAGS= AS=$target-as AR=$target-ar RANLIB=$target-ranlib
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

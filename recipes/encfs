@@ -1,0 +1,39 @@
+#|src encfs
+#|ins $target-gcc
+#|ins $target-boost-devel /$target/sys-root
+#|ins $target-fuse-devel /$target/sys-root
+#|ins $target-rlog-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-encfs
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libencfs-6
+#|pkg auto $target
+#|pkg . /usr/lib*/libencfs.so.6*
+#|pkg name $target-encfs-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/libencfs.la
+#|pkg . /usr/lib*/libencfs.so
+#|pkg + /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+chmod +x reconfig.sh
+./reconfig.sh
+export "${configure_vars[@]}"
+./"${configure[@]}" \
+    --with-boost=$sysroot/usr \
+    --with-boost-libdir=$sysroot/usr/$lib
+make SYSROOT=$sysroot $parallel
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

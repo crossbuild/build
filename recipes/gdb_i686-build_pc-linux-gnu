@@ -1,0 +1,42 @@
+#|src gdb /src
+#|ins $target-gcc
+#|ins $target-flex
+#|ins $target-bison
+#|ins $target-expat-devel /$target/sys-root
+#|ins $target-ncurses-devel /$target/sys-root
+#|pkg name $target-gdb
+#|pkg dep $target-gdb-common
+#|pkg + /bin
+#|pkg + /share/man
+#|pkg name $target-gdb-common
+#|pkg + /lib*/lib*.so
+#|pkg + /share/gdb
+#|pkg . /share/info/annotate.info
+#|pkg . /share/info/gdb*.info
+#|pkg . /share/info/stabs.info
+#|pkg name $target-gdb-devel /devel
+#|pkg + /usr/include/gdb
+#|pkg name $target-gdb-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /devel/usr
+#|pkg . /devel/usr/include
+#|pkg . /devel/usr/include/*.h
+#|pkg . /lib*
+#|pkg . /lib*/lib*.a
+#|pkg . /lib*/lib*.la
+#|pkg . /share
+#|pkg . /share/info
+#|pkg .? /share/info/dir
+#|pkg . /share/info/bfd.info
+#|pkg + /share/locale
+rm -rf $srcdir/src/{binutils,gas,gprof,ld,gold}
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+. $recipes/toolcmi $srcdir/src --target=$target --enable-tui
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/include $destdir/devel/usr

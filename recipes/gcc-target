@@ -1,0 +1,61 @@
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|ins $target-gcc
+#|ins $target-gmp-devel /$target/sys-root
+#|ins $target-mpfr-devel /$target/sys-root
+#|ins $target-mpc-devel /$target/sys-root
+#|ins $target-cloog-devel /$target/sys-root
+#|pkg name $target-gcc-target
+#|pkg auto $target
+#|pkg dep $target-binutils-target
+#|pkg dep $target-glibc-devel
+#|pkg dep $target-gcc-libs-devel
+#|pkg + /usr/bin
+#|pkg + /usr/include
+#|pkg + /usr/lib*/gcc
+#|pkg . /usr/lib*/lib*.spec
+#|pkg .? /usr/lib*/libasan_preinit.o
+#|pkg + /usr/share
+#|pkg name $target-gcc-target-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+##|pkg . /usr/lib*/libgcc_s.so*
+##|pkg . /usr/lib*/libstdc++.so*
+. $recipes/gccbase-target \
+    --enable-__cxa_atexit \
+    --enable-libmudflap --enable-libgomp --enable-libssp \
+    --enable-languages=c,c++ \
+    --enable-threads=posix --disable-libstdcxx-pch \
+    --enable-c99 --enable-long-long \
+  AR_FOR_BUILD=$build-ar \
+  AS_FOR_BUILD=$build-as \
+  CC_FOR_BUILD=$build-gcc \
+  CXX_FOR_BUILD=$build-g++ \
+  LD_FOR_BUILD=$build-ld \
+  NM_FOR_BUILD=$build-nm \
+  RANLIB_FOR_BUILD=$build-ranlib
+
+
+rm $destdir/usr/$lib/lib*.la
+rm $destdir/usr/$lib/libgcc_s.so*
+rm $destdir/usr/$lib/libgomp.{a,so*}
+rm $destdir/usr/$lib/libgomp-plugin-host_nonshm.so*
+rm $destdir/usr/$lib/libatomic.{a,so*}
+rm $destdir/usr/$lib/libstdc++.{a,so*}
+rm $destdir/usr/$lib/libstdc++fs.a
+rm $destdir/usr/$lib/libsupc++.a
+rm $destdir/usr/$lib/libssp.{a,so*}
+rm $destdir/usr/$lib/libssp_nonshared.a
+rm -f $destdir/usr/$lib/libasan.{a,so*}
+rm -f $destdir/usr/$lib/libitm.{a,so*}
+rm -f $destdir/usr/$lib/libubsan.{a,so*}
+rm -f $destdir/usr/$lib/liblsan.{a,so*}
+rm -f $destdir/usr/$lib/libtsan.{a,so*}
+rm -f $destdir/usr/$lib/libcilkrts.{a,so*}
+rm -f $destdir/usr/$lib/libquadmath.{a,so*}
+rm -f $destdir/usr/$lib/libvtv.{a,so*}
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,19 @@
+#|dep do_not_invoke_gccbase_directly
+#|src gcc /src
+. $recipes/gccbase-settings
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+export "${configure_vars[@]}"
+$srcdir/src/"${configure[@]}" \
+    --target=$target \
+    --disable-bootstrap \
+    --with-gmp --with-mpfr \
+    --with-mpc \
+    --with-cloog \
+    --with-isl \
+    --disable-multilib $checking \
+    --enable-linker-build-id \
+    "${extra_config[@]-}" "$@"
+lt_cv_shlibpath_overrides_runpath=no \
+    make $parallel
+make install DESTDIR=$destdir

@@ -1,0 +1,48 @@
+#|src fuse /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-fuse
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg name $target-libfuse-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libfuse.so.2*
+#|pkg name $target-libulockmgr-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libulockmgr.so.1*
+#|pkg name $target-fuse-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-fuse-devel-static
+#|pkg auto $target
+#|pkg dep $target-fuse-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-fuse-man
+#|pkg + /usr/share/man
+#|pkg name $target-fuse-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /dev
+#|pkg . /sbin
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+cd $srcdir/src
+sed -i -e "s|^CONFIG_RPATH=.*|CONFIG_RPATH=$srcdir/share/gettext/config.rpath|" makeconf.sh
+./makeconf.sh
+cd -
+mkdir -p $destdir/usr/sbin
+ln -s usr/sbin $destdir/sbin
+sed -i -e 's|__\([su][136][246]\)|FUSE_\1|g' $srcdir/src/include/fuse_kernel.h
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

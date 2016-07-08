@@ -1,0 +1,40 @@
+#|src dhcp
+#|ins $target-gcc
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-bind-export /$target/bind
+#|pkg name $target-dhcp-tools
+#|pkg auto $target
+#|pkg . /usr/bin/omshell
+#|pkg name $target-dhcp-client
+#|pkg auto $target
+#|pkg . /usr/sbin/dhclient
+#|pkg name $target-dhcp-server
+#|pkg auto $target
+#|pkg . /usr/sbin/dhcpd
+#|pkg name $target-dhcp-relay
+#|pkg auto $target
+#|pkg . /usr/sbin/dhcrelay
+#|pkg name $target-dhcp-devel
+#|pkg auto $target
+#|pkg dep $target-bind-export
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-dhcp-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg + /etc
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/sbin
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+mkdir bind
+echo 'all install:' > bind/Makefile.in
+ln -s $srcdir/$target/bind/usr/include/bind9 bind/include
+ln -s $srcdir/$target/bind/usr/$lib/bind9 bind/lib
+sed -i -e 's|\(_LDADD =\)|\1 -lcrypto|' {omapip,client,dhcpctl,relay,server}/Makefile.in
+. $recipes/cmi . \
+	ac_cv_file__dev_random=yes \
+	--enable-paranoia
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

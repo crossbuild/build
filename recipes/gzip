@@ -1,0 +1,15 @@
+#|src gzip /src
+#|ins $target-gcc
+#|pkg name $target-gzip
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-gzip-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+. $recipes/cmi $srcdir/src
+sed -i -e "s|^\(grep='\${GREP-'\\\\''\).*\('\\\\''}'\)$|\1/usr/bin/grep\2|" $destdir/usr/bin/zgrep
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

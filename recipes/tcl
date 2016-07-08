@@ -1,0 +1,68 @@
+#|src tcl /src
+#|ins $target-gcc
+#|pkg name $target-tcl
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/lib*/tcl8*
+#|pkg . /usr/lib*/lib*.so
+# The location for the following is unclear and needs further detailed analysis
+##|pkg + /usr/lib*/itcl*
+##|pkg + /usr/lib*/sqlite*
+##|pkg + /usr/lib*/tdbc*
+##|pkg + /usr/lib*/tdbcmysql*
+##|pkg + /usr/lib*/tdbcodbc*
+##|pkg + /usr/lib*/tdbcpostgres*
+##|pkg + /usr/lib*/thread*
+#|pkg name $target-tcl-devel
+#|pkg auto $target
+#|pkg dep $target-tcl
+#|pkg . /usr/include
+#|pkg . /usr/include/tclDecls.h
+#|pkg . /usr/include/tcl.h
+#|pkg . /usr/include/tclPlatDecls.h
+#|pkg . /usr/include/tclTomMathDecls.h
+#|pkg . /usr/include/tclTomMath.h
+##|pkg . /usr/include/fakemysql.h
+##|pkg . /usr/include/fakepq.h
+##|pkg . /usr/include/fakesql.h
+##|pkg . /usr/include/itcl.h
+##|pkg . /usr/include/itcl2TclOO.h
+##|pkg . /usr/include/itclDecls.h
+##|pkg . /usr/include/itclInt.h
+##|pkg . /usr/include/itclIntDecls.h
+##|pkg . /usr/include/itclMigrate2TclCore.h
+##|pkg . /usr/include/itclTclIntStubsFcn.h
+##|pkg . /usr/include/mysqlStubs.h
+##|pkg . /usr/include/odbcStubs.h
+##|pkg . /usr/include/pqStubs.h
+#|pkg . /usr/include/tclOO.h
+#|pkg . /usr/include/tclOODecls.h
+##|pkg . /usr/include/tclThread.h
+##|pkg . /usr/include/tdbc.h
+##|pkg . /usr/include/tdbcDecls.h
+##|pkg . /usr/include/tdbcInt.h
+#|pkg . /usr/lib*/tclConfig.sh
+#|pkg . /usr/lib*/tclooConfig.sh
+#|pkg . /usr/lib*/lib*.a
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share
+#|pkg name $target-tcl-devel-private
+#|pkg auto $target
+#|pkg dep $target-tcl-devel
+#|pkg . /usr/include/tclInt.h
+#|pkg . /usr/include/tclIntDecls.h
+#|pkg . /usr/include/tclIntPlatDecls.h
+#|pkg . /usr/include/tclPort.h
+#|pkg . /usr/include/tclUnixPort.h
+#|pkg . /usr/include/tclOOInt.h
+#|pkg . /usr/include/tclOOIntDecls.h
+#|pkg name $target-tcl-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+. $recipes/cmi $srcdir/src/unix tcl_cv_strtod_unbroken=ok
+make install-private-headers DESTDIR=$destdir
+sed -i -e "s|-[IL][^ ']* *||" $destdir/usr/$lib/tclConfig.sh
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

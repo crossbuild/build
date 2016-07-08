@@ -1,0 +1,11 @@
+#|src dtc
+#|ins $target-gcc
+#|pkg name $target-libfdt-devel
+#|pkg + /mingw
+cd libfdt
+$target-gcc -I. $target_opt_flags -c *.c
+$target-ar rv libfdt.a *.o
+
+mkdir -p $destdir/mingw/{lib,include}
+cp libfdt.a $destdir/mingw/lib
+cp fdt.h libfdt.h libfdt_env.h $destdir/mingw/include
