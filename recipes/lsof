@@ -1,0 +1,32 @@
+#|src lsof
+#|ins $target-gcc
+#|pkg name $target-lsof
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-lsof-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+LSOF_MKC='ln -s' dialects/linux/Mksrc
+cat <<EOT > Makefile
+CC = $target-gcc
+CCV = $($target-gcc -v 2>&1| sed -n 's/.*version \(.*\)/\1/p')
+LIB = lib/liblsof.a
+CFGF = -DLINUXV=310000 -DGLIBCV=219 -DHASIPv6 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE64_SOURCE -DHAS_STRFTIME -DLSOF_VSTR=\"3.10.0\"
+CFGL = -L./lib -llsof
+DEBUG = $target_opt_flags
+EOT
+cat Makefile > lib/Makefile
+cat dialects/linux/Makefile >> Makefile
+cat <<EOT >> lib/Makefile
+AR = $target-ar cr \${LIB} \${OBJ}
+RANLIB = $target-ranlib \${LIB}
+CFLAGS = \${CDEFS} \${INCL} \${DEBUG}
+EOT
+cat lib/Makefile.skel >> lib/Makefile
+make $parallel
+mkdir -p $destdir/usr/bin
+install -m 755 lsof $destdir/usr/bin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

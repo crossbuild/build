@@ -1,0 +1,31 @@
+#|src libol
+#|src config /src/config
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libol-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libol.so.0*
+#|pkg name $target-libol-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/bin
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-libol-devel-static
+#|pkg auto $target
+#|pkg dep $target-libol-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libol-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cp $srcdir/src/config/config.* .
+sed -i -e 's|^\./configure .*||' autogen.sh
+./autogen.sh
+. $recipes/cmi .
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

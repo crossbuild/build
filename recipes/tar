@@ -1,0 +1,15 @@
+#|src tar /src
+#|ins $target-gcc
+#|pkg name $target-tar
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-tar-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/rmt
+#|pkg + /usr/share
+. $recipes/cmi $srcdir/src am_cv_prog_tar_ustar=false
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

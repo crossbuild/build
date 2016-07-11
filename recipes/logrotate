@@ -1,0 +1,16 @@
+#|src logrotate
+#|ins $target-gcc
+#|ins $target-popt-devel /$target/sys-root
+#|pkg name $target-logrotate
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-logrotate-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/man
+make $parallel CC=$target-gcc RPM_OPT_FLAGS="$target_opt_flags"
+make install PREFIX=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

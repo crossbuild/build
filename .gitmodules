@@ -945,3 +945,99 @@
 	path = src/db
 	url = ../db
 	ignore = dirty
+[submodule "src/lxc"]
+	path = src/lxc
+	url = ../lxc
+	ignore = dirty
+[submodule "src/lua"]
+	path = src/lua
+	url = ../lua
+	ignore = dirty
+[submodule "src/lttng-ust"]
+	path = src/lttng-ust
+	url = ../lttng-ust
+	ignore = dirty
+[submodule "src/lttng-tools"]
+	path = src/lttng-tools
+	url = ../lttng-tools
+	ignore = dirty
+[submodule "src/lttng-modules"]
+	path = src/lttng-modules
+	url = ../lttng-modules
+	ignore = dirty
+[submodule "src/ltt-control"]
+	path = src/ltt-control
+	url = ../ltt-control
+	ignore = dirty
+[submodule "src/ltrace"]
+	path = src/ltrace
+	url = ../ltrace
+	ignore = dirty
+[submodule "src/lsof"]
+	path = src/lsof
+	url = ../lsof
+	ignore = dirty
+[submodule "src/lrzsz"]
+	path = src/lrzsz
+	url = ../lrzsz
+	ignore = dirty
+[submodule "src/logrotate"]
+	path = src/logrotate
+	url = ../logrotate
+	ignore = dirty
+[submodule "src/lmbench3"]
+	path = src/lmbench3
+	url = ../lmbench3
+	ignore = dirty
+[submodule "src/lighttpd"]
+	path = src/lighttpd
+	url = ../lighttpd
+	ignore = dirty
+[submodule "src/libusb"]
+	path = src/libusb
+	url = ../libusb
+	ignore = dirty
+[submodule "src/libunwind"]
+	path = src/libunwind
+	url = ../libunwind
+	ignore = dirty
+[submodule "src/libpcap"]
+	path = src/libpcap
+	url = ../libpcap
+	ignore = dirty
+[submodule "src/libol"]
+	path = src/libol
+	url = ../libol
+	ignore = dirty
+[submodule "src/libnl"]
+	path = src/libnl
+	url = ../libnl
+	ignore = dirty
+[submodule "src/libnfs"]
+	path = src/libnfs
+	url = ../libnfs
+	ignore = dirty
+[submodule "src/libdaemon"]
+	path = src/libdaemon
+	url = ../libdaemon
+	ignore = dirty
+[submodule "src/less"]
+	path = src/less
+	url = ../less
+	ignore = dirty
+[submodule "src/userspace-rcu"]
+	path = src/userspace-rcu
+	url = ../userspace-rcu
+	ignore = dirty
+[submodule "src/pcre"]
+	path = src/pcre
+	url = ../pcre
+	ignore = dirty
+[submodule "src/tar"]
+	path = src/tar
+	url = ../tar
+	ignore = dirty
+[submodule "src/which"]
+	path = src/which
+	url = ../which
+	ignore = dirty

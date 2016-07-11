@@ -1,0 +1,35 @@
+#|src ltt-control /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-ltt-control
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-liblttctl-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttctl.so.0*
+#|pkg name $target-liblttd-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttd.so.0*
+#|pkg name $target-ltt-control-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-ltt-control-devel-static
+#|pkg auto $target
+#|pkg dep $target-ltt-control-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-ltt-control-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cd $srcdir/src
+NOCONFIGURE=1 ./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

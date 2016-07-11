@@ -1,0 +1,6 @@
+#|src lttng-ust /src
+#|pkg name $target-lttng-ust
+#|pkg dep $target-python
+#|pkg + /bin
+mkdir -p $destdir/bin
+cp $srcdir/src/tools/lttng-gen-tp $destdir/bin/

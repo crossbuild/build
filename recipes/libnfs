@@ -1,0 +1,33 @@
+#|src libnfs /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libnfs
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libnfs-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-libnfs-8
+#|pkg auto $target
+#|pkg . /usr/lib*/libnfs.so.8*
+#|pkg name $target-libnfs-man
+#|pkg auto $target
+#|pkg + /usr/share/man
+#|pkg name $target-libnfs-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+cd $srcdir/src
+./bootstrap
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

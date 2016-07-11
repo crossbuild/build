@@ -1,0 +1,48 @@
+#|src userspace-rcu /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-liburcu-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liburcu.so.2*
+#|pkg name $target-liburcu-bp-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liburcu-bp.so.2*
+#|pkg name $target-liburcu-cds-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liburcu-cds.so.2*
+#|pkg name $target-liburcu-common-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liburcu-common.so.2*
+#|pkg name $target-liburcu-mb-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liburcu-mb.so.2*
+#|pkg name $target-liburcu-qsbr-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liburcu-qsbr.so.2*
+#|pkg name $target-liburcu-signal-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liburcu-signal.so.2*
+#|pkg name $target-userspace-rcu-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-userspace-rcu-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-userspace-rcu-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+cd $srcdir/src
+./bootstrap
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

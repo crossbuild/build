@@ -1,0 +1,13 @@
+#|src which /src
+#|ins $target-gcc
+#|pkg name $target-which
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-which-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+. $recipes/toolcmi $srcdir/src
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

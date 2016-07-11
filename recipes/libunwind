@@ -1,0 +1,64 @@
+#|src libunwind /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libunwind-8
+#|pkg auto $target
+#|pkg . /usr/lib*/libunwind.so.8*
+#|pkg name $target-libunwind-ptrace-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libunwind-ptrace.so.0*
+#|pkg name $target-libunwind-setjmp-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libunwind-setjmp.so.0*
+#|pkg name $target-libunwind-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libunwind-devel-static
+#|pkg auto $target
+#|pkg dep $target-libunwind-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libunwind-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cd $srcdir/src
+autoreconf -i
+cd -
+. $recipes/cmi $srcdir/src --disable-documentation
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
+
+case $target in
+    aarch64-*)	uwarch=aarch64;;
+    arm*)	uwarch=arm;;
+    i?86-*)	uwarch=x86;;
+    mips*)	uwarch=mips;;
+    powerpc-*)	uwarch=ppc32;;
+    x86_64-*)	uwarch=x86_64;;
+esac
+
+mkdir -p .pkg
+> .pkg/dynamic
+case $target in
+    powerpc-*)
+	;;
+    *)
+	cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-libunwind-coredump-0
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libunwind-coredump.so.0*
+EOT
+	;;
+esac
+cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-libunwind-$uwarch-8
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libunwind-$uwarch.so.8*
+EOT

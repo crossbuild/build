@@ -1,0 +1,33 @@
+#|src libpcap /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-libpcap-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libpcap.so.1*
+#|pkg name $target-libpcap-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/bin
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-libpcap-devel-static
+#|pkg auto $target
+#|pkg dep $target-libpcap-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libpcap-man
+#|pkg + /usr/share/man
+#|pkg name $target-libpcap-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+. $recipes/cmi $srcdir/src --with-pcap=linux
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,65 @@
+#|src libnl /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-libnl
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libnl-3-200
+#|pkg auto $target
+#|pkg . /usr/lib*/libnl-3.so.200*
+#|pkg name $target-libnl-cli-3-200
+#|pkg auto $target
+#|pkg . /usr/lib*/libnl-cli-3.so.200*
+#|pkg . /usr/lib*/libnl
+#|pkg . /usr/lib*/libnl/cli
+#|pkg . /usr/lib*/libnl/cli/*
+#|pkg . /usr/lib*/libnl/cli/*/*.so
+#|pkg name $target-libnl-genl-3-200
+#|pkg auto $target
+#|pkg . /usr/lib*/libnl-genl-3.so.200*
+#|pkg name $target-libnl-idiag-3-200
+#|pkg auto $target
+#|pkg . /usr/lib*/libnl-idiag-3.so.200*
+#|pkg name $target-libnl-nf-3-200
+#|pkg auto $target
+#|pkg . /usr/lib*/libnl-nf-3.so.200*
+#|pkg name $target-libnl-route-3-200
+#|pkg auto $target
+#|pkg . /usr/lib*/libnl-route-3.so.200*
+#|pkg name $target-libnl-xfrm-3-200
+#|pkg auto $target
+#|pkg . /usr/lib*/libnl-xfrm-3.so.200*
+#|pkg + /etc
+#|pkg name $target-libnl-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libnl-devel-static
+#|pkg auto $target
+#|pkg dep $target-libnl-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/libnl/cli/*/*.a
+#|pkg name $target-libnl-man
+#|pkg + /usr/share/man
+#|pkg name $target-libnl-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/lib*/libnl/cli/*/*.la
+#|pkg . /usr/share
+cd $srcdir/src
+./autogen.sh
+cd -
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

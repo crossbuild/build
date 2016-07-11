@@ -1,0 +1,20 @@
+#|src tar /src
+#|ins $target-gcc
+#|pkg name $target-tar
+#|pkg + /bin
+#|pkg name $target-tar-info
+#|pkg + /share/info
+#|pkg name $target-tar-locale
+#|pkg + /share/locale
+#|pkg name $target-tar-man
+#|pkg + /share/man
+#|pkg name $target-tar-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /lib/rmt
+#|pkg . /share
+. $recipes/toolcmi $srcdir/src am_cv_prog_tar_ustar=false
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

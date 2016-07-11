@@ -1,0 +1,38 @@
+#|src lua
+#|ins $target-gcc
+#|ins $target-readline-devel /$target/sys-root
+#|pkg name $target-lua
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/lib*/lua
+#|pkg + /usr/share/lua
+#|pkg name $target-lua-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/liblua.a
+#|pkg name $target-lua-man
+#|pkg + /usr/share/man
+#|pkg name $target-lua-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+sed -i -e '
+	s|\(#define[ \t]*LUA_ROOT[ \t]*"\)/usr/local/\("\)|\1/usr/\2|
+	s|\(#define[ \t]*LUA_CDIR[ \t]*LUA_ROOT[ \t]*"\)lib\(/lua/"[ \t]*LUA_VDIR[ \t]*"/"\)|\1'"$lib"'\2|
+	' src/luaconf.h
+make \
+	CC="$target-gcc -std=gnu99" \
+	CFLAGS="$target_opt_flags -fPIC -Wall -Wextra -DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1 \$(SYSCFLAGS) \$(MYCFLAGS)" \
+	AR="$target-ar rcu" \
+	RANLIB="$target-ranlib" \
+	$parallel linux
+make install \
+	INSTALL_TOP="$destdir/usr" \
+	INSTALL_LIB="$destdir/usr/$lib" \
+	INSTALL_MAN="$destdir/usr/share/man/man1" \
+	INSTALL_CMOD="$destdir/usr/$lib/lua/\$V"
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

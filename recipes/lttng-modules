@@ -1,0 +1,15 @@
+#|dep linux
+#|src lttng-modules /src/modules
+#|ins $target-gcc
+#|ins $target-linux-source /src
+#|pkg name $target-lttng-modules-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /lib/modules
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib/modules
+. $recipes/linuxvariants lttng-modules
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

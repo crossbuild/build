@@ -1,0 +1,47 @@
+#|src lttng-tools /src
+#|ins $target-gcc
+#|ins $target-popt-devel /$target/sys-root
+#|ins $target-util-linux-devel /$target/sys-root
+#|ins $target-userspace-rcu-devel /$target/sys-root
+#|ins $target-lttng-ust-devel /$target/sys-root
+#|ins $target-libxml2-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-lttng-tools
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/lib*/lttng
+#|pkg + /usr/share/xml
+#|pkg name $target-liblttng-ctl-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ctl.so.0*
+#|pkg name $target-lttng-tools-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-lttng-tools-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-lttng-tools-man
+#|pkg + /usr/share/man
+#|pkg name $target-lttng-tools-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./bootstrap
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,29 @@
+#|src libdaemon /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libdaemon-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libdaemon.so.0*
+#|pkg name $target-libdaemon-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share
+#|pkg name $target-libdaemon-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cd $srcdir/src
+NOCONFIGURE=1 ./bootstrap.sh
+cd -
+. $recipes/cmi $srcdir/src \
+    ac_cv_func_setpgrp_void=yes \
+    --disable-static
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

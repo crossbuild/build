@@ -1,0 +1,59 @@
+#|src lttng-ust /src
+#|ins $target-gcc
+#|ins $target-userspace-rcu-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-liblttng-ust-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust.so.0*
+#|pkg name $target-liblttng-ust-ctl-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust-ctl.so.2*
+#|pkg name $target-liblttng-ust-cyg-profile-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust-cyg-profile.so.0*
+#|pkg name $target-liblttng-ust-cyg-profile-fast-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust-cyg-profile-fast.so.0*
+#|pkg name $target-liblttng-ust-dl-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust-dl.so.0*
+#|pkg name $target-liblttng-ust-fork-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust-fork.so.0*
+#|pkg name $target-liblttng-ust-libc-wrapper-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust-libc-wrapper.so.0*
+#|pkg name $target-liblttng-ust-pthread-wrapper-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust-pthread-wrapper.so.0*
+#|pkg name $target-liblttng-ust-tracepoint-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblttng-ust-tracepoint.so.0*
+#|pkg name $target-lttng-ust-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg dep $target-userspace-rcu-devel
+#|pkg + /usr/bin
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-lttng-ust-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-lttng-ust-man
+#|pkg + /usr/share/man
+#|pkg name $target-lttng-ust-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+cd $srcdir/src
+./bootstrap
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

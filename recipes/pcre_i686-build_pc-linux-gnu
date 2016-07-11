@@ -1,0 +1,43 @@
+#|src pcre /src
+#|ins $target-gcc
+#|ins $target-automake
+#|ins $target-autoconf
+#|ins $target-libtool
+#|pkg name $target-pcre-devel /devel
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/bin
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-pcre-tools
+#|pkg . /bin/pcregrep
+#|pkg . /bin/pcretest
+#|pkg name $target-pcre-doc
+#|pkg + /share/doc
+#|pkg name $target-pcre-man
+#|pkg + /share/man
+#|pkg name $target-pcre-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /lib
+#|pkg . /devel
+#|pkg . /devel/usr
+#|pkg . /devel/usr/lib*
+#|pkg . /devel/usr/lib*/lib*.la
+#|pkg . /share
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/toolcmi $srcdir/src \
+	--disable-shared
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr/bin
+mv $destdir/{include,$lib} $destdir/devel/usr/
+mv $destdir/bin/pcre-config $destdir/devel/usr/bin/
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

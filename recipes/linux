@@ -1,0 +1,115 @@
+#|ins $target-gcc
+#|pkg name $target-linux-modules-debug /modules
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /*
+#|pkg . /modules/lib
+#|pkg . /modules/lib/modules
+#|pkg . /modules/usr
+#|pkg . /modules/usr/lib
+#|pkg . /modules/usr/lib/modules
+#|rcp linuxvariants
+. $recipes/linuxvariants
+case $target in
+    powerpc*)
+	linux_arch=powerpc
+	kimage=vmlinux
+	;;
+    mips*)
+	linux_arch=mips
+	kimage=vmlinux
+	;;
+    arm*)
+	linux_arch=arm
+	kimage=vmlinux
+	;;
+    aarch64-*)
+	linux_arch=arm64
+	kimage=vmlinux
+	;;
+    i?86-*)
+	linux_arch=i386
+	kimage=bzImage
+	;;
+    x86_64-*)
+	linux_arch=x86_64
+	kimage=bzImage
+	;;
+    *)
+	linux_arch=none
+	;;
+esac
+GHASH=$(genhash '<SOURCE>/linux' | sed -e 's|^\(.......\).*|g\1|')
+mkdir -p .pkg
+mkdir -p $destdir/modules/lib/modules
+mkdir -p $destdir/modules/usr/lib/modules
+mkdir -p $destdir/modules/usr/lib/debug
+
+for var in $variants; do
+    dtb=
+    case $target-$var in
+	powerpc*-*)
+	    dtb=$var
+	    dtbpath=arch/powerpc/boot
+	    ;;
+    esac
+    mkdir bld-$var
+    cd bld-$var
+    KMAKE="make INSTALL_MOD_PATH=$destdir/modules$USRREL ARCH=$linux_arch KCFLAGS=-Werror CROSS_COMPILE=$target-"
+    $KMAKE -C $srcdir/src/linux O=$PWD ${var}_defconfig
+    sed -i -e 's|^CONFIG_LOCALVERSION=".*"$|CONFIG_LOCALVERSION="'"-$GHASH-$var"'"|' .config
+    $KMAKE -C $srcdir/src/linux O=$PWD prepare
+    $KMAKE scripts
+    $KMAKE clean
+    find . ! -type d -printf '%P\n' |
+    grep -v '^source$' |
+    grep -v '^\.config\.old$' > ../obj-files-$var
+    $KMAKE $parallel $kimage
+    $KMAKE $parallel modules
+    $KMAKE modules_install
+    if test "$dtb"; then
+        case $dtb in
+             axc67*)
+                $KMAKE dtbs
+                ;;
+             *)
+                $KMAKE $dtb.dtb
+                ;;
+        esac
+    fi
+    mkdir -p $destdir/kernelsource-$var
+    tar -c -T ../obj-files-$var |
+    tar -C $destdir/kernelsource-$var -x
+    sed -i -e "s|MAKEARGS := -C .*|MAKEARGS := -C @@KERNELTREE@@ ARCH=$linux_arch CROSS_COMPILE=$target-|" $destdir/kernelsource-$var/Makefile
+    cp Module.symvers $destdir/kernelsource-$var
+    mkdir -p $destdir/kernel-$var
+    cp vmlinux $destdir/kernel-$var/
+    cp System.map $destdir/kernel-$var/
+    case $target-$var in
+	mips*-* | powerpc*-* | aarch64-*)
+	    $target-objdump -p vmlinux | sed -ne 's|.*LOAD.*paddr *0x[0-9a-f]*\([0-9a-f]\{8\}\).*|0x\1|p' > $destdir/kernel-$var/load
+	    $target-objdump -f vmlinux | sed -ne 's|start address 0x[0-9a-f]*\([0-9a-f]\{8\}\).*|0x\1|p' > $destdir/kernel-$var/entry
+    esac
+    if test -r arch/x86/boot/bzImage; then
+	cp arch/x86/boot/bzImage $destdir/kernel-$var/
+    fi
+    if test "$dtb"; then
+	cp $dtbpath/$dtb.dtb $destdir/kernel-$var/$var.dtb
+    fi
+    cd ..
+    cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-linux-$var /kernel-$var
+        #|pkg + /
+        #|pkg name $target-linux-source-$var /kernelsource-$var
+        #|pkg + /
+        #|pkg name $target-linux-modules-$var /modules
+        #|pkg + $USRREL/lib/modules/*-$var
+EOT
+done
+rm -f $destdir/modules$USRREL/lib/modules/*/{build,source}
+echo "#|pkg name $target-linux-source" >> .pkg/dynamic
+for var in $variants; do
+    echo "#|pkg dep $target-linux-source-$var /linux-$var" >> .pkg/dynamic
+done
+
+$recipes/strip_debug --strip-debug $target $destdir/modules /usr/lib/debug $USRREL/lib/modules

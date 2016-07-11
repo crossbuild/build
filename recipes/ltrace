@@ -1,0 +1,24 @@
+#|src ltrace /src
+#|ins $target-gcc
+#|ins $target-elfutils-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-ltrace
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg name $target-ltrace-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src \
+    ac_cv_func_fork_works=yes \
+    --disable-werror
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

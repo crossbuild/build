@@ -1,0 +1,54 @@
+#|src lighttpd /src
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-bzip2-devel /$target/sys-root
+#|ins $target-pcre-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-tar
+#|ins i686-build_pc-linux-gnu-which
+#|pkg name $target-lighttpd
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg . /usr/lib*/mod_*.so
+#|pkg name $target-lighttpd-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/mod_*.la
+#|pkg + /usr/share
+export PATH=$srcdir/bin
+(
+    cd $srcdir/src
+    ./autogen.sh
+    cd src
+    $build-gcc -DHAVE_STDINT_H -O2 -o lemon lemon.c
+    for i in configparser mod_ssi_exprparser; do
+	./lemon -q $i.y lempar.c
+    done
+    rm lemon
+)
+cat <<'EOT' > $srcdir/bin/pcre-config
+#!/bin/bash
+case "$1" in
+    --libs) echo '-lpcre';;
+    --cflags) echo;;
+esac
+EOT
+chmod 755 $srcdir/bin/pcre-config
+. $recipes/cmi $srcdir/src --with-openssl
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

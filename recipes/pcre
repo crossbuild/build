@@ -1,0 +1,47 @@
+#|src pcre /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libpcre-1
+#|pkg auto $target
+#|pkg . /usr/lib*/libpcre.so.1*
+#|pkg name $target-libpcrecpp-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libpcrecpp.so.0*
+#|pkg name $target-libpcreposix-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libpcreposix.so.0*
+#|pkg name $target-pcre-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg . /usr/bin/pcre-config
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-pcre-devel-static
+#|pkg auto $target
+#|pkg dep $target-pcre-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-pcre-tools
+#|pkg auto $target
+#|pkg . /usr/bin/pcregrep
+#|pkg . /usr/bin/pcretest
+#|pkg name $target-pcre-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-pcre-man
+#|pkg + /usr/share/man
+#|pkg name $target-pcre-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

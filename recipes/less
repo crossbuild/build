@@ -1,0 +1,20 @@
+#|src less /src
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|pkg name $target-less
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-less-man
+#|pkg + /usr/share/man
+#|pkg name $target-less-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+for i in configure Makefile.in; do
+    touch $(find $srcdir/src -name $i)
+done
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

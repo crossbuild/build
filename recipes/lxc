@@ -1,0 +1,47 @@
+#|src lxc
+#|ins $target-gcc
+#|ins $target-libcap-devel /$target/sys-root
+#|ins $target-lua-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-lxc
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg + /usr/lib*/lxc
+#|pkg + /usr/share/lxc
+#|pkg + /etc
+#|pkg + /var
+#|pkg name $target-lxc-lua
+#|pkg auto $target
+#|pkg dep $target-lua
+#|pkg + /usr/lib*/lua
+#|pkg + /usr/share/lua
+#|pkg name $target-liblxc-1
+#|pkg auto $target
+#|pkg . /usr/lib*/liblxc.so.1*
+#|pkg name $target-lxc-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share/doc
+#|pkg name $target-lxc-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+./autogen.sh
+. $recipes/cmi . \
+	LUA_CFLAGS='-DLUA_COMPAT_5_2' \
+	LUA_LIBS=-llua \
+	--enable-lua \
+	--disable-doc
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

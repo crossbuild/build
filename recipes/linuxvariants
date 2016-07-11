@@ -1,0 +1,40 @@
+#|src linux /src/linux
+variants=
+case $target in
+    powerpc*)	variants="";;
+    mips*)	variants="";;
+    arm*)	variants="";;
+    aarch64-*)	variants="";;
+    i?86-*)	variants="";;
+    x86_64-*)	variants="";;
+esac
+if test "$lib" = lib; then
+    USRREL=/usr
+else
+    USRREL=
+fi
+for i in $srcdir/src/linux-*/Makefile; do
+    if test -r $i; then
+	sed -i -e "s|@@KERNELTREE@@|$srcdir/src/linux|" $i
+    fi
+done
+
+if test $# = 1; then
+    mkdir -p .pkg
+    mkdir -p $destdir/lib/modules
+    mkdir -p $destdir/usr/lib/modules
+    mkdir -p $destdir/usr/lib/debug
+    for var in $variants; do
+	cp -a $srcdir/src/modules obj-$var
+	cd obj-$var
+	make -C $srcdir/src/linux-$var M=$PWD modules $parallel
+	make -C $srcdir/src/linux-$var M=$PWD modules_install INSTALL_MOD_PATH=$destdir$USRREL
+	cd ..
+	cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-$1-$var
+        #|pkg + $USRREL/lib/modules/*-$var
+EOT
+    done
+
+    $recipes/strip_debug --strip-debug $target $destdir /usr/lib/debug $USRREL/lib/modules
+fi
