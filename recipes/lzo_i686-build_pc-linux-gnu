@@ -1,0 +1,9 @@
+#|src lzo /src
+#|ins $target-gcc
+#|pkg name $target-lzo-devel
+#|pkg + /usr
+. $recipes/toolcmi $srcdir/src \
+    --disable-shared --enable-static
+rm $destdir/lib*/lib*.la
+mkdir $destdir/usr
+mv $destdir/{include,$lib,share} $destdir/usr

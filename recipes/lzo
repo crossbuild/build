@@ -1,0 +1,21 @@
+#|src lzo /src
+#|ins $target-gcc
+#|pkg name $target-liblzo2-2
+#|pkg auto $target
+#|pkg . /usr/lib*/liblzo2.so.2*
+#|pkg name $target-lzo-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/share
+#|pkg name $target-lzo-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+. $recipes/cmi $srcdir/src \
+    --enable-shared --disable-static
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

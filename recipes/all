@@ -75,4 +75,7 @@
 #|dep lua
 #|dep lxc
 #|dep lz4
+#|dep mc
+#|dep memtester
+#|dep mtd-utils
 #|dep zlib

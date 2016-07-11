@@ -1,0 +1,21 @@
+#|src memtester
+#|ins $target-gcc
+#|pkg name $target-memtester
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-memtester-man
+#|pkg + /usr/share/man
+#|pkg name $target-memtester-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+sed -i -e "s|^cc -O2|$target-gcc $target_opt_flags|" conf-cc
+sed -i -e "s|^cc -s|$target-gcc $target_opt_flags|" conf-ld
+make $parallel
+make install INSTALLPATH=$destdir/usr
+mkdir $destdir/usr/share
+mv $destdir/usr/man $destdir/usr/share/
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

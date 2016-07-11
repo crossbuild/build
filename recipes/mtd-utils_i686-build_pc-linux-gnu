@@ -1,0 +1,22 @@
+#|src mtd-utils src
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-lzo-devel /$target/sys-root
+#|ins $target-util-linux-devel /$target/sys-root
+#|pkg name $target-mtd-utils
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-mtd-utils-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+BUILDDIR="$PWD"
+cd src
+mv mkfs.ubifs/mkfs.ubifs.c mkfs.ubifs/mkfs.ubifs.c.tmp
+sed -ne 's/^#define.*EXT2_\(.*_FL\|IOC_\)/#define FS_\1/p' $srcdir/$target/sys-root/usr/include/linux/ext2_fs.h > mkfs.ubifs/mkfs.ubifs.c
+cat mkfs.ubifs/mkfs.ubifs.c.tmp >> mkfs.ubifs/mkfs.ubifs.c
+rm mkfs.ubifs/mkfs.ubifs.c.tmp
+make DESTDIR=$destdir PREFIX=/ SBINDIR=//bin BUILDDIR="$BUILDDIR" CROSS=$target- WITHOUT_XATTR=1 $parallel
+make DESTDIR=$destdir PREFIX=/ SBINDIR=//bin BUILDDIR="$BUILDDIR" CROSS=$target- WITHOUT_XATTR=1 install
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

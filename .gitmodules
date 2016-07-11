@@ -1041,3 +1041,19 @@
 	path = src/which
 	url = ../which
 	ignore = dirty
+[submodule "src/mtd-utils"]
+	path = src/mtd-utils
+	url = ../mtd-utils
+	ignore = dirty
+[submodule "src/memtester"]
+	path = src/memtester
+	url = ../memtester
+	ignore = dirty
+[submodule "src/mc"]
+	path = src/mc
+	url = ../mc
+	ignore = dirty
+[submodule "src/lzo"]
+	path = src/lzo
+	url = ../lzo
+	ignore = dirty

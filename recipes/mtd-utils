@@ -1,0 +1,72 @@
+#|src mtd-utils /src
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-lzo-devel /$target/sys-root
+#|ins $target-util-linux-devel /$target/sys-root
+#|pkg name $target-mtd-utils-nobusybox-limited
+#|pkg auto $target
+#|pkg . /usr/sbin/flash_erase
+#|pkg . /usr/sbin/flash_eraseall
+#|pkg . /usr/sbin/flashcp
+#|pkg . /usr/sbin/mkfs.ubifs
+#|pkg . /usr/sbin/mtd_debug
+#|pkg . /usr/sbin/recv_image
+#|pkg . /usr/sbin/serve_image
+#|pkg . /usr/sbin/ubiattach
+#|pkg . /usr/sbin/ubicrc32
+#|pkg . /usr/sbin/ubidetach
+#|pkg . /usr/sbin/ubiformat
+#|pkg . /usr/sbin/ubinfo
+#|pkg . /usr/sbin/ubinize
+#|pkg . /usr/sbin/ubirename
+#|pkg name $target-mtd-utils-nobusybox
+#|pkg auto $target
+#|pkg dep $target-mtd-utils-nobusybox-limited
+#|pkg . /usr/sbin/doc_loadbios
+#|pkg . /usr/sbin/docfdisk
+#|pkg . /usr/sbin/flash_lock
+#|pkg . /usr/sbin/flash_otp_dump
+#|pkg . /usr/sbin/flash_otp_info
+#|pkg . /usr/sbin/flash_otp_lock
+#|pkg . /usr/sbin/flash_otp_write
+#|pkg . /usr/sbin/flash_unlock
+#|pkg . /usr/sbin/ftl_check
+#|pkg . /usr/sbin/ftl_format
+#|pkg . /usr/sbin/jffs2dump
+#|pkg . /usr/sbin/jffs2reader
+#|pkg . /usr/sbin/mkfs.jffs2
+#|pkg . /usr/sbin/mtdinfo
+#|pkg . /usr/sbin/mtdpart
+#|pkg . /usr/sbin/nanddump
+#|pkg . /usr/sbin/nandtest
+#|pkg . /usr/sbin/nandwrite
+#|pkg . /usr/sbin/nftl_format
+#|pkg . /usr/sbin/nftldump
+#|pkg . /usr/sbin/rfddump
+#|pkg . /usr/sbin/rfdformat
+#|pkg . /usr/sbin/sumtool
+#|pkg . /usr/sbin/ubiblock
+#|pkg name $target-mtd-utils-limited
+#|pkg auto $target
+#|pkg dep $target-mtd-utils-nobusybox-limited
+#|pkg . /usr/sbin/ubimkvol
+#|pkg . /usr/sbin/ubirmvol
+#|pkg . /usr/sbin/ubirsvol
+#|pkg . /usr/sbin/ubiupdatevol
+#|pkg name $target-mtd-utils
+#|pkg auto $target
+#|pkg dep $target-mtd-utils-nobusybox
+#|pkg dep $target-mtd-utils-limited
+#|pkg name $target-mtd-utils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/sbin
+#|pkg + /usr/share
+BUILDDIR="$PWD"
+cd $srcdir/src
+make DESTDIR=$destdir BUILDDIR="$BUILDDIR" CROSS=$target- WITHOUT_XATTR=1 $parallel
+make DESTDIR=$destdir BUILDDIR="$BUILDDIR" CROSS=$target- WITHOUT_XATTR=1 install
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

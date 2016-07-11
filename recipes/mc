@@ -1,0 +1,35 @@
+#|src mc /src
+#|ins $target-gcc
+#|ins $target-glib-devel /$target/sys-root
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-mc
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg + /usr/lib/mc
+#|pkg + /usr/share/mc
+#|pkg name $target-mc-man
+#|pkg + /usr/share/man
+#|pkg name $target-mc-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-mc-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src \
+	--with-screen=ncurses \
+	--without-x
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
