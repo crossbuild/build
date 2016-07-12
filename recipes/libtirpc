@@ -1,0 +1,34 @@
+#|src libtirpc /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libtirpc-1
+#|pkg auto $target
+#|pkg + /etc
+#|pkg . /usr/lib*/libtirpc.so.1*
+#|pkg name $target-libtirpc-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libtirpc-devel-static
+#|pkg auto $target
+#|pkg dep $target-libtirpc-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libtirpc-man
+#|pkg + /usr/share/man
+#|pkg name $target-libtirpc-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+cd $srcdir/src
+bash -e autogen.sh
+cd -
+. $recipes/cmi $srcdir/src --disable-gssapi
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

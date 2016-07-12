@@ -1,0 +1,26 @@
+#|src libmnl /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libmnl-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libmnl.so.0*
+#|pkg name $target-libmnl-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libmnl-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

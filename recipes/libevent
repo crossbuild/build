@@ -1,0 +1,36 @@
+#|src libevent /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libevent-devel
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-libevent-2-0-5
+#|pkg auto $target
+#|pkg . /usr/lib*/libevent-2.0.so.5*
+#|pkg name $target-libevent_core-2-0-5
+#|pkg auto $target
+#|pkg . /usr/lib*/libevent_core-2.0.so.5*
+#|pkg name $target-libevent_extra-2-0-5
+#|pkg auto $target
+#|pkg . /usr/lib*/libevent_extra-2.0.so.5*
+#|pkg name $target-libevent_pthreads-2-0-5
+#|pkg auto $target
+#|pkg . /usr/lib*/libevent_pthreads-2.0.so.5*
+#|pkg name $target-libevent-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

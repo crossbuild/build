@@ -1,0 +1,26 @@
+#|src lvm2 /src
+#|ins $target-gcc
+#|pkg name $target-lvm2
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/sbin
+#|pkg name $target-lvm2-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg + /usr/share
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-libdevmapper-1-02
+#|pkg auto $target
+#|pkg . /usr/lib*/libdevmapper.so.1.02
+#|pkg name $target-lvm2-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+export CC=$target-gcc
+export "${configure_vars[@]}"
+$srcdir/src/"${configure[@]}" --with-usrlibdir=/usr/$lib
+make $parallel AR=$target-ar
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

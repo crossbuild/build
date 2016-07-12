@@ -1,0 +1,15 @@
+#|src ntpclient
+#|ins $target-gcc
+#|pkg name $target-ntpclient
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-ntpclient-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+make CC=$target-gcc $parallel
+mkdir -p $destdir/usr/bin
+cp -a ntpclient $destdir/usr/bin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

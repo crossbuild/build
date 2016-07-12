@@ -1057,3 +1057,67 @@
 	path = src/lzo
 	url = ../lzo
 	ignore = dirty
+[submodule "src/ntpclient"]
+	path = src/ntpclient
+	url = ../ntpclient
+	ignore = dirty
+[submodule "src/ntp"]
+	path = src/ntp
+	url = ../ntp
+	ignore = dirty
+[submodule "src/nftables"]
+	path = src/nftables
+	url = ../nftables
+	ignore = dirty
+[submodule "src/nfs-utils"]
+	path = src/nfs-utils
+	url = ../nfs-utils
+	ignore = dirty
+[submodule "src/net-tools"]
+	path = src/net-tools
+	url = ../net-tools
+	ignore = dirty
+[submodule "src/net-snmp"]
+	path = src/net-snmp
+	url = ../net-snmp
+	ignore = dirty
+[submodule "src/netsend"]
+	path = src/netsend
+	url = ../netsend
+	ignore = dirty
+[submodule "src/netperf"]
+	path = src/netperf
+	url = ../netperf
+	ignore = dirty
+[submodule "src/netcat-openbsd"]
+	path = src/netcat-openbsd
+	url = ../netcat-openbsd
+	ignore = dirty
+[submodule "src/cmake"]
+	path = src/cmake
+	url = ../cmake
+	ignore = dirty
+[submodule "src/libnftnl"]
+	path = src/libnftnl
+	url = ../libnftnl
+	ignore = dirty
+[submodule "src/libmnl"]
+	path = src/libmnl
+	url = ../libmnl
+	ignore = dirty
+[submodule "src/libevent"]
+	path = src/libevent
+	url = ../libevent
+	ignore = dirty
+[submodule "src/libnfsidmap"]
+	path = src/libnfsidmap
+	url = ../libnfsidmap
+	ignore = dirty
+[submodule "src/libtirpc"]
+	path = src/libtirpc
+	url = ../libtirpc
+	ignore = dirty
+[submodule "src/lvm2"]
+	path = src/lvm2
+	url = ../lvm2
+	ignore = dirty

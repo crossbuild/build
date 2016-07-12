@@ -1,0 +1,19 @@
+#|src netperf /src/netperf
+#|src config /src/config
+#|ins $target-gcc
+#|ins $target-lksctp-tools-devel /$target/sys-root
+#|pkg name $target-netperf
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-netperf-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+cp $srcdir/src/config/config.* $srcdir/src/netperf
+. $recipes/cmi $srcdir/src/netperf \
+	ac_cv_func_setpgrp_void=yes \
+	--enable-sctp --enable-unixdomain
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

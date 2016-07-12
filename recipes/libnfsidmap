@@ -1,0 +1,33 @@
+#|src libnfsidmap /src/libnfsidmap
+#|src config /src/config
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libnfsidmap-devel
+#|pkg auto $target
+#|pkg + /usr/share
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg . /usr/lib*/libnfsidmap/*.a
+#|pkg name $target-libnfsidmap-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libnfsidmap.so.0*
+#|pkg . /usr/lib*/libnfsidmap
+#|pkg . /usr/lib*/libnfsidmap/*.so
+#|pkg name $target-libnfsidmap-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/lib*/libnfsidmap/*.la
+cd $srcdir/src/libnfsidmap
+./autogen.sh
+cd -
+cp $srcdir/src/config/config.* $srcdir/src/libnfsidmap/
+. $recipes/cmi $srcdir/src/libnfsidmap --with-pluginpath=/usr/$lib/libnfsidmap
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

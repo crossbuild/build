@@ -78,4 +78,14 @@
 #|dep mc
 #|dep memtester
 #|dep mtd-utils
+#|dep ncurses
+#|dep netcat-openbsd
+#|dep netperf
+#|dep netsend
+#|dep net-snmp
+#|dep net-tools
+#|dep nfs-utils
+#|dep nftables
+#|dep ntp
+#|dep ntpclient
 #|dep zlib

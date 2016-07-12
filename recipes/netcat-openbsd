@@ -1,0 +1,23 @@
+#|src netcat-openbsd
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-cmake
+#|pkg name $target-netcat-openbsd
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-netcat-openbsd-man
+#|pkg + /usr/share/man
+#|pkg name $target-netcat-openbsd-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+export CC=$target-gcc
+export CFLAGS="$target_opt_flags"
+cmake -DCMAKE_INSTALL_PREFIX=/usr
+make $parallel
+make DESTDIR=$destdir install
+ln -s nc $destdir/usr/bin/netcat
+ln -s nc.1 $destdir/usr/share/man/man1/netcat.1
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

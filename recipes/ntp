@@ -1,0 +1,42 @@
+#|src ntp /src/ntp
+#|src config /src/config
+#|ins $target-gcc
+#|ins $target-libcap-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-libevent-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-ntp-genfiles /src/ntp-genfiles
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-ntp
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-ntp-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src/ntp
+TEMPDIR="$blddir" ./bootstrap
+cd -
+cp $srcdir/src/config/config.* $srcdir/src/ntp/
+cp $srcdir/src/config/config.* $srcdir/src/ntp/sntp/
+cp $srcdir/src/config/config.* $srcdir/src/ntp/sntp/libevent/build-aux/
+#cp $srcdir/src/ntp-genfiles/ntp_{parser,keyword}.* $srcdir/src/ntp/ntpd/
+export "${configure_vars[@]}"
+$srcdir/src/ntp/"${configure[@]}" \
+	--without-ntpsnmpd \
+	--with-yielding-select=yes
+echo '#define USE_COMPILETIME_PIVOT 0' >> config.h
+make $parallel
+touch ntpd/keyword-gen.o
+cp $srcdir/src/ntp-genfiles/keyword-gen ntpd/
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

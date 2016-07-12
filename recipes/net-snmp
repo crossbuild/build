@@ -1,0 +1,63 @@
+#|src net-snmp
+#|src config /src/config
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-net-snmp
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libnetsnmp-30
+#|pkg auto $target
+#|pkg . /usr/lib*/libnetsnmp.so.30*
+#|pkg name $target-libnetsnmpagent-30
+#|pkg auto $target
+#|pkg . /usr/lib*/libnetsnmpagent.so.30*
+#|pkg name $target-libnetsnmphelpers-30
+#|pkg auto $target
+#|pkg . /usr/lib*/libnetsnmphelpers.so.30*
+#|pkg name $target-libnetsnmpmibs-30
+#|pkg auto $target
+#|pkg . /usr/lib*/libnetsnmpmibs.so.30*
+#|pkg name $target-net-snmp-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/libnetsnmp.so
+#|pkg . /usr/lib*/libnetsnmpagent.so
+#|pkg . /usr/lib*/libnetsnmphelpers.so
+#|pkg . /usr/lib*/libnetsnmpmibs.so
+#|pkg name $target-net-snmp-devel-static
+#|pkg auto $target
+#|pkg dep $target-net-snmp-devel
+#|pkg . /usr/lib*/libnetsnmp.a
+#|pkg . /usr/lib*/libnetsnmpagent.a
+#|pkg . /usr/lib*/libnetsnmphelpers.a
+#|pkg . /usr/lib*/libnetsnmpmibs.a
+#|pkg name $target-net-snmp-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+#|pkg . /usr/lib*/libnetsnmp.la
+#|pkg . /usr/lib*/libnetsnmpagent.la
+#|pkg . /usr/lib*/libnetsnmphelpers.la
+#|pkg . /usr/lib*/libnetsnmpmibs.la
+
+cp $srcdir/src/config/config.* .
+
+# as parallel build is broken for this package, call configure/make manually
+export "${configure_vars[@]}"
+./"${configure[@]}" --with-defaults --disable-embedded-perl --without-perl-modules \
+		    --disable-agent --disable-applications --disable-scripts \
+		    --disable-mibs --disable-mib-loading --disable-des --disable-privacy \
+		    --disable-md5 --disable-snmpv1 --disable-snmptrapd-subagent \
+		    --without-opaque-special-types --with-default-snmp-version="2" \
+		    --with-out-transports="UDPIPv6 TCPIPv6 TCP Unix AAL5PVC IPX DTLSUDP TLSTCP SSH" \
+		    --with-out-mib-modules="snmpv3mibs ucd_snmp agent_mibs agentx target utilities disman/event disman/schedule host"
+
+make -j1
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

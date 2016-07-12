@@ -1,0 +1,17 @@
+#|src net-tools
+#|ins $target-gcc
+#|pkg name $target-net-tools
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-net-tools-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+yes '' | make config
+# not safe to build in $parallel
+make CC=$target-gcc AR=$target-ar
+make install BASEDIR=$destdir mandir=/share/man
+mv $destdir/sbin/* $destdir/bin/
+rmdir $destdir/sbin
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

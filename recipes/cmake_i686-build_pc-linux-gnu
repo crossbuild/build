@@ -1,0 +1,19 @@
+#|src cmake /src
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|pkg name $target-cmake
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-cmake-doc
+#|pkg + /doc
+#|pkg name $target-cmake-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+export CC=$target-gcc
+export CXX=$target-g++
+$srcdir/src/bootstrap --prefix=/
+make $parallel
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

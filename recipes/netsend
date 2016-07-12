@@ -1,0 +1,34 @@
+#|src netsend
+#|ins $target-gcc
+#|pkg name $target-netsend
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-netsend-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+cat <<'EOT' > config.h
+#define HAVE_ALLOCA 1
+#define HAVE_SPLICE 1
+#define HAVE_AF_TIPC 1
+#define HAVE_TCP_MD5SIG 1
+EOT
+cat <<EOT > Make.Rules
+MAJOR_REL=0
+MINOR_REL=1
+CC=$target-gcc
+XCFLAGS=
+WARNINGS = -Wall -Wextra -pipe -Wwrite-strings -Wsign-compare -Wshadow -Wformat=2 -Wundef -Wstrict-prototypes   -fno-strict-aliasing -fno-common -Wformat-security -Wformat-y2k -Winit-self -Wredundant-decls -Wstrict-aliasing=3 -Wswitch-default -Wswitch-enum -Wno-system-headers -Wundef -Wvolatile-register-var -Wcast-align -Wbad-function-cast -Wwrite-strings -Wold-style-definition  -Wdeclaration-after-statement -fstack-protector
+CFLAGS = \$(WARNINGS) \$(XCFLAGS)
+EOT
+cat <<EOT > configure
+#!/bin/bash
+exit 0
+EOT
+
+make $parallel
+mkdir -p $destdir/usr/bin
+make install DESTDIR=$destdir BINDIR=/usr/bin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

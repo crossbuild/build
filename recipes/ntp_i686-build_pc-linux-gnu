@@ -1,0 +1,23 @@
+#|src ntp /src/ntp
+#|src config /src/config
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-bison
+#|ins $target-gcc
+#|ins $target-libtool
+#|pkg name $target-ntp-genfiles
+#|pkg + /
+cd $srcdir/src/ntp
+TEMPDIR="$blddir" ./bootstrap
+cd -
+cp $srcdir/src/config/config.* $srcdir/src/ntp/
+cp $srcdir/src/config/config.* $srcdir/src/ntp/sntp/
+rm $srcdir/src/ntp/ntpd/ntp_parser.[ch]
+export "${toolconfigure_vars[@]}"
+$srcdir/src/ntp/"${toolconfigure[@]}" \
+	--without-ntpsnmpd \
+	--without-crypto
+make $parallel
+cp ntpd/ntp_parser.h $srcdir/src/ntp/ntpd/
+make -C ntpd ntp_keyword.h
+cp ntpd/{keyword-gen,ntp_parser.[ch]} $srcdir/src/ntp/ntpd/ntp_keyword.h $destdir/

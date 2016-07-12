@@ -1,0 +1,44 @@
+#|src net-tools
+#|ins $target-gcc
+#|pkg name $target-net-tools-nobusybox
+#|pkg auto $target
+#|pkg dep $target-netstat
+#|pkg dep $target-mii-tool
+#|pkg . /usr/bin/domainname
+#|pkg . /usr/bin/nisdomainname
+#|pkg . /usr/bin/route
+#|pkg . /usr/bin/ypdomainname
+#|pkg . /usr/sbin/plipconfig
+#|pkg . /usr/sbin/rarp
+#|pkg . /usr/sbin/slattach
+#|pkg name $target-net-tools
+#|pkg auto $target
+#|pkg dep $target-net-tools-nobusybox
+#|pkg . /usr/bin/dnsdomainname
+#|pkg . /usr/bin/hostname
+#|pkg . /usr/sbin/arp
+#|pkg . /usr/sbin/ifconfig
+#|pkg . /usr/sbin/ipmaddr
+#|pkg . /usr/sbin/iptunnel
+#|pkg . /usr/sbin/nameif
+#|pkg name $target-netstat
+#|pkg auto $target
+#|pkg . /usr/bin/netstat
+#|pkg name $target-mii-tool
+#|pkg auto $target
+#|pkg . /usr/sbin/mii-tool
+#|pkg name $target-net-tools-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/sbin
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+yes '' | make config
+# not safe to build in $parallel
+make CC=$target-gcc AR=$target-ar
+make install BASEDIR=$destdir/usr mandir=/share/man
+mv $destdir/usr/{,s}bin/ifconfig
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

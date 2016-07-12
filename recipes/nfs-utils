@@ -1,0 +1,38 @@
+#|src nfs-utils
+#|ins $target-gcc
+#|ins $target-util-linux-devel /$target/sys-root
+#|ins $target-libevent-devel /$target/sys-root
+#|ins $target-libnfsidmap-devel /$target/sys-root
+#|ins $target-libtirpc-devel /$target/sys-root
+#|ins $target-lvm2-devel /$target/sys-root
+#|ins $target-sqlite-devel /$target/sys-root
+#|ins $target-tcp_wrappers-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-nfs-utils
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg + /var
+#|pkg name $target-nfs-utils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /sbin
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+./autogen.sh
+mkdir -p $destdir/usr/sbin
+ln -s usr/sbin $destdir/sbin
+export "${configure_vars[@]}"
+./"${configure[@]}" \
+    libblkid_cv_is_recent=yes \
+    --disable-gss
+make $parallel LIBBLKID='-lblkid -luuid'
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

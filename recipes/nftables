@@ -1,0 +1,29 @@
+#|src nftables /src
+#|ins $target-gcc
+#|ins $target-libmnl-devel /$target/sys-root
+#|ins $target-libnftnl-devel /$target/sys-root
+#|ins $target-gmp-devel /$target/sys-root
+#|ins $target-readline-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+##|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-nftables
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/sbin
+#|pkg name $target-nftables-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+cd $srcdir/src
+./autogen.sh
+cd -
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+. $recipes/cmi $srcdir/src \
+	ac_cv_prog_DOCBOOK2MAN=no
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
