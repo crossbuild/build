@@ -1,0 +1,16 @@
+#|src procinfo
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|pkg name $target-procinfo
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-procinfo-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/man
+make CC=$target-gcc LDLIBS=-lncurses $parallel CFLAGS="$target_opt_flags" LDFLAGS=
+make install prefix=$destdir/usr
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,30 @@
+#|src protobuf /src
+#|ins $target-gcc
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-libtool
+#|pkg name $target-protobuf
+#|pkg + /bin
+#|pkg name $target-protobuf-devel /devel
+#|pkg + /usr
+#|pkg name $target-protobuf-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib
+cd $srcdir/src
+mkdir -p gtest/msvc
+touch gtest/msvc/x.vcproj
+./autogen.sh
+cd -
+. $recipes/toolcmi $srcdir/src \
+    --enable-static --disable-shared
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/{include,$lib} $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi

@@ -1,0 +1,46 @@
+#|src oprofile /src
+#|ins $target-gcc
+#|ins $target-popt-devel /$target/sys-root
+#|ins $target-binutils-target-devel /$target/sys-root
+#|ins $target-libiberty-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-oprofile
+#|pkg auto $target
+#|pkg dep $target-libbfd-2-26-0-20160602
+#|pkg + /usr/bin
+#|pkg . /usr/lib*/oprofile
+#|pkg . /usr/lib*/oprofile/lib*.so.*
+#|pkg + /usr/share/oprofile
+#|pkg name $target-oprofile-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg dep $target-oprofile
+#|pkg + /usr/include
+#|pkg . /usr/lib*/oprofile/lib*.so
+#|pkg name $target-oprofile-devel-static
+#|pkg auto $target
+#|pkg dep $target-oprofile-devel
+#|pkg . /usr/lib*/oprofile/lib*.a
+#|pkg name $target-oprofile-doc
+#|pkg + /usr/share/doc
+#|pkg name $target-oprofile-man
+#|pkg + /usr/share/man
+#|pkg name $target-oprofile-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/oprofile/lib*.la
+#|pkg . /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src --with-kernel=$sysroot/usr --without-x
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

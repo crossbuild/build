@@ -1,0 +1,16 @@
+#|src pigz
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|pkg name $target-pigz
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-pigz-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+make $parallel CC=$target-gcc CFLAGS="$target_opt_flags"
+mkdir -p $destdir/usr/bin
+ln pigz unpigz $destdir/usr/bin/
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

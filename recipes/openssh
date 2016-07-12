@@ -1,0 +1,53 @@
+#|src openssh /src
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-pam-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|pkg name $target-openssh
+#|pkg auto $target
+#|pkg dep $target-openssh-client
+#|pkg dep $target-openssh-server
+#|pkg name $target-openssh-client
+#|pkg auto $target
+#|pkg dep $target-openssh-common
+#|pkg . /etc/ssh/ssh_config
+#|pkg . /usr/bin/sftp
+#|pkg . /usr/bin/ssh
+#|pkg . /usr/bin/ssh-add
+#|pkg . /usr/bin/ssh-agent
+#|pkg . /usr/bin/ssh-keyscan
+#|pkg . /usr/lib*/ssh/ssh-keysign
+#|pkg . /usr/lib*/ssh/ssh-pkcs11-helper
+#|pkg name $target-openssh-server
+#|pkg auto $target
+#|pkg dep $target-openssh-common
+#|pkg . /etc/ssh/moduli
+#|pkg . /etc/ssh/sshd_config
+#|pkg + /usr/sbin
+#|pkg . /usr/lib*/ssh/sftp-server
+#|pkg + /var
+#|pkg name $target-openssh-common
+#|pkg auto $target
+#|pkg . /etc/ssh
+#|pkg . /usr/bin/scp
+#|pkg . /usr/bin/ssh-keygen
+#|pkg . /usr/lib*/ssh
+#|pkg name $target-openssh-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /etc
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+cd $srcdir/src
+autoreconf
+cd -
+. $recipes/cmi $srcdir/src \
+    --sysconfdir=/etc/ssh \
+    --libexecdir=/usr/lib/ssh \
+    --disable-strip \
+    --with-pam
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,14 @@
+#|src patch /src
+#|ins $target-gcc
+#|pkg name $target-patch
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-patch-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

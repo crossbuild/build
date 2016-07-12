@@ -1,0 +1,14 @@
+#|src pigz
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|pkg name $target-pigz
+#|pkg + /bin
+#|pkg name $target-pigz-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib*
+make $parallel CC=$target-gcc CFLAGS="-O2 -g"
+mkdir -p $destdir/bin
+ln pigz unpigz $destdir/bin/
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

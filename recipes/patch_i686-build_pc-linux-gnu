@@ -1,0 +1,12 @@
+#|src patch /src
+#|ins $target-gcc
+#|pkg name $target-patch
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-patch-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+. $recipes/toolcmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

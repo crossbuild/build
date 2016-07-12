@@ -1,0 +1,121 @@
+#|src linux /src/linux
+#|ins $target-gcc
+#|ins $target-binutils-target-devel /$target/sys-root
+#|ins $target-elfutils-devel /$target/sys-root
+#|ins $target-libiberty-devel /$target/sys-root
+#|ins $target-libunwind-devel /$target/sys-root
+#|ins $target-python-devel /$target/sys-root
+#|ins $target-python /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-audit-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-python
+#|pkg name $target-perf
+#|pkg auto $target
+#|pkg dep $target-libbfd-2-26-0-20160602
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg + /usr/lib/perf-core
+#|pkg + /usr/lib*/traceevent
+#|pkg +? /usr/share/perf-core
+#|pkg name $target-perf-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg .? /usr/share
+
+case $target in
+    powerpc*)        linux_arch=powerpc;;
+    mips*)           linux_arch=mips;;
+    arm*)            linux_arch=arm;;
+    aarch64-*)       linux_arch=arm64;;
+    i?86-*|x86_64-*) linux_arch=x86;;
+    *)               linux_arch=none;;
+esac
+
+# patch wrong shebang in python-config
+sed -i "1 i\#!/usr/bin/env python2.7" $srcdir/bin/python2.7-config
+
+#
+# cross config (could possibly be moved to the python-dev package)
+#
+cat > $srcdir/lib/python2.7/site-packages/sitecustomize.py << EOF
+import os
+from distutils import sysconfig
+
+_cross_build = False
+
+if "PYTHON_CROSS_PREFIX" in os.environ:
+    _cross_build = True
+    sysconfig.PREFIX = os.environ["PYTHON_CROSS_PREFIX"]
+
+if "PYTHON_CROSS_EXEC_PREFIX" in os.environ:
+    _cross_build = True
+    sysconfig.EXEC_PREFIX = os.environ["PYTHON_CROSS_EXEC_PREFIX"]
+
+
+_get_config_vars_orig = sysconfig.get_config_vars
+def _get_config_vars(*args):
+    config_vars = _get_config_vars_orig(*args)
+
+    if not args:
+        result_dict = config_vars
+    else:
+        result_dict = {}
+        for idx, name in enumerate(args):
+            result_dict[name] = config_vars[idx]
+
+    if "LIBPL" in args:
+        version = _get_config_vars_orig().get("VERSION")
+        lib = _get_config_vars_orig().get("LIB")
+        result_dict["LIBPL"] = os.path.join(sysconfig.PREFIX,
+                                            lib,
+                                            "python" + version,
+                                            "config")
+
+    if not args:
+        result = result_dict
+    else:
+        result = []
+        for name in args:
+            result.append(result_dict.get(name))
+
+    return result
+
+if _cross_build:
+    sysconfig.get_config_vars = _get_config_vars
+EOF
+
+# needed to use _sysconfigdata.py from the target architecture
+# note: full python (not devel package) needs to be installed in sysroot
+export PYTHONPATH=${sysroot}/$lib/python2.7
+
+# PYTHON_CROSS_* needed for distutils to work in cross environment.
+# These variables have only any effect if sitecustomize.py is installed.
+export PYTHON_CROSS_PREFIX=${sysroot}/usr
+export PYTHON_CROSS_EXEC_PREFIX=${sysroot}/usr
+export CC=$target-gcc
+export CXX=$target-g++
+
+export MAKEFLAGS= MAKELEVEL= MFLAGS=
+export CROSS_COMPILE=$target-
+KMAKE="make
+	-C $srcdir/src/linux/tools/perf
+	-f Makefile.perf
+	O=$PWD
+	ARCH=$linux_arch
+	CROSS_COMPILE=$target-
+	NO_LIBNUMA=1
+	NO_LIBPERL=1
+	NO_GTK2=1
+	prefix=/usr
+	perfexecdir=lib/perf-core
+	lib=$lib
+	DESTDIR=$destdir
+	"
+$KMAKE
+$KMAKE install-bin install-traceevent-plugins
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

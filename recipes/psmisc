@@ -1,0 +1,21 @@
+#|src psmisc /src
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gettext
+#|pkg name $target-psmisc
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-pcmisc-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,28 @@
+#|src pciutils
+#|ins $target-gcc
+#|ins $target-libkmod-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|pkg name $target-pciutils
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-libpci-3
+#|pkg auto $target
+#|pkg . /usr/lib*/libpci.so.3*
+#|pkg . /usr/share/pci.ids.gz
+#|pkg name $target-pciutils-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg + /usr/share/man
+#|pkg name $target-pciutils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+make HOST=$target CC=$target-gcc ZLIB=yes DNS=no SHARED=yes LIBKMOD=yes PKG_CONFIG=true LIBKMOD_LIBS=-lkmod DESTDIR=$destdir PREFIX=/usr LIBDIR=/usr/$lib STRIP= $parallel
+make HOST=$target CC=$target-gcc ZLIB=yes DNS=no SHARED=yes LIBKMOD=yes PKG_CONFIG=true LIBKMOD_LIBS=-lkmod DESTDIR=$destdir PREFIX=/usr LIBDIR=/usr/$lib STRIP= install install-lib
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,70 @@
+#|src procps /src
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-procps-nobusybox
+#|pkg auto $target
+#|pkg dep $target-procps-nobusybox-limited
+#|pkg . /usr/bin/tload
+#|pkg . /usr/bin/w
+#|pkg name $target-procps-nobusybox-limited
+#|pkg auto $target
+#|pkg . /usr/bin/free
+#|pkg . /usr/bin/pmap
+#|pkg . /usr/bin/ps
+#|pkg . /usr/bin/slabtop
+#|pkg . /usr/bin/top
+#|pkg . /usr/bin/vmstat
+#|pkg . /usr/bin/watch
+#|pkg name $target-procps
+#|pkg auto $target
+#|pkg dep $target-procps-nobusybox
+#|pkg . /usr/bin/pgrep
+#|pkg . /usr/bin/pidof
+#|pkg . /usr/bin/pkill
+#|pkg . /usr/bin/pwdx
+#|pkg . /usr/sbin/sysctl
+#|pkg name $target-procps-obsolete
+#|pkg auto $target
+#|pkg . /usr/bin/skill
+#|pkg . /usr/bin/snice
+#|pkg name $target-libprocps-4
+#|pkg auto $target
+#|pkg . /usr/lib*/libprocps.so.4*
+#|pkg name $target-procps-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-procps-devel-static
+#|pkg auto $target
+#|pkg dep $target-procps-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-procps-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/bin/kill
+#|pkg . /usr/bin/uptime
+#|pkg . /usr/sbin
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg + /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./autogen.sh
+cd -
+export "${configure_vars[@]}"
+$srcdir/src/"${configure[@]}" --enable-skill
+make $parallel
+make install DESTDIR=$destdir usrbin_execdir=/usr/bin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

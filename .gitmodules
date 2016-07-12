@@ -1121,3 +1121,43 @@
 	path = src/lvm2
 	url = ../lvm2
 	ignore = dirty
+[submodule "src/psmisc"]
+	path = src/psmisc
+	url = ../psmisc
+	ignore = dirty
+[submodule "src/protobuf"]
+	path = src/protobuf
+	url = ../protobuf
+	ignore = dirty
+[submodule "src/procps"]
+	path = src/procps
+	url = ../procps
+	ignore = dirty
+[submodule "src/procinfo"]
+	path = src/procinfo
+	url = ../procinfo
+	ignore = dirty
+[submodule "src/polarssl"]
+	path = src/polarssl
+	url = ../polarssl
+	ignore = dirty
+[submodule "src/pigz"]
+	path = src/pigz
+	url = ../pigz
+	ignore = dirty
+[submodule "src/pciutils"]
+	path = src/pciutils
+	url = ../pciutils
+	ignore = dirty
+[submodule "src/patch"]
+	path = src/patch
+	url = ../patch
+	ignore = dirty
+[submodule "src/oprofile"]
+	path = src/oprofile
+	url = ../oprofile
+	ignore = dirty
+[submodule "src/openssh"]
+	path = src/openssh
+	url = ../openssh
+	ignore = dirty

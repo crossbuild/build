@@ -1,0 +1,20 @@
+#|src polarssl
+#|ins $target-gcc
+#|pkg name $target-polarssl
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-polarssl-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-polarssl-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+make $parallel CC=$target-gcc OFLAGS="$target_opt_flags" AR=$target-ar
+make install DESTDIR=$destdir/usr
+test $lib = lib || mv $destdir/usr/lib $destdir/usr/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
