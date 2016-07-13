@@ -1,0 +1,21 @@
+#|src sysstat
+#|ins $target-gcc
+#|pkg name $target-sysstat
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg + /usr/lib*/sa
+#|pkg + /var
+#|pkg name $target-sysstat-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+. $recipes/cmi . \
+	AR=$target-ar \
+	sa_lib_dir=/usr/$lib/sa \
+	--disable-man-group \
+	--disable-stripping
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,18 @@
+#|src sysbench
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-sysbench
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-sysbench-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+./autogen.sh
+. $recipes/cmi . ac_cv_func_malloc_0_nonnull=yes --without-mysql --with-gnu-ld
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

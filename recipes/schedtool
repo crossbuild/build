@@ -1,0 +1,15 @@
+#|src schedtool
+#|ins $target-gcc
+#|pkg name $target-schedtool
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-schedtool-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+make CC=$target-gcc $parallel
+make install DESTDIR=$destdir DESTPREFIX=/usr
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

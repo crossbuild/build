@@ -1,0 +1,19 @@
+#|src strace /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|pkg name $target-strace
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-strace-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+cd $srcdir/src
+./bootstrap
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

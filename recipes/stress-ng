@@ -1,0 +1,22 @@
+#|src stress-ng
+#|ins $target-gcc
+#|ins $target-keyutils-devel /$target/sys-root
+#|ins $target-libattr-devel /$target/sys-root
+#|pkg name $target-stress-ng
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-stress-ng-debug
+#|pkg + /usr/lib/debug
+#|pkg name $target-stress-ng-man
+#|pkg + /usr/share/man
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+
+export CFLAGS="$target_opt_flags"
+
+make $parallel CC=$target-gcc
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1205,3 +1205,47 @@
 	path = src/json-c
 	url = ../json-c
 	ignore = dirty
+[submodule "src/sysstat"]
+	path = src/sysstat
+	url = ../sysstat
+	ignore = dirty
+[submodule "src/sysbench"]
+	path = src/sysbench
+	url = ../sysbench
+	ignore = dirty
+[submodule "src/strongswan"]
+	path = src/strongswan
+	url = ../strongswan
+	ignore = dirty
+[submodule "src/stress-ng"]
+	path = src/stress-ng
+	url = ../stress-ng
+	ignore = dirty
+[submodule "src/strace"]
+	path = src/strace
+	url = ../strace
+	ignore = dirty
+[submodule "src/squashfs"]
+	path = src/squashfs
+	url = ../squashfs
+	ignore = dirty
+[submodule "src/socat"]
+	path = src/socat
+	url = ../socat
+	ignore = dirty
+[submodule "src/smartmontools"]
+	path = src/smartmontools
+	url = ../smartmontools
+	ignore = dirty
+[submodule "src/shadow"]
+	path = src/shadow
+	url = ../shadow
+	ignore = dirty
+[submodule "src/schedtool"]
+	path = src/schedtool
+	url = ../schedtool
+	ignore = dirty
+[submodule "src/keyutils"]
+	path = src/keyutils
+	url = ../keyutils
+	ignore = dirty

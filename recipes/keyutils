@@ -1,0 +1,33 @@
+#|src keyutils
+#|ins $target-gcc
+#|pkg name $target-keyutils
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg + /usr/share/keyutils
+#|pkg name $target-libkeyutils-1
+#|pkg auto $target
+#|pkg + /usr/lib*/libkeyutils.so.1*
+#|pkg name $target-keyutils-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg + /usr/lib*/lib*.so
+#|pkg name $target-keyutils-devel-static
+#|pkg auto $target
+#|pkg dep $target-keyutils-devel
+#|pkg + /usr/lib*/lib*.a
+#|pkg name $target-keyutils-debug
+#|pkg + /usr/lib/debug
+#|pkg name $target-keyutils-man
+#|pkg + /usr/share/man
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+
+make $parallel CC=$target-gcc CFLAGS="$target_opt_flags"
+make install DESTDIR=$destdir BINDIR=/usr/bin SBINDIR=/usr/sbin LIBDIR=/usr/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -107,4 +107,16 @@
 #|dep rsync
 #|dep rsyslog
 #|dep rt-tools
+#|dep schedtool
+#|dep sed
+#|dep shadow
+#|dep smartmontools
+#|dep socat
+#|dep squashfs
+#|dep strace
+#|dep stress-ng
+#|dep strongswan
+#|dep sysbench
+#|dep sysstat
+#|dep systemd
 #|dep zlib

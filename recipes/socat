@@ -1,0 +1,22 @@
+#|src socat /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|pkg name $target-socat
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-socat-debug
+#|pkg + /usr/lib/debug
+#|pkg name $target-socat-man
+#|pkg + /usr/share/man
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+
+cd $srcdir/src
+autoconf
+touch doc/socat.1
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

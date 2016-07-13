@@ -1,0 +1,61 @@
+#|ins $target-gcc
+#|ins $target-libcurl-devel /$target/sys-root
+#|ins $target-gmp-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-gperf
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|src strongswan /src
+#|pkg name $target-strongswan
+#|pkg auto $target
+#|pkg + /etc/ipsec.*
+#|pkg + /etc/swanctl
+#|pkg . /usr/lib/ipsec/_copyright
+#|pkg . /usr/lib/ipsec/starter
+#|pkg . /usr/lib/ipsec/scepclient
+#|pkg . /usr/lib/ipsec/stroke
+#|pkg . /usr/lib/ipsec/starter
+#|pkg . /usr/lib/ipsec/_updown
+#|pkg . /usr/lib/ipsec/charon
+#|pkg . /usr/lib*/ipsec
+#|pkg + /usr/bin
+#|pkg + /usr/sbin
+#|pkg + /usr/share/strongswan
+#|pkg name $target-libcharon-0
+#|pkg auto $target
+#|pkg . /usr/lib*/ipsec/libcharon.so.0*
+#|pkg name $target-libvici-0
+#|pkg auto $target
+#|pkg . /usr/lib*/ipsec/libvici.so.0*
+#|pkg name $target-libstrongswan-0
+#|pkg auto $target
+#|pkg . /etc/strongswan.conf
+#|pkg + /etc/strongswan.d
+#|pkg . /usr/lib*/ipsec/libstrongswan.so.0*
+#|pkg . /usr/lib*/ipsec/plugins
+#|pkg . /usr/lib*/ipsec/plugins/libstrongswan-*.so
+#|pkg name $target-strongswan-man
+#|pkg + /usr/share/man
+#|pkg name $target-strongswan-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /etc
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/ipsec/lib*.a
+#|pkg . /usr/lib*/ipsec/lib*.la
+#|pkg . /usr/lib*/ipsec/lib*.so
+#|pkg . /usr/lib*/ipsec/plugins/libstrongswan-*.a
+#|pkg . /usr/lib*/ipsec/plugins/libstrongswan-*.la
+#|pkg . /usr/share
+cd $srcdir/src
+./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src am_cv_prog_tar_ustar=false --enable-curl --enable-cra --enable-openssl
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

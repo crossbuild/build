@@ -1,0 +1,18 @@
+#|src squashfs
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-xz-devel /$target/sys-root
+#|ins $target-lzo-devel /$target/sys-root
+#|pkg name $target-squashfs
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-squashfs-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+cd squashfs-tools
+make $parallel CC=$target-gcc XZ_SUPPORT=1 LZO_SUPPORT=1
+make install INSTALL_DIR=$destdir/usr/bin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
