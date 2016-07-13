@@ -1,0 +1,19 @@
+#|src tcpdump /src
+#|ins $target-gcc
+#|ins $target-libpcap-devel /$target/sys-root
+#|pkg name $target-tcpdump
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-tcpdump-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+. $recipes/cmi $srcdir/src \
+	ac_cv_linux_vers=3 \
+	td_cv_buggygetaddrinfo=no \
+	--enable-ipv6 \
+	--with-system-libpcap
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,70 @@
+#|src xterm
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|pkg name $target-resize
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-resize-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+mkdir X11
+rm ptyx.h xtermcap.h
+touch ptyx.h xtermcap.h X11/Intrinsic.h
+cat <<'EOT' > xterm.h
+#ifndef included_xterm_h
+#define included_xterm_h
+
+#define IGNORE_RC(func) (void) func
+#define UIntClr(dst,bits) dst = dst & (unsigned) ~(bits)
+
+#define DFT_TERMTYPE "xterm"            /* AC_ARG_WITH(default-term-type) */
+#define HAVE_GETLOGIN 1         /* AC_CHECK_FUNCS(getlogin) */
+#define USE_TERMINFO 1          /* CF_FUNC_TGETENT */
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <errno.h>
+#include <ptyx.h>
+#include <sys/time.h>
+#include <time.h>
+
+#define ENVP_ARG
+
+#include <stdio.h>
+#define TypeMallocN(type,n) (type *)malloc(sizeof(type) * (size_t) (n))
+#define TypeCallocN(type,n)     (type *)calloc((size_t) (n), sizeof(type))
+#define TypeCalloc(type)        TypeCallocN(type, 1)
+#define CastMallocN(type,n)     (type *)malloc(sizeof(type) + (size_t) (n))
+
+typedef unsigned char Char;             /* to support 8 bit chars */
+
+#define IsEmpty(s) ((s) == 0 || *(s) == '\0')
+#define IsSpace(c) ((c) == ' ' || (c) == '\t' || (c) == '\r' || (c) == '\n')
+
+#define CharOf(n) ((Char)(n))
+
+#define TERMCAP_SIZE 1500
+#define TRACE2(p) /*nothing*/
+
+#include <curses.h>
+
+#ifndef NCURSES_VERSION
+#include <termcap.h>
+#endif
+
+#include <term.h>
+
+typedef char Boolean;
+typedef char *String;
+#define True 1
+#define False 0
+
+#endif /* included_xterm_h */
+EOT
+mkdir -p $destdir/usr/bin
+$target-gcc $target_opt_flags -I. resize.c version.c xstrings.c -o $destdir/usr/bin/resize
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

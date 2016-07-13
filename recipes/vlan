@@ -1,0 +1,16 @@
+#|src vlan
+#|ins $target-gcc
+#|pkg name $target-vlan
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-vlan-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+make purge
+make $parallel CC=$target-gcc CCFLAGS="$target_opt_flags" STRIP=true vconfig
+mkdir -p $destdir/usr/sbin
+cp vconfig $destdir/usr/sbin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,23 @@
+#|src vsftpd
+#|ins $target-gcc
+#|ins $target-libcap-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-pam-devel /$target/sys-root
+#|ins $target-tcp_wrappers-devel /$target/sys-root
+#|pkg name $target-vsftpd
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-vsftpd-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+sed -i -e '
+	s,#undef VSF_BUILD_SSL,#define VSF_BUILD_SSL,
+	s,#undef VSF_BUILD_TCPWRAPPERS,#define VSF_BUILD_TCPWRAPPERS,
+	' builddefs.h
+make $parallel CC=$target-gcc LIBS=-lcrypt CFLAGS="$target_opt_flags -fPIE" LINK= LIBS="-lcap -lpam -lssl -lcrypto -lwrap"
+mkdir -p $destdir/usr/sbin
+cp -a vsftpd $destdir/usr/sbin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

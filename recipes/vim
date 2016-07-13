@@ -1,0 +1,33 @@
+#|src vim
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|pkg name $target-vim
+#|pkg auto $target
+#|pkg dep $target-xxd
+#|pkg . /usr/bin/ex
+#|pkg . /usr/bin/rvi*
+#|pkg . /usr/bin/vi*
+#|pkg + /usr/share/vim
+#|pkg name $target-xxd
+#|pkg auto $target
+#|pkg . /usr/bin/xxd
+#|pkg name $target-vim-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+#|pkg + /usr/share/man
+. $recipes/cmi . \
+    vim_cv_toupper_broken=no \
+    vim_cv_terminfo=yes \
+    vim_cv_tty_group=world \
+    vim_cv_getcwd_broken=no \
+    vim_cv_stat_ignores_slash=no \
+    vim_cv_memmove_handles_overlap=yes \
+    STRIP=true \
+    --with-tlib=ncurses \
+    --disable-gui --without-x
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

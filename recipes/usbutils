@@ -1,0 +1,32 @@
+#|src usbutils /src
+#|src usbhid-dump /src/usbhid-dump
+#|ins $target-gcc
+#|ins $target-libusb-devel /$target/sys-root
+#|ins $target-systemd-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-usbutils
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-usbutils-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+#|pkg + /usr/share/pkgconfig
+#|pkg + /usr/share/man
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src/usbhid-dump
+./bootstrap
+cd -
+cd $srcdir/src
+autoreconf --install --symlink
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,29 @@
+#|src wget /src
+#|ins $target-gcc
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|pkg name $target-wget
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/bin
+#|pkg name $target-wget-info
+#|pkg + /usr/share/info
+#|pkg name $target-wget-locale
+#|pkg + /usr/share/locale
+#|pkg name $target-wget-man
+#|pkg + /usr/share/man
+#|pkg name $target-wget-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+for i in aclocal.m4 configure Makefile.in config.h.in; do
+    touch $(find $srcdir/src -name $i)
+done
+. $recipes/cmi $srcdir/src \
+	--with-ssl=openssl \
+	--without-libssl-prefix \
+	--disable-rpath
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

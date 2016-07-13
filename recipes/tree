@@ -1,0 +1,16 @@
+#|src tree
+#|ins $target-gcc
+#|pkg name $target-tree
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-tree-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+
+make $parallel CC=$target-gcc CFLAGS="$target_opt_flags -Wall -DLINUX -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64" LDFLAGS=
+mkdir -p $destdir/usr/bin
+cp -a tree $destdir/usr/bin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

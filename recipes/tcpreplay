@@ -1,0 +1,27 @@
+#|src tcpreplay
+#|src config /src/config
+#|ins $target-gcc
+#|ins $target-libpcap-devel /$target/sys-root
+##|ins i686-build_pc-linux-gnu-autoconf
+##|ins i686-build_pc-linux-gnu-automake
+##|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-tcpreplay
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-tcpreplay-man
+#|pkg + /usr/share/man
+#|pkg name $target-tcpreplay-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+#cd $srcdir/src
+#./autogen.sh
+#cd -
+cp $srcdir/src/config/config.* config
+. $recipes/cmi . \
+	--enable-dynamic-link \
+	--with-libpcap=$sysroot/usr
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

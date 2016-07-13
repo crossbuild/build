@@ -1,0 +1,17 @@
+#|src tunctl
+#|ins $target-gcc
+#|pkg name $target-tunctl
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-tunctl-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+##|pkg + /usr/share
+make $parallel CC=$target-gcc CFLAGS="$target_opt_flags" tunctl
+#make install DESTDIR=$destdir
+install -d $destdir/usr/sbin
+install tunctl $destdir/usr/sbin
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

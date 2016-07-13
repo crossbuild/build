@@ -1249,3 +1249,63 @@
 	path = src/keyutils
 	url = ../keyutils
 	ignore = dirty
+[submodule "src/xterm"]
+	path = src/xterm
+	url = ../xterm
+	ignore = dirty
+[submodule "src/wget"]
+	path = src/wget
+	url = ../wget
+	ignore = dirty
+[submodule "src/vsftpd"]
+	path = src/vsftpd
+	url = ../vsftpd
+	ignore = dirty
+[submodule "src/vlan"]
+	path = src/vlan
+	url = ../vlan
+	ignore = dirty
+[submodule "src/vim"]
+	path = src/vim
+	url = ../vim
+	ignore = dirty
+[submodule "src/valgrind"]
+	path = src/valgrind
+	url = ../valgrind
+	ignore = dirty
+[submodule "src/vex"]
+	path = src/vex
+	url = ../vex
+	ignore = dirty
+[submodule "src/usbutils"]
+	path = src/usbutils
+	url = ../usbutils
+	ignore = dirty
+[submodule "src/unzip"]
+	path = src/unzip
+	url = ../unzip
+	ignore = dirty
+[submodule "src/tunctl"]
+	path = src/tunctl
+	url = ../tunctl
+	ignore = dirty
+[submodule "src/tree"]
+	path = src/tree
+	url = ../tree
+	ignore = dirty
+[submodule "src/trace-cmd"]
+	path = src/trace-cmd
+	url = ../trace-cmd
+	ignore = dirty
+[submodule "src/tcpreplay"]
+	path = src/tcpreplay
+	url = ../tcpreplay
+	ignore = dirty
+[submodule "src/tcpdump"]
+	path = src/tcpdump
+	url = ../tcpdump
+	ignore = dirty
+[submodule "src/usbhid-dump"]
+	path = src/usbhid-dump
+	url = ../usbhid-dump
+	ignore = dirty

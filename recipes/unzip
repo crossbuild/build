@@ -1,0 +1,24 @@
+#|src unzip
+#|ins $target-gcc
+#|ins $target-bzip2-devel /$target/sys-root
+#|pkg name $target-unzip
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-unzip-man
+#|pkg + /usr/share/man
+#|pkg name $target-unzip-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib
+#|pkg . /usr/share
+make -f unix/Makefile flags CC=$target-gcc
+sed -i -e '
+	s|D_USE_BZ2=""|D_USE_BZ2="-DUSE_BZIP2"|
+	s|L_BZ2=""|L_BZ2="-lbz2"|
+	s|LF2="-s"|LF2=""|
+	' flags
+make -f unix/Makefile generic CC=$target-gcc
+make -f unix/Makefile install prefix=$destdir/usr MANDIR=$destdir/usr/share/man/man1
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

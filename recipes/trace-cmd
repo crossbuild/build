@@ -1,0 +1,15 @@
+#|src trace-cmd
+#|ins $target-gcc
+#|pkg name $target-trace-cmd
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/lib*/trace-cmd
+#|pkg name $target-trace-cmd-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+make CROSS_COMPILE=$target- prefix=/usr libdir=$lib $parallel
+make CROSS_COMPILE=$target- prefix=/usr libdir=$lib install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,25 @@
+#|src valgrind
+#|src vex VEX
+#|ins $target-gcc
+##|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-glibc-devel-static /static
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|pkg name $target-valgrind
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/lib*/valgrind
+#|pkg name $target-valgrind-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+case "$target" in
+    powerpc*)
+	sed -i -e "s|^\(TOOL_LDADD_COMMON = -lgcc\)\$|\1 $srcdir/static/usr/$lib/libc.a|" Makefile.tool.am
+	;;
+esac
+./autogen.sh
+. $recipes/cmi . --without-mpicc

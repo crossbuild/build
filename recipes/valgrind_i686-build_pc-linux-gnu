@@ -1,0 +1,28 @@
+#|src valgrind
+#|src vex VEX
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-gcc
+#|pkg name $target-valgrind
+#|pkg + /bin
+#|pkg + /lib*/valgrind
+#|pkg + /sdksetup
+#|pkg name $target-valgrind-devel /devel
+#|pkg + /usr
+#|pkg name $target-valgrind-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /lib*
+./autogen.sh
+. $recipes/toolcmi . --without-mpicc
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/devel/usr/$lib
+mv $destdir/include $destdir/devel/usr
+mv $destdir/$lib/pkgconfig $destdir/devel/usr/$lib
+mkdir -p $destdir/sdksetup
+cat <<'EOT' > $destdir/sdksetup/valgrind
+export VALGRIND_LIB=$SDKROOT/$lib/valgrind
+EOT
