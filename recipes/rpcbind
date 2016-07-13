@@ -1,0 +1,32 @@
+#|src rpcbind /src
+#|ins $target-gcc
+#|ins $target-libtirpc-devel /$target/sys-root
+#|ins $target-systemd-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-rpcbind
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg + /usr/lib/systemd
+#|pkg name $target-rpcbind-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./autogen.sh
+cd -
+mkdir systemd
+. $recipes/cmi $srcdir/src \
+    --bindir=/usr/sbin \
+    --with-rpcuser=root \
+    --enable-warmstarts \
+    --with-statedir=/var/lib/rpcbind \
+    --with-systemdsystemunitdir=/usr/lib/systemd/system
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

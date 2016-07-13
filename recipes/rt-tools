@@ -1,0 +1,25 @@
+#|src rt-tools
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-cmake
+#|pkg name $target-rt-tools
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-rt-tools-man
+#|pkg + /usr/share/man
+#|pkg name $target-rt-tools-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/share
+
+export CC=$target-gcc
+export CXX=$target-g++
+export CFLAGS="$target_opt_flags"
+
+cmake -DCMAKE_INSTALL_PREFIX=/usr
+
+make $parallel
+make DESTDIR=$destdir install
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

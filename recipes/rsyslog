@@ -1,0 +1,41 @@
+#|src rsyslog /src
+#|ins $target-gcc
+#|ins $target-libestr-devel /$target/sys-root
+#|ins $target-libee-devel /$target/sys-root
+#|ins $target-liblogging-devel /$target/sys-root
+#|ins $target-json-c-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-util-linux-devel /$target/sys-root
+#|ins $target-systemd-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-rsyslog
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg . /usr/lib*/rsyslog
+#|pkg . /usr/lib*/rsyslog/*.so
+#|pkg name $target-rsyslog-systemd
+#|pkg auto $target
+#|pkg + /usr/lib*/systemd
+#|pkg name $target-rsyslog-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/rsyslog/*.la
+#|pkg + /usr/share
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
+export LEX="$FLEX"
+cd $srcdir/src
+NOCONFIGURE=1 ./autogen.sh
+cd -
+. $recipes/cmi $srcdir/src --disable-libgcrypt --disable-generate-man-pages
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

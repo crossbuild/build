@@ -1,0 +1,28 @@
+#|src json-c /src
+#|ins $target-gcc
+#|pkg name $target-libjson-c-2
+#|pkg auto $target
+#|pkg . /usr/lib*/libjson-c.so.2*
+#|pkg name $target-json-c-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-json-c-devel-static
+#|pkg auto $target
+#|pkg dep $target-json-c-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-json-c-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+export "${configure_vars[@]}"
+$srcdir/src/"${configure[@]}"
+# cannot handle $parallel builds correctly
+make
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

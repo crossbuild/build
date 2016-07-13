@@ -1,0 +1,37 @@
+#|src libarchive /src
+#|ins $target-gcc
+#|ins $target-expat-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-perl
+#|pkg name $target-libarchive
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-libarchive-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libarchive-devel-static
+#|pkg auto $target
+#|pkg dep $target-libarchive-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libarchive-13
+#|pkg auto $target
+#|pkg . /usr/lib*/libarchive.so.13*
+#|pkg name $target-libarchive-man
+#|pkg + /usr/share/man
+#|pkg name $target-libarchive-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/share
+cd $srcdir/src
+build/autogen.sh
+cd -
+. $recipes/cmi $srcdir/src --without-xml2
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,14 @@
+#|src rsync /src
+#|ins $target-gcc
+#|ins $target-autoconf
+#|pkg name $target-rsync
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-rsync-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+touch $(find $srcdir/src -name aclocal.m4 -or -name configure -or -name Makefile.in -or -name config.hin)
+. $recipes/toolcmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

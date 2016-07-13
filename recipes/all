@@ -102,4 +102,9 @@
 #|dep protobuf
 #|dep psmisc
 #|dep python
+#|dep rpcbind
+#|dep rpm
+#|dep rsync
+#|dep rsyslog
+#|dep rt-tools
 #|dep zlib

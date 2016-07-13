@@ -1,0 +1,39 @@
+#|src liblogging /src
+#|ins $target-gcc
+#|ins $target-systemd-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-stdlogctl
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-liblogging-stdlog-0
+#|pkg auto $target
+#|pkg . /usr/lib*/liblogging-stdlog.so.0*
+#|pkg name $target-liblogging-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-liblogging-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+autoreconf --force --install
+sed -i -e '
+	s|hardcode_into_libs=yes|hardcode_into_libs=no|
+	s|^hardcode_libdir_flag_spec=\$lt_hardcode_libdir_flag_spec$|hardcode_libdir_flag_spec=|
+	' configure
+cd -
+. $recipes/cmi $srcdir/src --disable-man-pages
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

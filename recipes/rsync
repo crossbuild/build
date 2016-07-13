@@ -1,0 +1,18 @@
+#|src rsync /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|pkg name $target-rsync
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name $target-rsync-man
+#|pkg + /usr/share/man
+#|pkg name $target-rsync-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib
+#|pkg . /usr/share
+touch $(find $srcdir/src -name aclocal.m4 -or -name configure -or -name Makefile.in -or -name config.hin)
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,40 @@
+#|src libee /src
+#|ins $target-gcc
+#|ins $target-libestr-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-libee-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libee.so.0*
+#|pkg name $target-libee-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libee-devel-static
+#|pkg auto $target
+#|pkg dep $target-libee-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libee-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg + /usr/sbin
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+autoreconf --force --install
+cd -
+export "${configure_vars[@]}"
+$srcdir/src/"${configure[@]}"
+# cannot handle $parallel builds correctly
+make -j1
+make install DESTDIR=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

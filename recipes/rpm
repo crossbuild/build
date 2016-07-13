@@ -1,0 +1,63 @@
+#|src rpm /src
+#|ins $target-gcc
+#|ins $target-beecrypt-devel /$target/sys-root
+#|ins $target-db-devel /$target/sys-root
+#|ins $target-file-devel /$target/sys-root
+#|ins $target-libarchive-devel /$target/sys-root
+#|ins $target-lua-devel /$target/sys-root
+#|ins $target-popt-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|pkg name $target-rpm
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg + /usr/lib/rpm
+#|pkg . /usr/lib*/rpm-plugins
+#|pkg . /usr/lib*/rpm-plugins/*.so
+#|pkg name $target-rpm-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-librpm-3
+#|pkg auto $target
+#|pkg . /usr/lib*/librpm.so.3*
+#|pkg name $target-librpmbuild-3
+#|pkg auto $target
+#|pkg . /usr/lib*/librpmbuild.so.3*
+#|pkg name $target-librpmio-3
+#|pkg auto $target
+#|pkg . /usr/lib*/librpmio.so.3*
+#|pkg name $target-librpmsign-3
+#|pkg auto $target
+#|pkg . /usr/lib*/librpmsign.so.3*
+#|pkg name $target-rpm-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+#|pkg . /usr/lib*/rpm-plugins/*.la
+#|pkg + /usr/share
+#|pkg . /var
+#|pkg . /var/tmp
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+cd $srcdir/src
+./autogen.sh --noconfigure
+cd -
+mkdir -p $destdir/usr/bin
+cp -a $srcdir/$target/sys-root/bin $destdir
+. $recipes/cmi $srcdir/src \
+	CPPFLAGS="-I$sysroot/usr/include/beecrypt" \
+	LUA_LIBS=-llua \
+	LUA_CFLAGS='-DLUA_COMPAT_5_2 -DLUA_COMPAT_5_1' \
+	--with-beecrypt \
+	--with-external-db
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

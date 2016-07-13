@@ -1,0 +1,26 @@
+#|src beecrypt /src/beecrypt
+#|src config /src/config
+#|ins $target-gcc
+#|ins $target-zlib-devel /$target/sys-root
+#|pkg name $target-beecrypt-devel
+#|pkg auto $target
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/lib*.so
+#|pkg name $target-libbeecrypt-7
+#|pkg auto $target
+#|pkg . /usr/lib*/libbeecrypt.so.7*
+#|pkg name $target-beecrypt-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cp $srcdir/src/config/config.* $srcdir/src/beecrypt/
+. $recipes/cmi $srcdir/src/beecrypt \
+	--without-cplusplus \
+	--without-java \
+	--without-python \
+	--disable-openmp
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

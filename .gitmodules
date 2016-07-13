@@ -1161,3 +1161,47 @@
 	path = src/openssh
 	url = ../openssh
 	ignore = dirty
+[submodule "src/rt-tools"]
+	path = src/rt-tools
+	url = ../rt-tools
+	ignore = dirty
+[submodule "src/rsyslog"]
+	path = src/rsyslog
+	url = ../rsyslog
+	ignore = dirty
+[submodule "src/rsync"]
+	path = src/rsync
+	url = ../rsync
+	ignore = dirty
+[submodule "src/rpm"]
+	path = src/rpm
+	url = ../rpm
+	ignore = dirty
+[submodule "src/rpcbind"]
+	path = src/rpcbind
+	url = ../rpcbind
+	ignore = dirty
+[submodule "src/liblogging"]
+	path = src/liblogging
+	url = ../liblogging
+	ignore = dirty
+[submodule "src/libestr"]
+	path = src/libestr
+	url = ../libestr
+	ignore = dirty
+[submodule "src/libee"]
+	path = src/libee
+	url = ../libee
+	ignore = dirty
+[submodule "src/beecrypt"]
+	path = src/beecrypt
+	url = ../beecrypt
+	ignore = dirty
+[submodule "src/libarchive"]
+	path = src/libarchive
+	url = ../libarchive
+	ignore = dirty
+[submodule "src/json-c"]
+	path = src/json-c
+	url = ../json-c
+	ignore = dirty

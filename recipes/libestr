@@ -1,0 +1,30 @@
+#|src libestr /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-libtool
+#|pkg name $target-libestr-0
+#|pkg auto $target
+#|pkg . /usr/lib*/libestr.so.0*
+#|pkg name $target-libestr-devel
+#|pkg auto $target
+#|pkg dep $target-glibc-devel
+#|pkg + /usr/include
+#|pkg . /usr/lib*/lib*.so
+#|pkg + /usr/lib*/pkgconfig
+#|pkg name $target-libestr-devel-static
+#|pkg auto $target
+#|pkg dep $target-libestr-devel
+#|pkg . /usr/lib*/lib*.a
+#|pkg name $target-libestr-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib*/lib*.la
+cd $srcdir/src
+autoreconf --force --install
+cd -
+. $recipes/cmi $srcdir/src
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /
