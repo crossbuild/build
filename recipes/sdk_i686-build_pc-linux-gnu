@@ -1,0 +1,99 @@
+##|ins $target-asciidoc
+##|ins $target-atop
+#|ins $target-attr
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-babeltrace
+#|ins $target-bash
+#|ins $target-bc
+#|ins $target-bison
+#|ins $target-bzip2
+#|ins $target-coreutils
+#|ins $target-cpio
+#|ins $target-diffutils
+#|ins $target-dtc
+#|ins $target-elfutils
+#|ins $target-e2fsprogs
+#|ins $target-findutils
+#|ins $target-flex
+#|ins $target-gawk
+#|ins $target-genext2fs
+##|ins $target-git
+#|ins $target-grep
+#|ins $target-gzip
+#|ins $target-kmod
+#|ins $target-libtool
+#|ins $target-libxml2-tools
+#|ins $target-lttng-ust
+#|ins $target-m4
+#|ins $target-make
+#|ins $target-mtd-utils
+#|ins $target-ncurses
+#|ins $target-ncurses-devel /$target/sys-root
+##|ins $target-net-tools
+#|ins $target-openssl
+##|ins $target-p7zip
+#|ins $target-patch
+#|ins $target-perl
+##|ins $target-perl-Devel-Cover
+##|ins $target-perl-File-Slurp
+##|ins $target-perl-Log-Log4perl
+#|ins $target-perl-XML-Parser
+##|ins $target-perl-XML-Simple
+#|ins $target-pigz
+#|ins $target-protobuf
+#|ins $target-python
+#|ins $target-python-devel /$target/sys-root
+##|ins $target-quilt
+##|ins $target-rbtools
+#|ins $target-rsync
+#|ins $target-scons
+#|ins $target-sed
+##|ins $target-setuptools
+##|ins $target-sparse
+#|ins $target-squashfs
+##|ins $target-swig
+#|ins $target-tar
+#|ins $target-texinfo
+#|ins $target-unzip
+#|ins $target-util-linux
+#|ins $target-valgrind
+#|ins $target-which
+#|ins $target-xz
+##|ins $target-zip
+#|ins $target-gcc
+#|ins aarch64-linux-gnu-gcc
+#|ins arm-cortexa15-linux-gnueabihf-gcc
+#|ins i686-pc-linux-gnu-gcc
+#|ins x86_64-pc-linux-gnu-gcc
+#|ins mingw32-gcc
+#|ins $target-gdb
+#|ins aarch64-linux-gnu-gdb
+#|ins arm-cortexa15-linux-gnueabihf-gdb
+#|ins i686-pc-linux-gnu-gdb
+#|ins x86_64-pc-linux-gnu-gdb
+#|pkg name sdk
+#|pkg format plain
+#|pkg + /
+cp -a $srcdir/* $destdir
+
+for i in $(ls $destdir/bin | sed -ne "s|^$target-||p" | grep -v ^$target-); do
+    ln -s $target-$i $destdir/bin/$i
+done
+ln -s bash $destdir/bin/sh
+cat <<'EOT' > $destdir/bin/sdksetup
+#!/bin/bash
+case $BASH_SOURCE in
+    /*) srcdir=$(dirname $BASH_SOURCE)/..;;
+    *)  srcdir=$(dirname $PWD/$BASH_SOURCE)/..;;
+esac
+
+export PATH=$srcdir/bin:$PATH
+
+export SDKROOT=$srcdir
+for i in $(ls $srcdir/sdksetup 2>/dev/null); do
+    . $srcdir/sdksetup/$i
+done
+EOT
+#grep -h '^src ' $srcdir/.meta/*.meta |
+#sort -u -k 3 >> $destdir/version
