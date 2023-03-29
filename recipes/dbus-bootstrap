@@ -6,6 +6,7 @@
 #|ins i686-build_pc-linux-gnu-gcc
 #|ins i686-build_pc-linux-gnu-libtool
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-which
 #|pkg name $target-dbus-bootstrap
 #|pkg dep $target-expat-devel
 #|pkg dep $target-glibc-devel

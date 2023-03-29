@@ -42,7 +42,7 @@ cd $srcdir/src
 touch libkmod/docs/gtk-doc.make
 autoreconf --install --symlink
 cd -
-. $recipes/cmi $srcdir/src --with-xz --with-zlib
+. $recipes/cmi $srcdir/src --with-xz --with-zlib --disable-manpages
 mkdir $destdir/usr/sbin
 for i in depmod insmod lsmod modinfo modprobe rmmod; do
     ln -s ../bin/kmod $destdir/usr/sbin/$i

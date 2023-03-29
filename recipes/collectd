@@ -6,6 +6,7 @@
 #|ins i686-build_pc-linux-gnu-automake
 #|ins i686-build_pc-linux-gnu-libtool
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-which
 #|pkg name $target-collectd
 #|pkg auto $target
 #|pkg + /etc

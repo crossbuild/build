@@ -1,5 +1,6 @@
 #|src elfutils /src
 #|ins $target-gcc
+#|ins $target-patch
 #|pkg name $target-elfutils
 #|pkg + /bin
 #|pkg + /share

@@ -1,6 +1,7 @@
 #|src acl
 #|ins $target-gcc
 #|ins $target-libattr-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-gettext
 #|pkg name $target-acl
 #|pkg auto $target
 #|pkg + /usr/bin

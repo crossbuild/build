@@ -1,7 +1,9 @@
 #|src bind
 #|ins $target-gcc
-#|ins $target-openssl-devel /$target/sys-root
 #|ins $target-libxml2-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root/openssl
+#|blk $target-glibc-devel /$target/sys-root/openssl
 #|ins i686-build_pc-linux-gnu-gcc
 #|ins i686-build_pc-linux-gnu-libxml2-devel /i686-build_pc-linux-gnu/sys-root
 #|pkg name $target-bind
@@ -44,6 +46,7 @@ export "${configure_vars[@]}"
     --with-export-includedir=/export/usr/include/bind9 \
     --with-gssapi=no \
     --with-randomdev=/dev/random \
+    --with-openssl=$sysroot/openssl/usr \
     BUILD_CC=$build-gcc
 make -j1
 make install DESTDIR=$destdir

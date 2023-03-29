@@ -1,5 +1,6 @@
 #|src glib /src
 #|ins $target-gcc
+#|ins $target-gettext
 #|ins $target-libffi-devel /$target/sys-root
 #|ins $target-zlib-devel /$target/sys-root
 #|pkg name $target-glib

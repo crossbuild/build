@@ -3,6 +3,7 @@
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-which
 #|pkg name $target-sysbench
 #|pkg auto $target
 #|pkg + /usr/bin

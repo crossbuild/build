@@ -28,7 +28,7 @@
 #|pkg . /share
 #|pkg + /share/gcc-*
 #|pkg + /share/info
-#|pkg + /share/locale
+#|pkg +? /share/locale
 #|pkg . /share/man
 #|pkg + /share/man/man7
 . $recipes/gccbase64 \

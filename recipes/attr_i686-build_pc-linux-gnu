@@ -1,5 +1,6 @@
 #|src attr
 #|ins $target-gcc
+#|ins $target-gettext
 #|pkg name $target-attr
 #|pkg + /bin
 #|pkg + /share

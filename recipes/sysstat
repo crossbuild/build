@@ -1,5 +1,6 @@
 #|src sysstat
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-gettext
 #|pkg name $target-sysstat
 #|pkg auto $target
 #|pkg + /etc

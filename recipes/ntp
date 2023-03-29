@@ -11,12 +11,11 @@
 #|ins i686-build_pc-linux-gnu-pkg-config
 #|pkg name $target-ntp
 #|pkg auto $target
-#|pkg + /usr/sbin
+#|pkg + /usr/*bin
 #|pkg name $target-ntp-debug
 #|pkg + /usr/lib/debug
 #|pkg name nopackage
 #|pkg . /usr
-#|pkg . /usr/bin
 #|pkg . /usr/lib*
 #|pkg + /usr/share
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig

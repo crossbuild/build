@@ -7,6 +7,7 @@
 #|ins i686-build_pc-linux-gnu-gcc
 #|ins i686-build_pc-linux-gnu-libtool
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-which
 #|pkg name $target-libdbus-1-3
 #|pkg auto $target
 #|pkg . /usr/lib*/libdbus-1.so.3*
@@ -33,7 +34,7 @@
 #|pkg name $target-dbus-doc
 #|pkg + /usr/share/doc
 #|pkg name $target-dbus-man
-#|pkg + /usr/share/man
+#|pkg +? /usr/share/man
 #|pkg name $target-dbus-debug
 #|pkg + /usr/lib/debug
 #|pkg name nopackage

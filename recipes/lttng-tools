@@ -42,6 +42,6 @@ export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
 cd $srcdir/src
 ./bootstrap
 cd -
-. $recipes/cmi $srcdir/src
+. $recipes/cmi $srcdir/src --with-xml-prefix=$sysroot/usr
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

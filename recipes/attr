@@ -1,6 +1,7 @@
 #|src attr
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-gettext
 #|pkg name $target-attr
 #|pkg auto $target
 #|pkg + /usr/bin

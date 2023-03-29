@@ -13,7 +13,7 @@
 #|pkg + /usr/include
 #|pkg + /usr/lib*/pkgconfig
 #|pkg . /usr/lib*/librlog.so
-#|pkg + /usr/share
+#|pkg +? /usr/share
 #|pkg name $target-rlog-debug
 #|pkg + /usr/lib/debug
 #|pkg name nopackage

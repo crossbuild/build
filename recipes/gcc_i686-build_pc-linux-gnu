@@ -17,7 +17,7 @@
 #|pkg name $target-gcc-common
 #|pkg + /share/gcc-*
 #|pkg + /share/info
-#|pkg + /share/locale
+#|pkg +? /share/locale
 #|pkg + /share/man/man7
 #|pkg name $target-gcc-debug
 #|pkg + /lib/debug

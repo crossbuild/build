@@ -3,7 +3,7 @@
 #|pkg name $target-autoconf
 #|pkg + /bin
 #|pkg + /share/autoconf
-#|pkg + /share/emacs
+#|pkg +? /share/emacs
 #|pkg . /share/info/autoconf.info
 #|pkg + /share/man
 #|pkg + /sdksetup

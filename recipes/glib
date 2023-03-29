@@ -7,6 +7,7 @@
 #|ins i686-build_pc-linux-gnu-glib
 #|ins i686-build_pc-linux-gnu-libtool
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-gettext
 #|pkg name $target-glib
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -37,7 +38,7 @@
 #|pkg + /usr/share/aclocal
 #|pkg + /usr/share/glib-2.0
 #|pkg name $target-glib-man
-#|pkg + /usr/share/man
+#|pkg +? /usr/share/man
 #|pkg name $target-glib-locale
 #|pkg + /usr/share/locale
 #|pkg name $target-glib-bash-completion

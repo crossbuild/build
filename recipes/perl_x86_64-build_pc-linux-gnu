@@ -46,6 +46,6 @@ sed -i -e "s|$oldarchname|x86_64-linux|" config.sh
 make $parallel
 make install
 # conflicts with openssl
-rm $destdir/share/man/man3/threads.3
+rm -f $destdir/share/man/man3/threads.3
 
 $recipes/strip_debug --strip-all $target $destdir /lib/debug /

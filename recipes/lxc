@@ -42,6 +42,7 @@ export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
 	LUA_CFLAGS='-DLUA_COMPAT_5_2' \
 	LUA_LIBS=-llua \
 	--enable-lua \
-	--disable-doc
+	--disable-doc \
+	--with-distro=redhat
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

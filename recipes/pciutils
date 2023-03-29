@@ -2,6 +2,7 @@
 #|ins $target-gcc
 #|ins $target-libkmod-devel /$target/sys-root
 #|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-which
 #|pkg name $target-pciutils
 #|pkg auto $target
 #|pkg + /usr/sbin
