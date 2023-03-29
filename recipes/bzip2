@@ -1,5 +1,10 @@
 #|src bzip2
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-bzip2
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -17,6 +22,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 make $parallel CC=$target-gcc CFLAGS="-fpic -fPIC -Wall -Winline $target_opt_flags -D_FILE_OFFSET_BITS=64" AR=$target-ar RANLIB=$target-ranlib libbz2.a bzip2 bzip2recover
 $target-gcc -shared -Wl,-soname -Wl,libbz2.so.1 -o libbz2.so.1.0.6 blocksort.o huffman.o crctable.o randtable.o compress.o decompress.o bzlib.o
 $target-gcc -Wall -Winline $target_opt_flags -D_FILE_OFFSET_BITS=64 -o bzip2 bzip2.c libbz2.so.1.0.6

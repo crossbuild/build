@@ -1,0 +1,18 @@
+#|src quilt
+#|ins $target-autoconf
+#|ins $target-gcc
+#|ins $target-patch
+#|pkg name $target-quilt
+#|pkg + /
+autoconf
+BUILD_ROOT=$destdir . $recipes/toolcmi .
+
+# point awk/compat link to gawk inside the current SDK
+COMPAT_DIR=$destdir/share/quilt/compat
+rm $COMPAT_DIR/awk
+ln -s ../../../bin/gawk $COMPAT_DIR/awk
+
+mkdir -p $destdir/sdksetup
+cat <<'EOT' > $destdir/sdksetup/quilt
+export QUILT_DIR=$SDKROOT/share/quilt
+EOT

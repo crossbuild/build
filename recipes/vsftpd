@@ -4,6 +4,12 @@
 #|ins $target-openssl-devel /$target/sys-root
 #|ins $target-pam-devel /$target/sys-root
 #|ins $target-tcp_wrappers-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-vsftpd
 #|pkg auto $target
 #|pkg + /usr/sbin
@@ -12,6 +18,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 sed -i -e '
 	s,#undef VSF_BUILD_SSL,#define VSF_BUILD_SSL,
 	s,#undef VSF_BUILD_TCPWRAPPERS,#define VSF_BUILD_TCPWRAPPERS,

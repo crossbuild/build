@@ -5,3 +5,4 @@
 #|dep all i686-build_pc-linux-gnu
 #|dep all x86_64-build_pc-linux-gnu
 #|dep all mingw32
+##|dep llvm i686-build_pc-linux-gnu

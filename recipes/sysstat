@@ -1,6 +1,14 @@
 #|src sysstat
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-sysstat
 #|pkg auto $target
 #|pkg + /etc
@@ -13,6 +21,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 . $recipes/cmi . \
 	AR=$target-ar \
 	sa_lib_dir=/usr/$lib/sa \

@@ -1,6 +1,16 @@
 #|src vim
 #|ins $target-gcc
 #|ins $target-ncurses-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-sh
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-net-tools
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-vim
 #|pkg auto $target
 #|pkg dep $target-xxd
@@ -19,6 +29,7 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/share
 #|pkg + /usr/share/man
+export PATH=$srcdir/bin
 . $recipes/cmi . \
     vim_cv_toupper_broken=no \
     vim_cv_terminfo=yes \

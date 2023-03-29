@@ -2,15 +2,24 @@
 #|ins $target-gcc2
 #|ins $target-glibc-linux /$target/sys-root
 #|ins $target-glibc-headers /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-gzip
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-libc-6
 #|pkg auto $target
 #|pkg dep $target-sysroot
 #|pkg + /etc
 #|pkg . /usr/bin/getconf
 #|pkg . /usr/bin/ldd
-#|pkg . /usr/lib*/ld-2.23.so
-#|pkg . /usr/lib*/libc-2.23.so
+#|pkg . /usr/lib*/ld-2.24.so
+#|pkg . /usr/lib*/libc-2.24.so
 #|pkg .? /lib/ld*.so.*
 #|pkg .? /usr/lib*/ld*.so.*
 #|pkg . /usr/lib*/libSegFault.so
@@ -28,67 +37,67 @@
 #|pkg name $target-libBrokenLocale-1
 #|pkg auto $target
 #|pkg . /usr/lib*/libBrokenLocale.so.1
-#|pkg . /usr/lib*/libBrokenLocale-2.23.so
+#|pkg . /usr/lib*/libBrokenLocale-2.24.so
 #|pkg name $target-libanl-1
 #|pkg auto $target
 #|pkg . /usr/lib*/libanl.so.1
-#|pkg . /usr/lib*/libanl-2.23.so
+#|pkg . /usr/lib*/libanl-2.24.so
 #|pkg name $target-libcidn-1
 #|pkg auto $target
 #|pkg . /usr/lib*/libcidn.so.1
-#|pkg . /usr/lib*/libcidn-2.23.so
+#|pkg . /usr/lib*/libcidn-2.24.so
 #|pkg name $target-libcrypt-1
 #|pkg auto $target
 #|pkg . /usr/lib*/libcrypt.so.1
-#|pkg . /usr/lib*/libcrypt-2.23.so
+#|pkg . /usr/lib*/libcrypt-2.24.so
 #|pkg name $target-libdl-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libdl.so.2
-#|pkg . /usr/lib*/libdl-2.23.so
+#|pkg . /usr/lib*/libdl-2.24.so
 #|pkg name $target-libm-6
 #|pkg auto $target
 #|pkg . /usr/lib*/libm.so.6
-#|pkg . /usr/lib*/libm-2.23.so
+#|pkg . /usr/lib*/libm-2.24.so
 #|pkg name $target-libnsl-1
 #|pkg auto $target
 #|pkg . /usr/lib*/libnsl.so.1
-#|pkg . /usr/lib*/libnsl-2.23.so
+#|pkg . /usr/lib*/libnsl-2.24.so
 #|pkg name $target-libnss_compat-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libnss_compat.so.2
-#|pkg . /usr/lib*/libnss_compat-2.23.so
+#|pkg . /usr/lib*/libnss_compat-2.24.so
 #|pkg name $target-libnss_db-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libnss_db.so.2
-#|pkg . /usr/lib*/libnss_db-2.23.so
+#|pkg . /usr/lib*/libnss_db-2.24.so
 #|pkg name $target-libnss_dns-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libnss_dns.so.2
-#|pkg . /usr/lib*/libnss_dns-2.23.so
+#|pkg . /usr/lib*/libnss_dns-2.24.so
 #|pkg name $target-libnss_files-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libnss_files.so.2
-#|pkg . /usr/lib*/libnss_files-2.23.so
+#|pkg . /usr/lib*/libnss_files-2.24.so
 #|pkg name $target-libnss_hesiod-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libnss_hesiod.so.2
-#|pkg . /usr/lib*/libnss_hesiod-2.23.so
+#|pkg . /usr/lib*/libnss_hesiod-2.24.so
 #|pkg name $target-libnss_nis-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libnss_nis.so.2
-#|pkg . /usr/lib*/libnss_nis-2.23.so
+#|pkg . /usr/lib*/libnss_nis-2.24.so
 #|pkg name $target-libnss_nisplus-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libnss_nisplus.so.2
-#|pkg . /usr/lib*/libnss_nisplus-2.23.so
+#|pkg . /usr/lib*/libnss_nisplus-2.24.so
 #|pkg name $target-libpthread-0
 #|pkg auto $target
 #|pkg . /usr/lib*/libpthread.so.0
-#|pkg . /usr/lib*/libpthread-2.23.so
+#|pkg . /usr/lib*/libpthread-2.24.so
 #|pkg name $target-libresolv-2
 #|pkg auto $target
 #|pkg . /usr/lib*/libresolv.so.2
-#|pkg . /usr/lib*/libresolv-2.23.so
+#|pkg . /usr/lib*/libresolv-2.24.so
 #|pkg name $target-libthread_db-1
 #|pkg auto $target
 #|pkg . /usr/lib*/libthread_db.so.1
@@ -96,11 +105,11 @@
 #|pkg name $target-librt-1
 #|pkg auto $target
 #|pkg . /usr/lib*/librt.so.1
-#|pkg . /usr/lib*/librt-2.23.so
+#|pkg . /usr/lib*/librt-2.24.so
 #|pkg name $target-libutil-1
 #|pkg auto $target
 #|pkg . /usr/lib*/libutil.so.1
-#|pkg . /usr/lib*/libutil-2.23.so
+#|pkg . /usr/lib*/libutil-2.24.so
 #|pkg name $target-glibc-devel
 #|pkg auto $target
 #|pkg dep $target-glibc-linux
@@ -164,11 +173,6 @@
 #|pkg + /usr/lib*/audit
 #|pkg . /usr/lib*/libmemusage.so
 #|pkg . /usr/lib*/libpcprofile.so
-#|pkg name $target-glibc-timezone
-#|pkg auto $target
-#|pkg . /usr/bin/tzselect
-#|pkg . /usr/sbin/zdump
-#|pkg . /usr/sbin/zic
 #|pkg name $target-glibc-locale
 #|pkg auto $target
 #|pkg + /usr/lib*/gconv
@@ -178,7 +182,7 @@
 #|pkg + /usr/share/i18n
 #|pkg name $target-glibc-info
 #|pkg auto $target
-#|pkg + /usr/share/info
+#|pkg +? /usr/share/info
 #|pkg name $target-glibc-nscd
 #|pkg auto $target
 #|pkg . /usr/sbin/nscd
@@ -196,6 +200,7 @@
 #|pkg . /usr/sbin
 #|pkg . /usr/share
 #|pkg . /var
+export PATH=$srcdir/bin
 mkdir $destdir/usr
 cp -a $srcdir/$target/sys-root/usr/{bin,$lib,sbin} $destdir/usr
 cp -a $srcdir/$target/sys-root/{bin,$lib,sbin} $destdir
@@ -214,7 +219,8 @@ BUILD_CC=$srcdir/bin/$build-gcc \
     BASH_SHELL=/bin/bash \
     --with-headers=$sysroot/usr/include \
     --disable-profile --without-gd --without-cvs --enable-add-ons \
-    --enable-kernel=3.14 --enable-obsolete-rpc $WERROR \
+    --enable-kernel=3.14 --enable-obsolete-rpc --disable-timezone-tools \
+    $WERROR \
     "${extra_glibc[@]-}"
 make $parallel
 make install install_root=$destdir
@@ -235,7 +241,7 @@ case $target in
 	#|pkg name $target-libmvec-1
 	#|pkg auto $target
 	#|pkg . /usr/lib*/libmvec.so.1
-	#|pkg . /usr/lib*/libmvec-2.23.so
+	#|pkg . /usr/lib*/libmvec-2.24.so
 	EOT
 	;;
 esac

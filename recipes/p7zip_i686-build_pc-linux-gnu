@@ -1,0 +1,22 @@
+#|src p7zip
+#|ins $target-gcc
+#|pkg name $target-p7zip
+#|pkg + /bin
+#|pkg name $target-p7zip-doc
+#|pkg + /share/doc
+#|pkg name $target-p7zip-man
+#|pkg + /share/man
+#|pkg name $target-p7zip-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /share
+sed -e "s|^OPTFLAGS=.*|OPTFLAGS=-O2 -g|
+	s| -s | |
+	s|^CXX=.*|CXX=$target-g++|
+	s|^CC=.*|CC=$target-gcc|
+	" makefile.linux_any_cpu_gcc_4.X > makefile.machine
+make $parallel
+make install DEST_DIR=$destdir DEST_HOME= DEST_MAN=/share/man
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

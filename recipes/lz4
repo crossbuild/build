@@ -1,5 +1,11 @@
 #|src lz4
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-lz4
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -24,13 +30,15 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 EXTRAFLAGS=
 case $target in
     powerpc* | mips*)
 	EXTRAFLAGS='-DCPU_HAS_EFFICIENT_UNALIGNED_MEMORY_ACCESS=1'
         ;;
 esac
-make CC=$target-gcc CFLAGS="$target_opt_flags"' -std=c99 -Wall -Wextra -Wundef -Wshadow -Wcast-align -Wstrict-prototypes -pedantic -DLZ4_VERSION=\"$(RELEASE)\" '"$EXTRAFLAGS" $parallel
-make CC=$target-gcc CFLAGS="$target_opt_flags"' -std=c99 -Wall -Wextra -Wundef -Wshadow -Wcast-align -Wstrict-prototypes -pedantic -DLZ4_VERSION=\"$(RELEASE)\" '"$EXTRAFLAGS" install DESTDIR=$destdir PREFIX=/usr LIBDIR=/usr/$lib
+
+make AR=$target-ar CC=$target-gcc CFLAGS="$target_opt_flags"' -std=c99 -Wall -Wextra -Wundef -Wshadow -Wcast-align -Wstrict-prototypes -pedantic -DLZ4_VERSION=\"$(RELEASE)\" '"$EXTRAFLAGS" $parallel
+make AR=$target-ar CC=$target-gcc CFLAGS="$target_opt_flags"' -std=c99 -Wall -Wextra -Wundef -Wshadow -Wcast-align -Wstrict-prototypes -pedantic -DLZ4_VERSION=\"$(RELEASE)\" '"$EXTRAFLAGS" install DESTDIR=$destdir PREFIX=/usr LIBDIR=/usr/$lib
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

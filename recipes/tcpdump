@@ -1,6 +1,13 @@
 #|src tcpdump /src
 #|ins $target-gcc
 #|ins $target-libpcap-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-tcpdump
 #|pkg auto $target
 #|pkg + /usr/sbin
@@ -10,6 +17,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 . $recipes/cmi $srcdir/src \
 	ac_cv_linux_vers=3 \
 	td_cv_buggygetaddrinfo=no \

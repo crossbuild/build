@@ -1,5 +1,11 @@
 #|src schedtool
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-gzip
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-schedtool
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -9,6 +15,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 make CC=$target-gcc $parallel
 make install DESTDIR=$destdir DESTPREFIX=/usr
 

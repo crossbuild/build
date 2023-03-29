@@ -4,8 +4,17 @@
 ##|ins $target-util-linux-devel /$target/sys-root
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
 #|ins i686-build_pc-linux-gnu-which
 #|pkg name $target-collectd
 #|pkg auto $target
@@ -40,9 +49,11 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/lib*/collectd/*.la
+export PATH=$srcdir/bin
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+ln -s flex $srcdir/bin/lex
 cd $srcdir/src/collectd
 ./build.sh
 cp $srcdir/src/config/config.* libltdl/config/

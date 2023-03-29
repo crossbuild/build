@@ -1,0 +1,7 @@
+#|src zlib
+#|ins $target-gcc
+#|pkg name $target-zlib-devel
+#|pkg + /mingw
+
+make -f win32/Makefile.gcc PREFIX=mingw32-
+make -f win32/Makefile.gcc BINARY_PATH=$destdir/mingw/bin INCLUDE_PATH=$destdir/mingw/include LIBRARY_PATH=$destdir/mingw/lib install

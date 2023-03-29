@@ -1,0 +1,17 @@
+#|src pytz
+#|ins $target-gcc
+#|ins $target-python
+#|pkg name $target-pytz
+#|pkg auto $target
+#|pkg + /lib*/python2.7
+#|pkg name nopackage
+#|pkg . /lib*
+
+make -j1 build
+cd src
+python setup.py install --prefix=/. --root=$destdir
+
+if test "$lib" != lib; then
+    mkdir -p $destdir/$lib
+    mv $destdir/lib/python2.7 $destdir/$lib/
+fi

@@ -1,0 +1,13 @@
+#|ins $target-coreutils
+#|ins $target-gcc
+#|pkg name $target-gcc-native
+#|pkg dep $target-gcc
+#|pkg + /bin
+
+export PATH=$srcdir/bin:$PATH
+
+mkdir -p $destdir/bin
+for i in $(ls $srcdir/bin | sed -ne "s|^$target-||p" | grep -v ^$target-); do
+    ln -s $target-$i $destdir/bin/$i
+done
+ln -s gcc $destdir/bin/cc

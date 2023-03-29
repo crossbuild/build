@@ -1,0 +1,8 @@
+#|src setuptools
+#|ins $target-python
+#|pkg name $target-setuptools
+#|pkg dep $target-python
+#|pkg + /
+$srcdir/bin/python bootstrap.py
+$srcdir/bin/python setup.py install --prefix=/. --root=$destdir
+sed -i -e 's|^#!.*/bin/python|#!/usr/bin/env python|' $destdir/bin/*

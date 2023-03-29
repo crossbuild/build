@@ -37,7 +37,11 @@ sed -i -e 's;fcntl(\(.*\), F_DUPFD_CLOEXEC, STDERR_FILENO + 1);dup(\1);' $srcdir
     --disable-wall \
     --disable-su \
     --without-python \
-    --disable-libmount
+    --disable-libmount \
+    --without-ncursesw \
+    --with-ncurses \
+    --disable-widechar
+
 rm $destdir/lib*/lib*.la
 mv $destdir/sbin/* $destdir/bin/
 rmdir $destdir/sbin

@@ -1,0 +1,41 @@
+#|src indent /src
+#|ins $target-autoconf
+#|ins $target-automake
+#|ins $target-coreutils
+#|ins $target-diffutils
+#|ins $target-file
+#|ins $target-findutils
+#|ins $target-gawk
+#|ins $target-gcc
+#|ins $target-gettext
+#|ins $target-m4
+#|ins $target-make
+#|ins $target-sed
+#|ins $target-tar
+#|ins $target-texinfo
+#|ins $target-xz
+#|pkg name $target-indent
+#|pkg + /bin
+#|pkg name $target-indent-info
+#|pkg + /share/info
+#|pkg name $target-indent-man
+#|pkg + /share/man
+#|pkg name $target-indent-locale
+#|pkg + /share/locale
+##|pkg name $target-indent-doc
+##|pkg + /doc
+#|pkg name $target-indent-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /share
+export PATH=$srcdir/bin
+cd $srcdir/src
+sed -i -e '/configure/d' bootstrap
+sed -i -e 's/\(-local:\) [a-z-]*html$/\1/p' doc/Makefile.am
+./bootstrap
+cd -
+. $recipes/toolcmi $srcdir/src
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

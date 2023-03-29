@@ -1,6 +1,8 @@
 #|src w32api /src/w32api
 #|src mingwrt /src/mingwrt
+#|ins i686-build_pc-linux-gnu-coreutils
 #|pkg name $target-mingw-headers
 #|pkg + /
+export PATH=$srcdir/bin
 mkdir -p $destdir/mingw/include
 cp -a $srcdir/src/{w32api,mingwrt}/include/* $destdir/mingw/include

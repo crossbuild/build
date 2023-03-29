@@ -1,9 +1,21 @@
 #|src gdb /src
+#|ins i686-build_pc-linux-gnu-coreutils
 #|ins i686-build_pc-linux-gnu-gcc
 #|ins i686-build_pc-linux-gnu-bison
-#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-diffutils
 #|ins i686-build_pc-linux-gnu-expat-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-python
+#|ins i686-build_pc-linux-gnu-python-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-ncurses-devel /i686-build_pc-linux-gnu/sys-root
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-texinfo
 #|ins i686-build_pc-linux-gnu-xz-devel /i686-build_pc-linux-gnu/sys-root
 # babeltrace support causes lexer conflict
 ##|ins i686-build_pc-linux-gnu-babeltrace-devel /i686-build_pc-linux-gnu/sys-root
@@ -11,6 +23,7 @@
 ##|ins i686-build_pc-linux-gnu-util-linux-devel /i686-build_pc-linux-gnu/sys-root
 #|pkg name $target-gdb
 #|pkg dep i686-build_pc-linux-gnu-gdb-common
+#|pkg dep i686-build_pc-linux-gnu-python
 #|pkg + /bin
 #|pkg + /share/man
 #|pkg name $target-gdb-debug
@@ -23,12 +36,16 @@
 #|pkg + /share/gdb
 #|pkg + /share/info
 #|pkg + /share/locale
+export PATH=$srcdir/bin
 rm -rf $srcdir/src/{binutils,gas,gprof,ld,gold}
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"
 #sed -i -e 's|babeltrace babeltrace-ctf|babeltrace-ctf babeltrace glib-2.0 uuid pthread rt|' $srcdir/src/gdb/configure
+sed -i -e 's|\(if test -n "\${python_prefix}"\)|python_prefix=/; \1|' $srcdir/src/gdb/configure
+ln -s $srcdir/$build/sys-root/usr/include/python2.7 $srcdir/include/
 . $recipes/toolcmi $srcdir/src \
 	--target=$target \
+	--with-python \
 	--enable-tui \
 	--with-sysroot \
 	--with-separate-debug-dir=//$target/sys-root/usr/lib/debug

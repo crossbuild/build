@@ -1,0 +1,25 @@
+#|src atop
+#|ins $target-gcc
+#|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|pkg name $target-atop
+#|pkg + /bin
+#|pkg + /etc
+#|pkg + /share
+#|pkg + /var
+#|pkg name $target-atop-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+sed -i -e 's|chown |true |' Makefile
+touch atopacctd.o netlink.o atopacctd
+make CC=$target-gcc $parallel
+make genericinstall DESTDIR=$destdir \
+    BINPATH=/bin \
+    SBINPATH=/bin \
+    MAN1PATH=/share/man/man1 \
+    MAN5PATH=/share/man/man5 \
+    MAN8PATH=/share/man/man8
+rm $(find $destdir -name 'atopacct*')
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

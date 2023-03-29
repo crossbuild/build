@@ -1,0 +1,9 @@
+#|ins $target-coreutils
+#|pkg name $target-sh
+#|pkg dep $target-bash
+#|pkg + /bin
+
+export PATH=$srcdir/bin:$PATH
+
+mkdir -p $destdir/bin
+ln -s bash $destdir/bin/sh

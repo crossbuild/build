@@ -9,20 +9,32 @@
 #|pkg dep $target-binutils
 #|pkg dep $target-gcc-common
 #|pkg dep $target-glibc-devel /$target/sys-root
+#|pkg dep $target-gcc-libs-devel /$target/sys-root
 #|pkg + /bin
-#|pkg + /*-*
+#|pkg . /*-*
 #|pkg + /include
 #|pkg + /lib*/gcc
 #|pkg + /share/man/man1
+#|pkg name $target-gcc-libs-devel /$target/sys-root
+#|pkg . /usr/lib*/*
 #|pkg name $target-gcc-common
-#|pkg + /share/gcc-*
+#|pkg dep $target-gcc-python /share/gcc-6.3.1
+#|pkg . /share/gcc-*
+#|pkg name $target-gcc-python /share/gcc-6.3.1
+#|pkg + /python
+#|pkg name $target-gcc-info
 #|pkg + /share/info
+#|pkg name $target-gcc-locale
 #|pkg +? /share/locale
+#|pkg name $target-gcc-common-man
 #|pkg + /share/man/man7
 #|pkg name $target-gcc-debug
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /lib*
+#|pkg . /*-*/sys-root
+#|pkg . /*-*/sys-root/usr
+#|pkg . /*-*/sys-root/usr/lib*
 #|pkg . /share
 #|pkg . /share/man
 cp $srcdir/bin/* $srcdir/bootstrap/bin/
@@ -30,7 +42,61 @@ mkdir -p $srcdir/$target/sys-root/usr/$lib
 cp $srcdir/bootstrap/$target/$lib/libstdc++.a $srcdir/$target/sys-root/usr/$lib
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"
-PATH=$srcdir/bootstrap/bin:$PATH . $recipes/gccbase64 --enable-__cxa_atexit \
+PATH=$srcdir/bootstrap/bin:$PATH \
+gcc_cv_have_decl_abort=yes \
+gcc_cv_have_decl_asprintf=yes \
+gcc_cv_have_decl_atof=yes \
+gcc_cv_have_decl_atol=yes \
+gcc_cv_have_decl_calloc=yes \
+gcc_cv_have_decl_free=yes \
+gcc_cv_have_decl_getcwd=yes \
+gcc_cv_have_decl_getenv=yes \
+gcc_cv_have_decl_getpagesize=yes \
+gcc_cv_have_decl_getrlimit=yes \
+gcc_cv_have_decl_getwd=yes \
+gcc_cv_have_decl_malloc=yes \
+gcc_cv_have_decl_realloc=yes \
+gcc_cv_have_decl_sbrk=yes \
+gcc_cv_have_decl_setenv=yes \
+gcc_cv_have_decl_setrlimit=yes \
+gcc_cv_have_decl_snprintf=yes \
+gcc_cv_have_decl_strsignal=yes \
+gcc_cv_have_decl_strtol=yes \
+gcc_cv_have_decl_strtoll=yes \
+gcc_cv_have_decl_strtoul=yes \
+gcc_cv_have_decl_strtoull=yes \
+gcc_cv_have_decl_strverscmp=yes \
+gcc_cv_have_decl_unsetenv=yes \
+gcc_cv_have_decl_vasprintf=yes \
+gcc_cv_have_decl_vsnprintf=yes \
+. $recipes/gccbase64 \
+	gcc_cv_have_decl_abort=yes \
+	gcc_cv_have_decl_asprintf=yes \
+	gcc_cv_have_decl_atof=yes \
+	gcc_cv_have_decl_atol=yes \
+	gcc_cv_have_decl_calloc=yes \
+	gcc_cv_have_decl_free=yes \
+	gcc_cv_have_decl_getcwd=yes \
+	gcc_cv_have_decl_getenv=yes \
+	gcc_cv_have_decl_getpagesize=yes \
+	gcc_cv_have_decl_getrlimit=yes \
+	gcc_cv_have_decl_getwd=yes \
+	gcc_cv_have_decl_malloc=yes \
+	gcc_cv_have_decl_realloc=yes \
+	gcc_cv_have_decl_sbrk=yes \
+	gcc_cv_have_decl_setenv=yes \
+	gcc_cv_have_decl_setrlimit=yes \
+	gcc_cv_have_decl_snprintf=yes \
+	gcc_cv_have_decl_strsignal=yes \
+	gcc_cv_have_decl_strtol=yes \
+	gcc_cv_have_decl_strtoll=yes \
+	gcc_cv_have_decl_strtoul=yes \
+	gcc_cv_have_decl_strtoull=yes \
+	gcc_cv_have_decl_strverscmp=yes \
+	gcc_cv_have_decl_unsetenv=yes \
+	gcc_cv_have_decl_vasprintf=yes \
+	gcc_cv_have_decl_vsnprintf=yes \
+	--enable-__cxa_atexit \
         --enable-libmudflap --enable-libgomp --enable-libssp \
         --enable-languages=c,c++ \
         --enable-threads=posix --disable-libstdcxx-pch \

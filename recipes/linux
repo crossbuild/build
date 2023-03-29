@@ -1,4 +1,24 @@
+#|dep linux-source all
+#|src linux /src/linux
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-sh
+#|ins i686-build_pc-linux-gnu-bc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc-native
+#|ins i686-build_pc-linux-gnu-git
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-gzip
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-net-tools
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-tar
+#|ins i686-build_pc-linux-gnu-util-linux
+#|ins i686-build_pc-linux-gnu-xz
 #|pkg name $target-linux-modules-debug /modules
 #|pkg + /usr/lib/debug
 #|pkg name nopackage
@@ -8,7 +28,7 @@
 #|pkg . /modules/usr
 #|pkg . /modules/usr/lib
 #|pkg . /modules/usr/lib/modules
-#|rcp linuxvariants
+export PATH=$srcdir/bin
 . $recipes/linuxvariants
 case $target in
     powerpc*)
@@ -64,8 +84,9 @@ for var in $variants; do
     find . ! -type d -printf '%P\n' |
     grep -v '^source$' |
     grep -v '^\.config\.old$' > ../obj-files-$var
-    $KMAKE $parallel $kimage
-    $KMAKE $parallel modules
+    $KMAKE $parallel $kimage 2>&1 | tee tmp-log ; test ${PIPESTATUS[0]} -eq 0
+    $KMAKE $parallel modules 2>&1 | tee -a tmp-log ; test ${PIPESTATUS[0]} -eq 0
+    if grep 'WARNING:' tmp-log ; then echo "MODPOST FAILED" ; exit 1 ; fi
     $KMAKE modules_install
     if test "$dtb"; then
         case $dtb in
@@ -80,6 +101,10 @@ for var in $variants; do
     mkdir -p $destdir/kernelsource-$var
     tar -c -T ../obj-files-$var |
     tar -C $destdir/kernelsource-$var -x
+    if test -r arch/powerpc/lib/crtsavres.o; then
+	mkdir -p $destdir/kernelsource-$var/arch/powerpc/lib
+	cp -a arch/powerpc/lib/crtsavres.o $destdir/kernelsource-$var/arch/powerpc/lib/
+    fi
     sed -i -e "s|MAKEARGS := -C .*|MAKEARGS := -C @@KERNELTREE@@ ARCH=$linux_arch CROSS_COMPILE=$target-|" $destdir/kernelsource-$var/Makefile
     cp Module.symvers $destdir/kernelsource-$var
     mkdir -p $destdir/kernel-$var
@@ -108,6 +133,7 @@ EOT
 done
 rm -f $destdir/modules$USRREL/lib/modules/*/{build,source}
 echo "#|pkg name $target-linux-source" >> .pkg/dynamic
+echo "#|pkg dep linux-source /linux" >> .pkg/dynamic
 for var in $variants; do
     echo "#|pkg dep $target-linux-source-$var /linux-$var" >> .pkg/dynamic
 done

@@ -1,6 +1,12 @@
 #|src blktrace
 #|ins $target-gcc
 #|ins $target-libaio-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gcc-native
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-blktrace
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -12,6 +18,7 @@
 #|pkg + /usr/man
 
 # Makefile is not thread safe
+export PATH=$srcdir/bin
 make -j1 CC=$target-gcc
 make install DESTDIR=$destdir prefix=/usr
 

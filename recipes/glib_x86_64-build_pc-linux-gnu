@@ -3,10 +3,12 @@
 #|ins $target-gettext
 #|ins $target-libffi-devel /$target/sys-root
 #|ins $target-zlib-devel /$target/sys-root
+#|ins $target-pcre-devel /$target/sys-root
 #|pkg name $target-glib
 #|pkg + /bin
 #|pkg + /share
 #|pkg name $target-glib-devel /devel
+#|pkg dep $target-pcre-devel
 #|pkg + /usr
 #|pkg name nopackage
 #|pkg . /devel
@@ -15,6 +17,8 @@ for i in aclocal.m4 configure Makefile.in config.h.in; do
 done
 export LIBFFI_CFLAGS=' '
 export LIBFFI_LIBS=-lffi
+export PCRE_CFLAGS=-DPCRE_STATIC
+export PCRE_LIBS=-lpcre
 . $recipes/toolcmi64 $srcdir/src --disable-modular-tests --disable-shared --enable-static
 rm $destdir/$lib/lib*.la
 mkdir -p $destdir/devel/usr

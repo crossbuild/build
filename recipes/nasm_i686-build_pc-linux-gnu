@@ -1,0 +1,33 @@
+#|src nasm
+#|ins $target-autoconf
+#|ins $target-coreutils
+#|ins $target-file
+#|ins $target-findutils
+#|ins $target-gawk
+#|ins $target-gcc
+#|ins $target-m4
+#|ins $target-make
+#|ins $target-sed
+#|pkg name $target-nasm
+#|pkg + /bin
+#|pkg name $target-nasm-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /share
+#|pkg + /share/man
+export PATH=$srcdir/bin
+
+./autogen.sh
+export "${toolconfigure_vars[@]}"
+if test "$target" = x86_64-build_pc-linux-gnu; then
+    ./"${toolconfigure64[@]}"
+else
+    ./"${toolconfigure[@]}"
+fi
+make $parallel
+make install INSTALLROOT=$destdir INSTALL_DATA=true
+
+rm -f $destdir/share/info/dir
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

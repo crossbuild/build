@@ -1,5 +1,5 @@
 #|dep do_not_invoke_cmi_directly
-$srcdir/src/configure --prefix=/usr --libdir=/usr/lib --enable-static --disable-shared "$@"
+$srcdir/src/configure CFLAGS="-O0" --prefix=/usr --libdir=/usr/lib --enable-static --disable-shared "$@"
 make $parallel
 make install DESTDIR=$destdir
 #rm -f $bstools/lib/*.la

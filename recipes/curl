@@ -4,8 +4,14 @@
 #|ins $target-zlib-devel /$target/sys-root
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-curl
 #|pkg auto $target
 #|pkg . /usr/bin/curl
@@ -33,12 +39,14 @@
 #|pkg . /usr/bin
 #|pkg . /usr/lib*
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
 cd $srcdir/src
 ./buildconf
 cd -
+PATH_SEPARATOR=: \
 . $recipes/cmi $srcdir/src \
 	libsuff=${lib/lib} \
 	--with-ssl=$sysroot/usr \

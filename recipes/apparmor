@@ -9,6 +9,17 @@
 #|ins i686-build_pc-linux-gnu-python
 #|ins i686-build_pc-linux-gnu-bison
 #|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-swig
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-which
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-pkg-config
 #|ins $target-python-devel /$target/sys-root
 #|ins $target-python /$target/sys-root
 #|ins $target-pam-devel /$target/sys-root
@@ -70,7 +81,7 @@
 #|pkg + /etc/apparmor.d/local
 #|pkg + /etc/apparmor.d/tunables
 ##|pkg . /etc/init.d/apparmor
-##|pkg . /usr/sbin/apparmor_parser
+#|pkg . /usr/sbin/apparmor_parser
 ##|pkg . /usr/sbin/rcapparmor
 ##|pkg . /usr/sbin/rcsubdomain
 #|pkg + /usr/lib*/apparmor
@@ -118,6 +129,11 @@
 #|pkg . /var
 #|pkg . /var/lib
 #|pkg . /var/lib/apparmor
+
+export PATH=$srcdir/bin
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
 
 # patch wrong shebang in python-config
 sed -i "1 i\#!/usr/bin/env python2.7" $srcdir/bin/python2.7-config
@@ -180,8 +196,12 @@ EOF
 # note: full python (not devel package) needs to be installed in sysroot
 export PYTHONPATH=${sysroot}/$lib/python2.7
 
-# apparmor is calling incorrect cpp
+# apparmor is calling incorrect cpp and ar
 sed -i -e "s| cpp | $target-cpp |" common/Make.rules
+sed -i -e "s|^\tar |\t$target-ar |" parser/libapparmor_re/Makefile
+
+# We don't want pdflatex
+sed -i -e 's| pdf$||' parser/Makefile
 
 # PYTHON_CROSS_* needed for distutils to work in cross environment.
 # These variables have only any effect if sitecustomize.py is installed.
@@ -214,5 +234,7 @@ done
 
 mv $destdir/lib/apparmor $destdir/usr/lib/
 rmdir $destdir/lib
+mv $destdir/sbin/apparmor_parser $destdir/usr/sbin/
+rmdir $destdir/sbin
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

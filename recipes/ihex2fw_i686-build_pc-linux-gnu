@@ -1,0 +1,17 @@
+#|src linux /src
+#|ins $target-coreutils
+#|ins $target-file
+#|ins $target-findutils
+#|ins $target-gcc
+#|ins $target-grep
+#|pkg name $target-ihex2fw
+#|pkg + /bin
+#|pkg name $target-ihex2fw-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib*
+export PATH=$srcdir/bin
+mkdir -p $destdir/bin
+$target-gcc -O2 -g $srcdir/src/firmware/ihex2fw.c -o $destdir/bin/ihex2fw
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

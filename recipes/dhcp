@@ -2,6 +2,14 @@
 #|ins $target-gcc
 #|ins $target-openssl-devel /$target/sys-root
 #|ins $target-bind-export /$target/bind
+#|ins i686-build_pc-linux-gnu-sh
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-dhcp-tools
 #|pkg auto $target
 #|pkg . /usr/bin/omshell
@@ -28,6 +36,8 @@
 #|pkg . /usr/sbin
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
+ln -s $target-ar $srcdir/bin/ar
 mkdir bind
 echo 'all install:' > bind/Makefile.in
 ln -s $srcdir/$target/bind/usr/include/bind9 bind/include

@@ -1,6 +1,10 @@
 #|src xterm
 #|ins $target-gcc
 #|ins $target-ncurses-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
 #|pkg name $target-resize
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -9,6 +13,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 mkdir X11
 rm ptyx.h xtermcap.h
 touch ptyx.h xtermcap.h X11/Intrinsic.h

@@ -2,6 +2,13 @@
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-ethtool
 #|pkg auto $target
 #|pkg + /usr/sbin
@@ -11,6 +18,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 cd $srcdir/src
 ./autogen.sh
 cd -

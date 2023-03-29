@@ -1,5 +1,10 @@
 #|src vlan
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-vlan
 #|pkg auto $target
 #|pkg + /usr/sbin
@@ -8,6 +13,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 make purge
 make $parallel CC=$target-gcc CCFLAGS="$target_opt_flags" STRIP=true vconfig
 mkdir -p $destdir/usr/sbin

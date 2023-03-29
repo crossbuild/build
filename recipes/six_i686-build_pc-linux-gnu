@@ -1,0 +1,7 @@
+#|src six
+#|ins $target-python
+#|pkg name $target-six
+#|pkg dep $target-python
+#|pkg + /
+$srcdir/bin/python setup.py install --prefix=/. --root=$destdir
+#sed -i -e 's|^#!.*/bin/python|#!/usr/bin/env python|' $destdir/bin/*

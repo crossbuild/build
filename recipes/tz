@@ -1,0 +1,118 @@
+#|src tz
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc-native
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|ins $target-gcc
+#|pkg name $target-timezone
+#|pkg dep $target-timezone-base
+#|pkg + /usr/share/zoneinfo/right
+#|pkg name $target-timezone-base
+#|pkg . /etc/localtime
+#|pkg . /usr/share/zoneinfo
+#|pkg + /usr/share/zoneinfo/Africa
+#|pkg + /usr/share/zoneinfo/America
+#|pkg + /usr/share/zoneinfo/Antarctica
+#|pkg + /usr/share/zoneinfo/Arctic
+#|pkg + /usr/share/zoneinfo/Asia
+#|pkg + /usr/share/zoneinfo/Atlantic
+#|pkg + /usr/share/zoneinfo/Australia
+#|pkg + /usr/share/zoneinfo/Brazil
+#|pkg + /usr/share/zoneinfo/Canada
+#|pkg . /usr/share/zoneinfo/CET
+#|pkg . /usr/share/zoneinfo/CST6CDT
+#|pkg + /usr/share/zoneinfo/Chile
+#|pkg . /usr/share/zoneinfo/Cuba
+#|pkg . /usr/share/zoneinfo/EET
+#|pkg . /usr/share/zoneinfo/EST
+#|pkg . /usr/share/zoneinfo/EST5EDT
+#|pkg . /usr/share/zoneinfo/Egypt
+#|pkg . /usr/share/zoneinfo/Eire
+#|pkg + /usr/share/zoneinfo/Etc
+#|pkg + /usr/share/zoneinfo/Europe
+#|pkg . /usr/share/zoneinfo/Factory
+#|pkg . /usr/share/zoneinfo/GB
+#|pkg . /usr/share/zoneinfo/GB-Eire
+#|pkg . /usr/share/zoneinfo/GMT
+#|pkg . /usr/share/zoneinfo/GMT+0
+#|pkg . /usr/share/zoneinfo/GMT-0
+#|pkg . /usr/share/zoneinfo/GMT0
+#|pkg . /usr/share/zoneinfo/Greenwich
+#|pkg . /usr/share/zoneinfo/HST
+#|pkg . /usr/share/zoneinfo/Hongkong
+#|pkg . /usr/share/zoneinfo/Iceland
+#|pkg + /usr/share/zoneinfo/Indian
+#|pkg . /usr/share/zoneinfo/Iran
+#|pkg . /usr/share/zoneinfo/Israel
+#|pkg . /usr/share/zoneinfo/Jamaica
+#|pkg . /usr/share/zoneinfo/Japan
+#|pkg . /usr/share/zoneinfo/Kwajalein
+#|pkg . /usr/share/zoneinfo/Libya
+#|pkg . /usr/share/zoneinfo/MET
+#|pkg . /usr/share/zoneinfo/MST
+#|pkg . /usr/share/zoneinfo/MST7MDT
+#|pkg + /usr/share/zoneinfo/Mexico
+#|pkg . /usr/share/zoneinfo/NZ
+#|pkg . /usr/share/zoneinfo/NZ-CHAT
+#|pkg . /usr/share/zoneinfo/Navajo
+#|pkg + /usr/share/zoneinfo/Pacific
+#|pkg . /usr/share/zoneinfo/PRC
+#|pkg . /usr/share/zoneinfo/PST8PDT
+#|pkg . /usr/share/zoneinfo/Poland
+#|pkg . /usr/share/zoneinfo/Portugal
+#|pkg . /usr/share/zoneinfo/ROC
+#|pkg . /usr/share/zoneinfo/ROK
+#|pkg . /usr/share/zoneinfo/Singapore
+#|pkg . /usr/share/zoneinfo/Turkey
+#|pkg . /usr/share/zoneinfo/UCT
+#|pkg . /usr/share/zoneinfo/UTC
+#|pkg . /usr/share/zoneinfo/Universal
+#|pkg + /usr/share/zoneinfo/US
+#|pkg . /usr/share/zoneinfo/W-SU
+#|pkg . /usr/share/zoneinfo/WET
+#|pkg . /usr/share/zoneinfo/Zulu
+#|pkg + /usr/share/zoneinfo/posix
+#|pkg . /usr/share/zoneinfo/posixrules
+#|pkg . /usr/share/zoneinfo/*.tab
+#|pkg name $target-timezone-tools
+#|pkg auto $target
+#|pkg . /usr/bin/tzselect
+#|pkg . /usr/sbin/zdump
+#|pkg . /usr/sbin/zic
+#|pkg name $target-timezone-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /etc
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib
+#|pkg . /usr/sbin
+#|pkg . /usr/share
+
+export PATH=$srcdir/bin
+make TZDIR=zoneinfo CFLAGS="-O2 -g -DHAVE_GETTEXT=1 -DTZDEFAULT='\"/etc/localtime\"' -DTM_GMTOFF=tm_gmtoff -DTM_ZONE=tm_zone -Dlint" zic
+make TZDIR=zoneinfo AWK=awk zones
+
+mkdir -p $destdir/usr/share/zoneinfo
+cp -a zoneinfo $destdir/usr/share/zoneinfo/posix
+cp -al $destdir/usr/share/zoneinfo/posix/. $destdir/usr/share/zoneinfo
+cp -a zoneinfo-leaps $destdir/usr/share/zoneinfo/right
+mkdir -p $destdir/etc
+ln -sf ../usr/share/zoneinfo/Etc/UTC $destdir/etc/localtime
+ln -sf ../../../etc/localtime $destdir/usr/share/zoneinfo/posixrules
+install -m 644 iso3166.tab $destdir/usr/share/zoneinfo/iso3166.tab
+install -m 644 zone.tab $destdir/usr/share/zoneinfo/zone.tab
+install -m 644 zone1970.tab $destdir/usr/share/zoneinfo/zone1970.tab
+
+rm zic.o zic
+make cc=$target-gcc TZDIR=/usr/share/zoneinfo CFLAGS="$target_opt_flags -DHAVE_GETTEXT=1 -DTZDEFAULT='\"/etc/localtime\"' -DTM_GMTOFF=tm_gmtoff -DTM_ZONE=tm_zone -Dlint"
+
+install -D -m 755 tzselect $destdir/usr/bin/tzselect
+install -D -m 755 zdump $destdir/usr/sbin/zdump
+install -D -m 755 zic $destdir/usr/sbin/zic
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -3,7 +3,16 @@
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-sh
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-libnfsidmap-devel
 #|pkg auto $target
 #|pkg + /usr/share
@@ -24,6 +33,7 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/lib*/libnfsidmap/*.la
+export PATH=$srcdir/bin
 cd $srcdir/src/libnfsidmap
 ./autogen.sh
 cd -

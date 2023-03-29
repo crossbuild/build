@@ -3,6 +3,11 @@
 #|ins $target-zlib-devel /$target/sys-root
 #|ins $target-xz-devel /$target/sys-root
 #|ins $target-lzo-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-squashfs
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -11,6 +16,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 cd squashfs-tools
 make $parallel CC=$target-gcc XZ_SUPPORT=1 LZO_SUPPORT=1
 make install INSTALL_DIR=$destdir/usr/bin

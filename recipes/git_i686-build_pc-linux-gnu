@@ -1,0 +1,35 @@
+#|src git
+#|ins $target-gcc
+#|ins $target-curl-devel /$target/sys-root
+#|ins $target-expat-devel /$target/sys-root
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+#|ins $target-perl
+#|pkg name $target-git
+#|pkg + /bin
+#|pkg + /lib/git-core
+#|pkg + /lib/perl*
+#|pkg + /sdksetup
+#|pkg + /share
+#|pkg name $target-git-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+make prefix=/ gitexecdir=lib/git-core CC=$target-gcc AR=$target-ar CURL_LIBCURL='-lcurl -lssl -lcrypto -lrt' LIB_4_CRYPTO='-lcrypto -ldl' PERL_PATH=$srcdir/bin/perl $parallel
+make prefix=/ gitexecdir=lib/git-core CC=$target-gcc AR=$target-ar CURL_LIBCURL='-lcurl -lssl -lcrypto -lrt' LIB_4_CRYPTO='-lcrypto -ldl' PERL_PATH=$srcdir/bin/perl install DESTDIR=$destdir
+chmod -R u+w $destdir
+for i in $(find $destdir -type f); do
+    sed -e '
+	s|^#!.*/bin/perl|#!/usr/bin/env perl|
+	s|[^'\'' ]*/bin/perl|perl|
+	s|//lib/perl5/site_perl|$ENV{SDKROOT}/lib/perl5/site_perl|
+	' < $i > $i.tmp &&
+    cat $i.tmp > $i
+    rm $i.tmp
+done
+mkdir -p $destdir/sdksetup
+cat <<'EOT' > $destdir/sdksetup/git
+export GIT_EXEC_PATH=$SDKROOT/lib/git-core
+EOT
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

@@ -2,10 +2,17 @@
 #|ins $target-gcc
 #|ins $target-db-devel /$target/sys-root
 #|ins $target-iptables-devel /$target/sys-root
-#|ins i686-build_pc-linux-gnu-gcc
-#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-sh
 #|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-iproute2-limited
 #|pkg auto $target
 #|pkg + /etc
@@ -39,6 +46,7 @@
 #|pkg . /usr/sbin
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 mkdir -p $destdir/usr/sbin

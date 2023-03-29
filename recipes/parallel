@@ -1,0 +1,18 @@
+#|src parallel /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|pkg name $target-parallel
+#|pkg auto $target
+#|pkg + /usr/bin
+#|pkg name nopackage
+#|pkg . /usr
+export PATH=$srcdir/bin
+for i in aclocal.m4 configure Makefile.in config.h.in; do
+    touch $(find $srcdir/src -name $i)
+done
+. $recipes/cmi $srcdir/src --disable-documentation

@@ -2,6 +2,13 @@
 #|ins $target-gcc
 #|ins $target-libkmod-devel /$target/sys-root
 #|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-gzip
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|ins i686-build_pc-linux-gnu-which
 #|pkg name $target-pciutils
 #|pkg auto $target
@@ -23,6 +30,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 make HOST=$target CC=$target-gcc ZLIB=yes DNS=no SHARED=yes LIBKMOD=yes PKG_CONFIG=true LIBKMOD_LIBS=-lkmod DESTDIR=$destdir PREFIX=/usr LIBDIR=/usr/$lib STRIP= $parallel
 make HOST=$target CC=$target-gcc ZLIB=yes DNS=no SHARED=yes LIBKMOD=yes PKG_CONFIG=true LIBKMOD_LIBS=-lkmod DESTDIR=$destdir PREFIX=/usr LIBDIR=/usr/$lib STRIP= install install-lib
 

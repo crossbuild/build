@@ -1,4 +1,4 @@
-##|dep apparmor
+#|dep apparmor
 #|dep arptables
 #|dep atftp
 #|dep audit
@@ -21,7 +21,7 @@
 #|dep diffutils
 #|dep dtc
 #|dep e2fsprogs
-##|dep ebtables
+#|dep ebtables
 #|dep elfutils
 #|dep encfs
 #|dep ethtool
@@ -47,6 +47,7 @@
 #|dep iproute2
 #|dep ipsec-tools
 #|dep iptables
+#|dep ipt_tcpwin
 #|dep iputils
 #|dep kmod
 #|dep ktap
@@ -92,6 +93,7 @@
 #|dep openssh
 #|dep openssl
 #|dep oprofile
+#|dep parallel
 #|dep patch
 #|dep pciutils
 #|dep perf
@@ -106,6 +108,7 @@
 #|dep rpm
 #|dep rsync
 #|dep rsyslog
+#|dep rt-tests
 #|dep rt-tools
 #|dep schedtool
 #|dep sed
@@ -125,6 +128,7 @@
 #|dep trace-cmd
 #|dep tree
 #|dep tunctl
+#|dep tz
 #|dep unzip
 #|dep usbutils
 #|dep util-linux

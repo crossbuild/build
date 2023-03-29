@@ -1309,3 +1309,142 @@
 	path = src/usbhid-dump
 	url = ../usbhid-dump
 	ignore = dirty
+[submodule "src/swig"]
+	path = src/swig
+	url = ../swig
+	ignore = dirty
+[submodule "src/asciidoc"]
+	path = src/asciidoc
+	url = ../asciidoc
+	ignore = dirty
+[submodule "src/atop"]
+	path = src/atop
+	url = ../atop
+	ignore = dirty
+[submodule "src/boost-compute"]
+	path = src/boost-compute
+	url = ../boost-compute
+	ignore = dirty
+[submodule "src/boost-dll"]
+	path = src/boost-dll
+	url = ../boost-dll
+	ignore = dirty
+[submodule "src/boost-fiber"]
+	path = src/boost-fiber
+	url = ../boost-fiber
+	ignore = dirty
+[submodule "src/boost-hana"]
+	path = src/boost-hana
+	url = ../boost-hana
+	ignore = dirty
+[submodule "src/boost-metaparse"]
+	path = src/boost-metaparse
+	url = ../boost-metaparse
+	ignore = dirty
+[submodule "src/boost-qvm"]
+	path = src/boost-qvm
+	url = ../boost-qvm
+	ignore = dirty
+[submodule "src/boost-vmd"]
+	path = src/boost-vmd
+	url = ../boost-vmd
+	ignore = dirty
+[submodule "src/dosfstools"]
+	path = src/dosfstools
+	url = ../dosfstools
+	ignore = dirty
+[submodule "src/setuptools"]
+	path = src/setuptools
+	url = ../setuptools
+	ignore = dirty
+[submodule "src/google-apputils"]
+	path = src/google-apputils
+	url = ../google-apputils
+	ignore = dirty
+[submodule "src/pytz"]
+	path = src/pytz
+	url = ../pytz
+	ignore = dirty
+[submodule "src/dateutil"]
+	path = src/dateutil
+	url = ../dateutil
+	ignore = dirty
+[submodule "src/python-gflags"]
+	path = src/python-gflags
+	url = ../python-gflags
+	ignore = dirty
+[submodule "src/six"]
+	path = src/six
+	url = ../six
+	ignore = dirty
+[submodule "src/git"]
+	path = src/git
+	url = ../git
+	ignore = dirty
+[submodule "src/zip"]
+	path = src/zip
+	url = ../zip
+	ignore = dirty
+[submodule "src/tz"]
+	path = src/tz
+	url = ../tz
+	ignore = dirty
+[submodule "src/xml-simple"]
+	path = src/xml-simple
+	url = ../xml-simple
+	ignore = dirty
+[submodule "src/Devel--Cover"]
+	path = src/Devel--Cover
+	url = ../Devel--Cover
+	ignore = dirty
+[submodule "src/Parse-RecDescent"]
+	path = src/Parse-RecDescent
+	url = ../Parse-RecDescent
+	ignore = dirty
+[submodule "src/sparse"]
+	path = src/sparse
+	url = ../sparse
+	ignore = dirty
+[submodule "src/slurp"]
+	path = src/slurp
+	url = ../slurp
+	ignore = dirty
+[submodule "src/log4perl"]
+	path = src/log4perl
+	url = ../log4perl
+	ignore = dirty
+[submodule "src/p7zip"]
+	path = src/p7zip
+	url = ../p7zip
+	ignore = dirty
+[submodule "src/llvm-project"]
+	path = src/llvm-project
+	url = ../llvm-project
+	ignore = dirty
+[submodule "src/ipt_tcpwin"]
+	path = src/ipt_tcpwin
+	url = ../ipt_tcpwin
+[submodule "src/postgresql"]
+	path = src/postgresql
+	url = ../postgresql
+[submodule "src/enable_arm_pmu"]
+	path = src/enable_arm_pmu
+	url = ../enable_arm_pmu
+[submodule "src/indent"]
+	path = src/indent
+	url = ../indent
+[submodule "src/nasm"]
+	path = src/nasm
+	url = ../nasm
+[submodule "src/quilt"]
+	path = src/quilt
+	url = ../quilt
+[submodule "src/psycopg2"]
+	path = src/psycopg2
+	url = ../psycopg2
+[submodule "src/parallel"]
+	path = src/parallel
+	url = ../parallel
+[submodule "src/rt-tests"]
+	path = src/rt-tests
+	url = ../rt-tests

@@ -1,6 +1,17 @@
 #|src busybox
 #|ins $target-gcc
 #|ins $target-pam-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-bzip2
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc-native
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-busybox-base
 #|pkg auto $target
 #|pkg . /usr/bin/busybox
@@ -73,6 +84,7 @@
 #|pkg . /usr/bin/mkdir
 #|pkg . /usr/bin/mkfifo
 #|pkg . /usr/bin/mknod
+#|pkg . /usr/bin/mkpasswd
 #|pkg . /usr/bin/mktemp
 #|pkg . /usr/bin/mpstat
 #|pkg . /usr/bin/mv
@@ -143,7 +155,6 @@
 #|pkg . /usr/bin/uptime
 #|pkg . /usr/bin/users
 #|pkg . /usr/bin/usleep
-#|pkg . /usr/bin/vi
 #|pkg . /usr/bin/vlock
 #|pkg . /usr/bin/volname
 #|pkg . /usr/bin/wc
@@ -206,6 +217,7 @@
 #|pkg name $target-busybox-util-linux
 #|pkg auto $target
 #|pkg dep $target-busybox-base
+#|pkg . /usr/bin/blkdiscard
 #|pkg . /usr/bin/chrt
 #|pkg . /usr/bin/dmesg
 #|pkg . /usr/bin/flock
@@ -222,12 +234,14 @@
 #|pkg . /usr/bin/more
 #|pkg . /usr/bin/mount
 #|pkg . /usr/bin/mountpoint
+#|pkg . /usr/bin/nsenter
 #|pkg . /usr/bin/renice
 #|pkg . /usr/bin/script
 #|pkg . /usr/bin/setsid
 #|pkg . /usr/bin/su
 #|pkg . /usr/bin/taskset
 #|pkg . /usr/bin/umount
+#|pkg . /usr/bin/unshare
 #|pkg . /usr/bin/wall
 #|pkg . /usr/sbin/blkid
 #|pkg . /usr/sbin/fdisk
@@ -257,6 +271,7 @@
 #|pkg auto $target
 #|pkg dep $target-busybox-base
 #|pkg . /usr/sbin/ubimkvol
+#|pkg . /usr/sbin/ubirename
 #|pkg . /usr/sbin/ubirmvol
 #|pkg . /usr/sbin/ubirsvol
 #|pkg . /usr/sbin/ubiupdatevol
@@ -294,6 +309,14 @@
 #|pkg auto $target
 #|pkg dep $target-busybox-base
 #|pkg . /usr/sbin/devmem
+#|pkg name $target-busybox-vi
+#|pkg auto $target
+#|pkg dep $target-busybox-base
+#|pkg . /usr/bin/vi
+#|pkg name $target-busybox-linuxrc
+#|pkg auto $target
+#|pkg dep $target-busybox-base
+#|pkg . /linuxrc
 #|pkg name $target-busybox-debug
 #|pkg + /usr/lib/debug
 #|pkg name nopackage
@@ -303,6 +326,7 @@
 #|pkg . /usr/bin
 #|pkg . /usr/sbin
 #|pkg . /usr/lib
+export PATH=$srcdir/bin
 mkdir -p $destdir/usr/{bin,sbin}
 cp -a $srcdir/$target/sys-root/{bin,sbin} $destdir
 cat <<EOT > configs/crossbuild_defconfig

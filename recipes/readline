@@ -8,12 +8,12 @@
 #|ins i686-build_pc-linux-gnu-grep
 #|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-sed
-#|pkg name $target-libreadline-6
+#|pkg name $target-libreadline-7
 #|pkg auto $target
-#|pkg . /usr/lib*/libreadline.so.6*
-#|pkg name $target-libhistory-6
+#|pkg . /usr/lib*/libreadline.so.7*
+#|pkg name $target-libhistory-7
 #|pkg auto $target
-#|pkg . /usr/lib*/libhistory.so.6*
+#|pkg . /usr/lib*/libhistory.so.7*
 #|pkg name $target-readline-devel
 #|pkg auto $target
 #|pkg dep $target-glibc-devel

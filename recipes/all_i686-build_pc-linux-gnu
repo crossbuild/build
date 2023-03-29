@@ -1,1 +1,3 @@
 #|dep sdk
+#|dep psycopg2
+#|dep boost

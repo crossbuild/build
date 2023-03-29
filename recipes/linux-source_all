@@ -1,0 +1,10 @@
+#|src linux
+#|pkg name linux-source
+#|pkg + /
+
+tar -c -T <( (
+    find . -name 'Kconfig*' -or -name 'Kbuild*' -or -name 'Makefile*'
+    find ./arch -name 'module.lds'
+    find ./{arch/*/boot/dts/include/dt-bindings,arch/*/include,arch/arm/*/include/{mach,plat},arch/mips/*/Platform,include,scripts} -not -type d
+    echo ./fs/sysfs/sysfs.h
+) | sort -u) | tar -C $destdir -x -k -p

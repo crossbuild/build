@@ -1,0 +1,30 @@
+#|src ebtables
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|pkg name $target-ebtables
+#|pkg auto $target
+#|pkg + /etc
+#|pkg + /usr/sbin
+#|pkg + /usr/lib*/libebt*.so
+#|pkg name $target-ebtables-man
+#|pkg + /usr/man
+#|pkg name $target-ebtables-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+
+export PATH=$srcdir/bin
+
+cd userspace/ebtables2
+sed -i -e "s|-O3|$target_opt_flags|" Makefile
+export CC=$target-gcc
+make $parallel
+make install DESTDIR=$destdir PREFIX=/usr LIBDIR=/usr/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

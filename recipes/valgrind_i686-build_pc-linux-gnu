@@ -14,6 +14,15 @@
 #|pkg name nopackage
 #|pkg . /devel
 #|pkg . /lib*
+sed -i -e "s|^#! @PERL@|#! /usr/bin/env perl|" \
+	cachegrind/cg_annotate.in \
+	cachegrind/cg_diff.in \
+	coregrind/link_tool_exe_darwin.in \
+	coregrind/link_tool_exe_linux.in \
+	coregrind/link_tool_exe_solaris.in \
+	massif/ms_print.in \
+	perf/vg_perf.in \
+	tests/vg_regtest.in
 ./autogen.sh
 . $recipes/toolcmi . --without-mpicc
 
@@ -23,6 +32,6 @@ mkdir -p $destdir/devel/usr/$lib
 mv $destdir/include $destdir/devel/usr
 mv $destdir/$lib/pkgconfig $destdir/devel/usr/$lib
 mkdir -p $destdir/sdksetup
-cat <<'EOT' > $destdir/sdksetup/valgrind
-export VALGRIND_LIB=$SDKROOT/$lib/valgrind
+cat <<EOT > $destdir/sdksetup/valgrind
+export VALGRIND_LIB=\$SDKROOT/$lib/valgrind
 EOT

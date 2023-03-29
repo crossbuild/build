@@ -1,0 +1,101 @@
+#|src llvm-project /src
+#|src clang /src/tools/clang
+#|ins $target-sh
+#|ins $target-cmake
+#|ins $target-coreutils
+#|ins $target-findutils
+#|ins $target-file
+#|ins $target-gcc-native
+#|ins $target-grep
+#|ins $target-make
+#|ins $target-python
+#|ins $target-sed
+#|ins $target-libxml2-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
+
+#|pkg name $target-llvm
+#|pkg . /lib*/libLTO.so
+#|pkg . /lib*/LLVMHello.so
+#|pkg . /lib*/BugpointPasses.so
+#|pkg . /bin/obj2yaml
+#|pkg . /bin/llc
+#|pkg . /bin/llvm-dwp
+#|pkg . /bin/yaml2obj
+#|pkg . /bin/llvm-ar
+#|pkg . /bin/llvm-profdata
+#|pkg . /bin/llvm-mc
+#|pkg . /bin/llvm-extract
+#|pkg . /bin/llvm-nm
+#|pkg . /bin/llvm-ranlib
+#|pkg . /bin/llvm-diff
+#|pkg . /bin/llvm-as
+#|pkg . /bin/llvm-bcanalyzer
+#|pkg . /bin/llvm-dis
+#|pkg . /bin/sancov
+#|pkg . /bin/llvm-link
+#|pkg . /bin/llvm-cov
+#|pkg . /bin/llvm-split
+#|pkg . /bin/llvm-rtdyld
+#|pkg . /bin/lli
+#|pkg . /bin/llvm-objdump
+#|pkg . /bin/llvm-mcmarkup
+#|pkg . /bin/verify-uselistorder
+#|pkg . /bin/llvm-tblgen
+#|pkg . /bin/llvm-lib
+#|pkg . /bin/llvm-dsymutil
+#|pkg . /bin/llvm-size
+#|pkg . /bin/llvm-pdbdump
+#|pkg . /bin/llvm-readobj
+#|pkg . /bin/bugpoint
+#|pkg . /bin/llvm-c-test
+#|pkg . /bin/llvm-dwarfdump
+#|pkg . /bin/llvm-stress
+#|pkg . /bin/opt
+#|pkg . /bin/llvm-lto
+#|pkg . /bin/llvm-symbolizer
+#|pkg . /bin/llvm-cxxdump
+#
+#|pkg name $target-llvm-devel
+#|pkg . /bin/llvm-config
+#|pkg + /include/llvm
+#|pkg + /include/llvm-c
+#|pkg . /lib*/libLLVM*.a
+#|pkg . /share/llvm
+#|pkg + /share/llvm/cmake
+#|pkg name $target-llvm-clang
+#|pkg . /bin/c-index-test
+#|pkg . /bin/clang
+#|pkg . /bin/clang++
+#|pkg . /bin/clang-3.8
+#|pkg . /bin/clang-check
+#|pkg . /bin/clang-cl
+#|pkg . /bin/clang-format
+#|pkg . /bin/git-clang-format
+#|pkg . /bin/scan-build
+#|pkg . /bin/scan-view
+#|pkg + /lib*/clang
+#|pkg . /lib/libclang.so.3.8
+#|pkg . /libexec/c++-analyzer
+#|pkg . /libexec/ccc-analyzer
+#|pkg + /share/clang
+#|pkg + /share/scan-build
+#|pkg + /share/scan-view
+#|pkg name $target-llvm-clang-devel
+#|pkg + /include/clang
+#|pkg + /include/clang-c
+#|pkg . /lib*/libclang*.a
+#|pkg . /lib*/libclang.so
+#|pkg + /share/man
+#|pkg name $target-llvm-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /include
+#|pkg . /lib*
+#|pkg . /share
+export PATH=$srcdir/bin
+cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=$destdir $srcdir/src
+make $parallel
+make install
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

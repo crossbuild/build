@@ -1,5 +1,11 @@
 #|src net-tools
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-bash
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-net-tools-nobusybox
 #|pkg auto $target
 #|pkg dep $target-netstat
@@ -35,6 +41,7 @@
 #|pkg . /usr/sbin
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 yes '' | make config
 # not safe to build in $parallel
 make CC=$target-gcc AR=$target-ar

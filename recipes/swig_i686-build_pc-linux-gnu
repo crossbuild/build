@@ -1,0 +1,40 @@
+#|src swig /src
+#|ins $target-gcc
+#|ins $target-pcre-devel /$target/sys-root
+#|ins $target-automake
+#|ins $target-autoconf
+#|ins $target-bison
+#|ins $target-coreutils
+#|ins $target-file
+#|ins $target-findutils
+#|ins $target-gawk
+#|ins $target-grep
+#|ins $target-make
+#|ins $target-sed
+#|pkg name $target-swig
+#|pkg + /bin
+#|pkg + /share/swig
+#|pkg + /sdksetup
+#|pkg name $target-swig-man
+#|pkg +? /share/man
+#|pkg name $target-swig-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /share
+PATH=$srcdir/bin
+sed -e 's|/usr/|//|' $srcdir/*-build_pc-linux-gnu/sys-root/usr/bin/pcre-config > $srcdir/bin/pcre-config
+chmod 755 $srcdir/bin/pcre-config
+cd $srcdir/src
+./autogen.sh
+cd -
+touch $srcdir/src/CCache/ccache-swig.1
+. $recipes/toolcmi $srcdir/src \
+	--disable-shared
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /
+
+mkdir -p $destdir/sdksetup
+cat <<EOT > $destdir/sdksetup/swig
+export SWIG_LIB=\$SDKROOT/share/swig/$(basename $destdir/share/swig/*)
+EOT

@@ -1,5 +1,11 @@
 #|src tcp_wrappers
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-tcp_wrappers
 #|pkg auto $target
 #|pkg + /usr/sbin
@@ -19,7 +25,12 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
-make $parallel linux CC=$target-gcc
+export PATH=$srcdir/bin
+sed -i -e "
+	s|getconf LFS_CFLAGS|true|
+	s|RANLIB=ranlib|RANLIB=$target-ranlib|
+	" Makefile
+make $parallel linux CC=$target-gcc AR=$target-ar RPM_OPT_FLAGS="$target_opt_flags"
 mkdir -p $destdir/usr/{include,$lib,sbin,share/man/man{3,5,8}}
 cp -a ip6utils.h tcpd.h $destdir/usr/include/
 cp -a safe_finger tcpd tcpdchk tcpdmatch try-from $destdir/usr/sbin/

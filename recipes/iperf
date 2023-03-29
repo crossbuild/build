@@ -1,6 +1,14 @@
 #|src iperf
 #|ins $target-gcc
 #|ins $target-lksctp-tools-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-iperf
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -19,6 +27,8 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/lib*/lib*.la
+export PATH=$srcdir/bin
+sed -i -e 's|/usr/bin/file|file|' configure
 . $recipes/cmi .
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

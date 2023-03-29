@@ -1,5 +1,11 @@
 #|src lsof
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-lsof
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -8,6 +14,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 LSOF_MKC='ln -s' dialects/linux/Mksrc
 cat <<EOT > Makefile
 CC = $target-gcc

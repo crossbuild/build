@@ -1,0 +1,54 @@
+#|src postgresql /src
+#|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-file
+#|pkg name $target-libpq-devel /devel
+#|pkg . /usr/bin/pg_config
+#|pkg . /usr/lib*/lib*.a
+#|pkg . /usr/lib*/pkgconfig/libpq.pc
+#|pkg + /usr/include/postgresql/internal
+#|pkg + /usr/include/libpq
+#|pkg . /usr/include/libpq-*
+#|pkg . /usr/include/pg_config*
+#|pkg . /usr/include/postgres_ext.h
+#|pkg name $target-libpq-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg + /bin
+#|pkg + /include
+#|pkg + /lib*
+#|pkg + /share
+#|pkg . /usr
+#|pkg . /usr/lib
+#|pkg . /devel
+#|pkg . /devel/usr
+#|pkg . /devel/usr/bin
+#|pkg . /devel/usr/include
+#|pkg . /devel/usr/include/postgresql
+#|pkg . /devel/usr/lib*
+#|pkg . /devel/usr/lib*/pkgconfig
+export PATH=$srcdir/bin
+. $recipes/toolcmi $srcdir/src \
+    --without-readline \
+    --without-zlib \
+    --disable-rpath
+
+mkdir -p $destdir/devel/usr/{bin,$lib/pkgconfig,include/postgresql}
+mv $destdir/bin/pg_config $destdir/devel/usr/bin
+mv $destdir/$lib/lib*.a $destdir/devel/usr/$lib
+mv $destdir/$lib/pkgconfig/libpq.pc $destdir/devel/usr/$lib/pkgconfig
+mv $destdir/include/postgresql/internal $destdir/devel/usr/include/postgresql
+mv $destdir/include/libpq $destdir/devel/usr/include
+mv $destdir/include/libpq-* $destdir/devel/usr/include
+mv $destdir/include/pg_config* $destdir/devel/usr/include
+mv $destdir/include/postgres_ext.h $destdir/devel/usr/include
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /devel

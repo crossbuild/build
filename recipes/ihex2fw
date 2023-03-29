@@ -1,5 +1,9 @@
 #|src linux /src
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
 #|pkg name $target-ihex2fw
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -8,6 +12,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 mkdir -p $destdir/usr/bin
 $target-gcc $target_opt_flags $srcdir/src/firmware/ihex2fw.c -o $destdir/usr/bin/ihex2fw
 

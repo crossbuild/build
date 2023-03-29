@@ -3,6 +3,13 @@
 #|ins $target-zlib-devel /$target/sys-root
 #|ins $target-lzo-devel /$target/sys-root
 #|ins $target-util-linux-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-gzip
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-mtd-utils-nobusybox-limited
 #|pkg auto $target
 #|pkg . /usr/sbin/flash_erase
@@ -18,7 +25,6 @@
 #|pkg . /usr/sbin/ubiformat
 #|pkg . /usr/sbin/ubinfo
 #|pkg . /usr/sbin/ubinize
-#|pkg . /usr/sbin/ubirename
 #|pkg name $target-mtd-utils-nobusybox
 #|pkg auto $target
 #|pkg dep $target-mtd-utils-nobusybox-limited
@@ -50,6 +56,7 @@
 #|pkg auto $target
 #|pkg dep $target-mtd-utils-nobusybox-limited
 #|pkg . /usr/sbin/ubimkvol
+#|pkg . /usr/sbin/ubirename
 #|pkg . /usr/sbin/ubirmvol
 #|pkg . /usr/sbin/ubirsvol
 #|pkg . /usr/sbin/ubiupdatevol
@@ -64,6 +71,7 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/sbin
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 BUILDDIR="$PWD"
 cd $srcdir/src
 make DESTDIR=$destdir BUILDDIR="$BUILDDIR" CROSS=$target- WITHOUT_XATTR=1 $parallel

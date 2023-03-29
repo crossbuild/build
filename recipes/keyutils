@@ -1,5 +1,12 @@
 #|src keyutils
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-keyutils
 #|pkg auto $target
 #|pkg + /etc
@@ -26,8 +33,9 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 
-make $parallel CC=$target-gcc CFLAGS="$target_opt_flags"
+make $parallel CC=$target-gcc CFLAGS="$target_opt_flags" AR=$target-ar
 make install DESTDIR=$destdir BINDIR=/usr/bin SBINDIR=/usr/sbin LIBDIR=/usr/$lib
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

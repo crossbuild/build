@@ -1,6 +1,19 @@
-#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-sh
 #|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
 #|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc-native
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-tar
+#|ins i686-build_pc-linux-gnu-texinfo
 #|ins $target-binutils
 #|ins $target-glibc-devel /$target/sys-root
 #|ins i686-build_pc-linux-gnu-gmp-devel /i686-build_pc-linux-gnu/sys-root
@@ -37,8 +50,9 @@
 #|pkg .? /usr/lib*/liblsan.a
 #|pkg .? /usr/lib*/libtsan.a
 #|pkg .? /usr/lib*/libcilkrts.a
+#|pkg .? /usr/lib*/libmpx.a
+#|pkg .? /usr/lib*/libmpxwrappers.a
 #|pkg .? /usr/lib*/libquadmath.a
-#|pkg .? /usr/lib*/libvtv.a
 #|pkg name $target-libgcc_s-1 /$target/sys-root
 #|pkg auto $target
 #|pkg . /usr/lib*/libgcc_s.so.1
@@ -48,9 +62,6 @@
 #|pkg name $target-libgomp-1 /$target/sys-root
 #|pkg auto $target
 #|pkg . /usr/lib*/libgomp.so.1*
-#|pkg name $target-libgomp-plugin-host_nonshm-1 /$target/sys-root
-#|pkg auto $target
-#|pkg . /usr/lib*/libgomp-plugin-host_nonshm.so.1*
 #|pkg name $target-libatomic-1 /$target/sys-root
 #|pkg auto $target
 #|pkg . /usr/lib*/libatomic.so.1*
@@ -72,6 +83,7 @@
 #|pkg +? /share/locale
 #|pkg . /share/man
 #|pkg + /share/man/man7
+export PATH=$srcdir/bin
 . $recipes/gccbase \
     --enable-__cxa_atexit \
     --enable-libmudflap --enable-libgomp --enable-libssp \
@@ -102,9 +114,9 @@ case $target in
         #|pkg name $target-libitm-1 /$target/sys-root
         #|pkg auto $target
         #|pkg . /usr/lib*/libitm.so.1*
-        #|pkg name $target-libasan-2 /$target/sys-root
+        #|pkg name $target-libasan-3 /$target/sys-root
         #|pkg auto $target
-        #|pkg . /usr/lib*/libasan.so.2*
+        #|pkg . /usr/lib*/libasan.so.3*
         #|pkg name $target-libubsan-0 /$target/sys-root
         #|pkg auto $target
         #|pkg . /usr/lib*/libubsan.so.0*
@@ -112,7 +124,7 @@ EOT
 	;;
 esac
 case $target in
-    x86_64-*-linux-gnu)
+    aarch64-linux-gnu | x86_64-*-linux-gnu)
 	cat << EOT | cut -c9- >> .pkg/dynamic
         #|pkg name $target-liblsan-0 /$target/sys-root
         #|pkg auto $target
@@ -129,12 +141,15 @@ case $target in
         #|pkg name $target-libcilkrts-5 /$target/sys-root
         #|pkg auto $target
         #|pkg . /usr/lib*/libcilkrts.so.5*
+        #|pkg name $target-libmpx-2 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libmpx.so.2*
+        #|pkg name $target-libmpxwrappers-2 /$target/sys-root
+        #|pkg auto $target
+        #|pkg . /usr/lib*/libmpxwrappers.so.2*
         #|pkg name $target-libquadmath-0 /$target/sys-root
         #|pkg auto $target
         #|pkg . /usr/lib*/libquadmath.so.0*
-        #|pkg name $target-libvtv-0 /$target/sys-root
-        #|pkg auto $target
-        #|pkg . /usr/lib*/libvtv.so.0*
 EOT
 	;;
 esac

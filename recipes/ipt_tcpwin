@@ -1,0 +1,29 @@
+#|dep linux
+#|src ipt_tcpwin /src/ipt_tcpwin
+#|ins $target-gcc
+#|ins $target-linux-source /src
+#|ins $target-iptables-devel /$target/sys-root
+#|pkg name $target-ipt_tcpwin
+#|pkg auto $target
+#|pkg . /usr/lib*/xtables/libipt_TCPWIN.so
+#|pkg name $target-ipt_tcpwin-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /lib/modules
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib/modules
+#|pkg . /usr/lib*/xtables
+
+ln -s $srcdir/src/ipt_tcpwin/kernel $srcdir/src/modules
+
+. $recipes/linuxvariants ipt_tcpwin-modules
+
+mkdir -p $destdir/usr/$lib/xtables
+$target-gcc -Wall -Wextra $target_opt_flags \
+	-shared -fPIC -D_INIT=libipt_TCPWIN_init \
+	-o $destdir/usr/$lib/xtables/libipt_TCPWIN.so \
+	$srcdir/src/ipt_tcpwin/iptables/libipt_TCPWIN.c
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

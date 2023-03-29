@@ -1,0 +1,14 @@
+#|src zip
+#|ins $target-gcc
+#|ins $target-bzip2-devel /$target/sys-root
+#|pkg name $target-zip
+#|pkg + /bin
+#|pkg + /share
+#|pkg name $target-zip-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+make -f unix/Makefile generic CC=$target-gcc
+make -f unix/Makefile install prefix=$destdir MANDIR=$destdir/share/man/man1
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug /

@@ -2,6 +2,13 @@
 #|src config /src/config
 #|ins $target-gcc
 #|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-beecrypt-devel
 #|pkg auto $target
 #|pkg + /usr/include
@@ -16,6 +23,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
+export PATH=$srcdir/bin
 cp $srcdir/src/config/config.* $srcdir/src/beecrypt/
 . $recipes/cmi $srcdir/src/beecrypt \
 	--without-cplusplus \

@@ -4,7 +4,17 @@
 #|ins $target-openssl-devel /$target/sys-root
 #|ins $target-openssl-devel /$target/sys-root/openssl
 #|blk $target-glibc-devel /$target/sys-root/openssl
+#|ins i686-build_pc-linux-gnu-sh
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
 #|ins i686-build_pc-linux-gnu-libxml2-devel /i686-build_pc-linux-gnu/sys-root
 #|pkg name $target-bind
 #|pkg auto $target
@@ -35,9 +45,13 @@
 #|pkg . /usr/bin
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
+ln -s $target-nm $srcdir/bin/nm
 sed -i -e "s|/usr|$sysroot/usr|g" $sysroot/usr/bin/xml2-config
 export "${configure_vars[@]}"
 ./"${configure[@]}" \
+    ac_cv_path_AR=$target-ar \
+    BUILD_CC=$build-gcc \
     --with-ecdsa \
     --with-gost \
     --with-libxml2=$sysroot/usr \
@@ -46,8 +60,7 @@ export "${configure_vars[@]}"
     --with-export-includedir=/export/usr/include/bind9 \
     --with-gssapi=no \
     --with-randomdev=/dev/random \
-    --with-openssl=$sysroot/openssl/usr \
-    BUILD_CC=$build-gcc
+    --with-openssl=$sysroot/openssl/usr
 make -j1
 make install DESTDIR=$destdir
 

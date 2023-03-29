@@ -1,0 +1,34 @@
+#|src sparse
+#|ins $target-gcc
+#|ins $target-pkg-config
+#|ins $target-libxml2-devel /$target/sys-root
+#|pkg name $target-sparse
+#|pkg + /bin
+#|pkg name $target-sparse-devel /devel
+#|pkg + /usr
+#|pkg name $target-sparse-man
+#|pkg + /share/man
+#|pkg name $target-sparse-debug
+#|pkg + /lib/debug
+#|pkg name nopackage
+#|pkg . /devel
+#|pkg . /share
+#|pkg . /lib
+
+export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
+export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
+
+make CC=$target-gcc LD=$target-gcc AR=$target-ar c2xml_EXTRA_OBJS="$(pkg-config --libs --static libxml-2.0)" $parallel
+make CC=$target-gcc LD=$target-gcc AR=$target-ar c2xml_EXTRA_OBJS="$(pkg-config --libs --static libxml-2.0)" install DESTDIR=$destdir PREFIX=/ LIBDIR=/$lib
+
+$recipes/strip_debug --strip-all $target $destdir /lib/debug/ /
+
+mkdir -p $destdir/devel/usr
+mv $destdir/include $destdir/devel/usr/
+mv $destdir/$lib $destdir/devel/usr
+if test $lib = lib; then
+    mkdir $destdir/lib
+    mv $destdir/devel/usr/lib/debug $destdir/lib
+fi
+sed -i -e 's|//|/usr/|' $destdir/devel/usr/$lib/pkgconfig/*.pc

@@ -1,4 +1,12 @@
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|src mpfr /src
 #|ins $target-gmp-devel /$target/sys-root
 #|pkg name $target-libmpfr-4
@@ -20,6 +28,8 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/libmpfr.la
 #|pkg . /usr/share
+export PATH=$srcdir/bin
+sed -i -e 's|/usr/bin/file|file|' $srcdir/src/configure
 . $recipes/cmi $srcdir/src --with-gmp=$sysroot/usr
 rm -f $destdir/usr/share/info/dir
 

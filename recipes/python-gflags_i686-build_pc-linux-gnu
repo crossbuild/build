@@ -1,0 +1,16 @@
+#|src python-gflags
+#|ins $target-python
+#|pkg name $target-python-gflags
+#|pkg auto $target
+#|pkg . /bin/gflags2man.py
+#|pkg + /lib*/python2.7
+#|pkg name nopackage
+#|pkg . /bin
+#|pkg . /lib*
+
+python setup.py install --prefix=/. --root=$destdir
+
+if test "$lib" != lib; then
+    mkdir -p $destdir/$lib
+    mv $destdir/lib/python2.7 $destdir/$lib/
+fi

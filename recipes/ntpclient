@@ -1,5 +1,10 @@
 #|src ntpclient
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-ntpclient
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -8,6 +13,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 make CC=$target-gcc $parallel
 mkdir -p $destdir/usr/bin
 cp -a ntpclient $destdir/usr/bin

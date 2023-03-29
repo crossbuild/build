@@ -7,8 +7,17 @@
 #|ins i686-build_pc-linux-gnu-ntp-genfiles /src/ntp-genfiles
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-which
 #|pkg name $target-ntp
 #|pkg auto $target
 #|pkg + /usr/*bin
@@ -18,16 +27,29 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
 cd $srcdir/src/ntp
+sed -i -e "s|^#! @PATH_PERL@ -w|#! /usr/bin/env perl|" \
+	ntpdc/nl.pl.in \
+	scripts/calc_tickadj/calc_tickadj.in \
+	scripts/deprecated/freq_adj.in \
+	scripts/deprecated/html2man.in \
+	scripts/ntp-wait/ntp-wait.in \
+	scripts/ntpsweep/ntpsweep.in \
+	scripts/ntptrace/ntptrace.in \
+	scripts/plot_summary.in \
+	scripts/summary.in \
+	scripts/update-leap/update-leap.in
 TEMPDIR="$blddir" ./bootstrap
 cd -
 cp $srcdir/src/config/config.* $srcdir/src/ntp/
 cp $srcdir/src/config/config.* $srcdir/src/ntp/sntp/
 cp $srcdir/src/config/config.* $srcdir/src/ntp/sntp/libevent/build-aux/
-#cp $srcdir/src/ntp-genfiles/ntp_{parser,keyword}.* $srcdir/src/ntp/ntpd/
+cp $srcdir/src/ntp-genfiles/ntp_{parser,keyword}.* $srcdir/src/ntp/ntpd/
+touch $srcdir/src/ntp/COPYRIGHT
 export "${configure_vars[@]}"
 $srcdir/src/ntp/"${configure[@]}" \
 	--without-ntpsnmpd \

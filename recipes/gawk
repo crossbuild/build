@@ -1,5 +1,13 @@
 #|src gawk /src
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-gawk
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -22,6 +30,8 @@
 #|pkg . /usr/lib*
 #|pkg + /usr/share/locale
 #|pkg . /usr/share
+export PATH=$srcdir/bin
+sed -i -e 's|/usr/bin/file|file|' $srcdir/src/extension/configure
 . $recipes/cmi $srcdir/src
 rm -f $destdir/usr/share/info/dir
 

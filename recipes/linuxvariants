@@ -1,4 +1,3 @@
-#|src linux /src/linux
 variants=
 case $target in
     powerpc*)	variants="";;
@@ -24,17 +23,27 @@ if test $# = 1; then
     mkdir -p $destdir/lib/modules
     mkdir -p $destdir/usr/lib/modules
     mkdir -p $destdir/usr/lib/debug
+    mkdir -p $destdir/symvers
     for var in $variants; do
 	cp -a $srcdir/src/modules obj-$var
 	cd obj-$var
-	make -C $srcdir/src/linux-$var M=$PWD modules $parallel
+	if test -r $srcdir/src/symvers/$var.symvers; then
+	    cp $srcdir/src/symvers/$var.symvers Module.symvers
+	fi
+	make -C $srcdir/src/linux-$var M=$PWD modules $parallel 2>&1 | tee tmp-log ; test ${PIPESTATUS[0]} -eq 0
+	if grep 'WARNING:' tmp-log ; then echo "MODPOST FAILED" ; exit 1 ; fi
 	make -C $srcdir/src/linux-$var M=$PWD modules_install INSTALL_MOD_PATH=$destdir$USRREL
+	cp Module.symvers $destdir/symvers/$var.symvers
 	cd ..
 	cat << EOT | cut -c9- >> .pkg/dynamic
         #|pkg name $target-$1-$var
         #|pkg + $USRREL/lib/modules/*-$var
 EOT
     done
+    cat << EOT | cut -c9- >> .pkg/dynamic
+        #|pkg name $target-$1-symvers
+        #|pkg + /symvers
+EOT
 
     $recipes/strip_debug --strip-debug $target $destdir /usr/lib/debug $USRREL/lib/modules
 fi

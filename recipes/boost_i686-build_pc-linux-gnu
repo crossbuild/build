@@ -13,6 +13,7 @@
 #|src boost-chrono boost/libs/chrono
 #|src boost-circular_buffer boost/libs/circular_buffer
 #|src boost-compatibility boost/libs/compatibility
+#|src boost-compute boost/libs/compute
 #|src boost-concept_check boost/libs/concept_check
 #|src boost-config boost/libs/config
 #|src boost-container boost/libs/container
@@ -26,9 +27,11 @@
 #|src boost-date_time boost/libs/date_time
 #|src boost-detail boost/libs/detail
 #|src boost-disjoint_sets boost/libs/disjoint_sets
+#|src boost-dll boost/libs/dll
 #|src boost-dynamic_bitset boost/libs/dynamic_bitset
 #|src boost-endian boost/libs/endian
 #|src boost-exception boost/libs/exception
+#|src boost-fiber boost/libs/fiber
 #|src boost-filesystem boost/libs/filesystem
 #|src boost-flyweight boost/libs/flyweight
 #|src boost-foreach boost/libs/foreach
@@ -41,6 +44,7 @@
 #|src boost-gil boost/libs/gil
 #|src boost-graph boost/libs/graph
 #|src boost-graph_parallel boost/libs/graph_parallel
+#|src boost-hana boost/libs/hana
 #|src boost-heap boost/libs/heap
 #|src boost-icl boost/libs/icl
 #|src boost-integer boost/libs/integer
@@ -57,6 +61,7 @@
 #|src boost-log boost/libs/log
 #|src boost-logic boost/libs/logic
 #|src boost-math boost/libs/math
+#|src boost-metaparse boost/libs/metaparse
 #|src boost-move boost/libs/move
 #|src boost-mpi boost/libs/mpi
 #|src boost-mpl boost/libs/mpl
@@ -81,6 +86,7 @@
 #|src boost-proto boost/libs/proto
 #|src boost-ptr_container boost/libs/ptr_container
 #|src boost-python boost/libs/python
+#|src boost-qvm boost/libs/qvm
 #|src boost-random boost/libs/random
 #|src boost-range boost/libs/range
 #|src boost-ratio boost/libs/ratio
@@ -113,6 +119,7 @@
 #|src boost-utility boost/libs/utility
 #|src boost-uuid boost/libs/uuid
 #|src boost-variant boost/libs/variant
+#|src boost-vmd boost/libs/vmd
 #|src boost-wave boost/libs/wave
 #|src boost-winapi boost/libs/winapi
 #|src boost-xpressive boost/libs/xpressive

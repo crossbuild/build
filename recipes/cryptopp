@@ -1,16 +1,22 @@
 #|src cryptopp
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-cryptopp
 #|pkg auto $target
 #|pkg + /usr/bin
-#|pkg name $target-libcryptopp
+#|pkg name $target-libcryptopp-5-6
 #|pkg auto $target
-#|pkg . /usr/lib*/libcryptopp.so
+#|pkg . /usr/lib*/libcryptopp.so.5.6*
 #|pkg name $target-cryptopp-devel
 #|pkg auto $target
 #|pkg dep $target-glibc-devel
-#|pkg dep $target-libcryptopp
 #|pkg + /usr/include
+#|pkg . /usr/lib*/libcryptopp.so
 #|pkg name $target-cryptopp-devel-static
 #|pkg auto $target
 #|pkg dep $target-cryptopp-devel
@@ -20,7 +26,11 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
-cd c5
+#|pkg + /usr/share
+export PATH=$srcdir/bin
+sed -i 's|//[[:space:]]*#[[:space:]]*define[[:space:]]*CRYPTOPP_NO_UNALIGNED_DATA_ACCESS|#define CRYPTOPP_NO_UNALIGNED_DATA_ACCESS|g' config.h
+sed -i 's|//[[:space:]]*#[[:space:]]*define[[:space:]]*CRYPTOPP_INIT_PRIORITY|#define CRYPTOPP_INIT_PRIORITY|g' config.h
+sed -i 's|^[[:space:]]*#[[:space:]]*define[[:space:]]*CRYPTOPP_MAINTAIN_BACKWARDS_COMPATIBILITY_562|// #define CRYPTOPP_MAINTAIN_BACKWARDS_COMPATIBILITY_562|g' config.h
 make CXX=$target-g++ AR=$target-ar RANLIB=$target-ranlib CXXFLAGS="-DNDEBUG $target_opt_flags -fPIC" $parallel all dynamic
 make CXX=$target-g++ AR=$target-ar RANLIB=$target-ranlib CXXFLAGS="-DNDEBUG $target_opt_flags -fPIC" install PREFIX=$destdir/usr
 if test $lib != lib; then

@@ -1,8 +1,26 @@
 #|src gdb /src
-#|ins i686-build_pc-linux-gnu-bison
-#|ins i686-build_pc-linux-gnu-flex
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc-native
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-python
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-texinfo
+#|ins $target-python-devel /$target/sys-root
+#|ins $target-expat-devel /$target/sys-root
 #|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-xz-devel /$target/sys-root
+# babeltrace support causes lexer conflict
+##|ins $target-babeltrace-devel /$target/sys-root
+##|ins $target-glib-devel /$target/sys-root
+##|ins $target-util-linux-devel /$target/sys-root
 #|pkg name $target-gdb-target
 #|pkg auto $target
 #|pkg . /usr/bin/???
@@ -14,16 +32,16 @@
 #|pkg .? /usr/lib*/libinproctrace.so*
 #|pkg name $target-gdb-devel
 #|pkg auto $target
-#|pkg dep $target-libbfd-2-25-51
-#|pkg dep $target-libopcodes-2-25-51
+#|pkg dep $target-libbfd-2-26-51
+#|pkg dep $target-libopcodes-2-26-51
 #|pkg dep $target-glibc-devel
 #|pkg + /usr/include/gdb
-#|pkg name $target-libbfd-2-25-51
+#|pkg name $target-libbfd-2-26-51
 #|pkg auto $target
-#|pkg . /usr/lib*/libbfd-2.25.51.so
-#|pkg name $target-libopcodes-2-25-51
+#|pkg . /usr/lib*/libbfd-2.26.51.so
+#|pkg name $target-libopcodes-2-26-51
 #|pkg auto $target
-#|pkg . /usr/lib*/libopcodes-2.25.51.so
+#|pkg . /usr/lib*/libopcodes-2.26.51.so
 #|pkg name $target-gdb-target-man
 #|pkg + /usr/share/man
 #|pkg name $target-gdb-target-info
@@ -47,13 +65,16 @@
 #|pkg .? /usr/share/info/dir
 #|pkg . /usr/share/info/bfd.info
 #|pkg + /usr/share/locale
+export PATH=$srcdir/bin
 rm -rf $srcdir/src/{binutils,gas,gprof,ld,gold}
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"
+ln -s $srcdir/$target/sys-root/usr/include/python2.7 $srcdir/include/
 . $recipes/cmi $srcdir/src \
-    --target=$target \
-    --enable-tui \
-    --disable-werror \
-    --with-separate-debug-dir=/usr/lib/debug
+	--target=$target \
+	--with-broken_python \
+	--enable-tui \
+	--disable-werror \
+	--with-separate-debug-dir=/usr/lib/debug
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

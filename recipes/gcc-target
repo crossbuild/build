@@ -42,7 +42,6 @@
 rm $destdir/usr/$lib/lib*.la
 rm $destdir/usr/$lib/libgcc_s.so*
 rm $destdir/usr/$lib/libgomp.{a,so*}
-rm $destdir/usr/$lib/libgomp-plugin-host_nonshm.so*
 rm $destdir/usr/$lib/libatomic.{a,so*}
 rm $destdir/usr/$lib/libstdc++.{a,so*}
 rm $destdir/usr/$lib/libstdc++fs.a
@@ -55,7 +54,8 @@ rm -f $destdir/usr/$lib/libubsan.{a,so*}
 rm -f $destdir/usr/$lib/liblsan.{a,so*}
 rm -f $destdir/usr/$lib/libtsan.{a,so*}
 rm -f $destdir/usr/$lib/libcilkrts.{a,so*}
+rm -f $destdir/usr/$lib/libmpx.{a,so*}
+rm -f $destdir/usr/$lib/libmpxwrappers.{a,so*}
 rm -f $destdir/usr/$lib/libquadmath.{a,so*}
-rm -f $destdir/usr/$lib/libvtv.{a,so*}
 
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

@@ -1,0 +1,21 @@
+#|src google-apputils
+#|ins $target-python
+#|ins $target-setuptools
+#|ins $target-pytz
+#|ins $target-python-gflags
+#|ins $target-python-dateutil
+#|pkg name $target-google-apputils
+#|pkg auto $target
+#|pkg dep $target-pytz
+#|pkg dep $target-python-gflags
+#|pkg dep $target-python-dateutil
+#|pkg + /lib*/python2.7
+#|pkg name nopackage
+#|pkg . /lib*
+
+python setup.py install --prefix=/. --root=$destdir
+
+if test "$lib" != lib; then
+    mkdir -p $destdir/$lib
+    mv $destdir/lib/python2.7 $destdir/$lib/
+fi

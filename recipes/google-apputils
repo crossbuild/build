@@ -1,0 +1,27 @@
+#|src google-apputils
+#|ins i686-build_pc-linux-gnu-python
+#|ins i686-build_pc-linux-gnu-setuptools
+#|ins $target-python-devel /$target/sys-root
+#|ins $target-python /$target/sys-root
+#|ins i686-build_pc-linux-gnu-pytz
+#|ins $target-pytz /$target/sys-root
+#|ins i686-build_pc-linux-gnu-python-gflags
+#|ins $target-python-gflags /$target/sys-root
+#|ins i686-build_pc-linux-gnu-python-dateutil
+#|ins $target-python-dateutil /$target/sys-root
+#|pkg name $target-google-apputils
+#|pkg auto $target
+#|pkg dep $target-pytz
+#|pkg dep $target-python-gflags
+#|pkg dep $target-python-dateutil
+#|pkg + /usr/lib*/python2.7
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+
+python setup.py install --prefix=/usr --root=$destdir
+
+if test "$lib" != lib; then
+    mkdir -p $destdir/usr/$lib
+    mv $destdir/usr/lib/python2.7 $destdir/usr/$lib/
+fi

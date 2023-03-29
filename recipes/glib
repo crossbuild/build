@@ -2,12 +2,22 @@
 #|ins $target-gcc
 #|ins $target-libffi-devel /$target/sys-root
 #|ins $target-zlib-devel /$target/sys-root
+#|ins $target-pcre-devel /$target/sys-root
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-sh
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gettext
 #|ins i686-build_pc-linux-gnu-glib
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
-#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-python
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-glib
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -30,6 +40,7 @@
 #|pkg name $target-glib-devel
 #|pkg auto $target
 #|pkg dep $target-glibc-devel
+#|pkg dep $target-pcre-devel
 #|pkg + /usr/include
 #|pkg . /usr/lib*/lib*.so
 #|pkg + /usr/lib*/glib-2.0
@@ -37,6 +48,7 @@
 #|pkg + /usr/share/gdb
 #|pkg + /usr/share/aclocal
 #|pkg + /usr/share/glib-2.0
+#|pkg + /usr/share/gettext
 #|pkg name $target-glib-man
 #|pkg +? /usr/share/man
 #|pkg name $target-glib-locale
@@ -50,6 +62,9 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/share
+export PATH=$srcdir/bin
+sed -i -e 's|/usr/bin/file|file|' $srcdir/src/configure
+sed -i -e 's|/usr/bin/file|file|' $srcdir/share/libtool/configure
 for i in aclocal.m4 configure Makefile.in config.h.in; do
     touch $(find $srcdir/src -name $i)
 done

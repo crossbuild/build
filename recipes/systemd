@@ -9,17 +9,23 @@
 #|ins $target-pam-devel /$target/sys-root
 #|ins $target-libkmod-devel /$target/sys-root
 #|ins $target-libcurl-devel /$target/sys-root
-##|ins i686-build_pc-linux-gnu-autoconf
-##|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
 #|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
 #|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-gettext
 #|ins i686-build_pc-linux-gnu-gperf
 #|ins i686-build_pc-linux-gnu-grep
 #|ins i686-build_pc-linux-gnu-intltool
+#|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
 #|ins i686-build_pc-linux-gnu-perl-XML-Parser
-##|ins i686-build_pc-linux-gnu-libtool
 #|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-systemd
 #|pkg auto $target
@@ -472,12 +478,11 @@
 #|pkg . /var/lib
 #|pkg . /var/log
 #|pkg . /var/log/README
-#export PATH=$srcdir/bin
+export PATH=$srcdir/bin
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
-#( cd $srcdir/src && ./autogen.sh )
-#echo 'EXTRA_DIST =' > $srcdir/src/docs/gtk-doc.make
+( cd $srcdir/src && ./autogen.sh )
 . $recipes/cmi $srcdir/src \
     cc_cv_LDFLAGS__Wl__fuse_ld_gold=no \
     KILL=/usr/bin/kill \

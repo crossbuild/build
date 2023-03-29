@@ -1,6 +1,14 @@
 #|src rsync /src
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-rsync
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -12,6 +20,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 touch $(find $srcdir/src -name aclocal.m4 -or -name configure -or -name Makefile.in -or -name config.hin)
 . $recipes/cmi $srcdir/src
 

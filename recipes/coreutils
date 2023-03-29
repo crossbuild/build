@@ -1,6 +1,16 @@
 #|src coreutils /src
 #|ins $target-gcc
 #|ins $target-libcap-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-net-tools
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-texinfo
 #|pkg name $target-coreutils
 #|pkg auto $target
 #|pkg . /usr/bin/[
@@ -114,6 +124,7 @@
 #|pkg . /usr/bin/kill
 #|pkg . /usr/lib*
 #|pkg + /usr/share
+export PATH=$srcdir/bin
 touch $(find $srcdir/src -name configure -or -name Makefile.in -or -name config.hin)
 export "${configure_vars[@]}"
 $srcdir/src/"${configure[@]}" \

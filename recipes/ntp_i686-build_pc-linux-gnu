@@ -5,18 +5,31 @@
 #|ins $target-bison
 #|ins $target-gcc
 #|ins $target-libtool
+#|ins $target-openssl-devel /$target/sys-root
+#|ins $target-zlib-devel /$target/sys-root
 #|pkg name $target-ntp-genfiles
 #|pkg + /
 cd $srcdir/src/ntp
+sed -i -e "s|^#! @PATH_PERL@ -w|#! /usr/bin/env perl|" \
+	ntpdc/nl.pl.in \
+	scripts/calc_tickadj/calc_tickadj.in \
+	scripts/deprecated/freq_adj.in \
+	scripts/deprecated/html2man.in \
+	scripts/ntp-wait/ntp-wait.in \
+	scripts/ntpsweep/ntpsweep.in \
+	scripts/ntptrace/ntptrace.in \
+	scripts/plot_summary.in \
+	scripts/summary.in \
+	scripts/update-leap/update-leap.in
 TEMPDIR="$blddir" ./bootstrap
 cd -
 cp $srcdir/src/config/config.* $srcdir/src/ntp/
 cp $srcdir/src/config/config.* $srcdir/src/ntp/sntp/
 rm $srcdir/src/ntp/ntpd/ntp_parser.[ch]
+touch $srcdir/src/ntp/COPYRIGHT
 export "${toolconfigure_vars[@]}"
 $srcdir/src/ntp/"${toolconfigure[@]}" \
-	--without-ntpsnmpd \
-	--without-crypto
+	--without-ntpsnmpd
 make $parallel
 cp ntpd/ntp_parser.h $srcdir/src/ntp/ntpd/
 make -C ntpd ntp_keyword.h

@@ -1,0 +1,30 @@
+#|src dosfstools /src
+#|ins i686-build_pc-linux-gnu-autoconf
+#|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
+#|ins $target-gcc
+#|pkg name $target-dosfstools
+#|pkg auto $target
+#|pkg + /usr/sbin
+#|pkg name $target-dosfstools-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg + /usr/share
+export PATH=$srcdir/bin
+
+cd $srcdir/src
+autoreconf -i
+cd -
+
+. $recipes/cmi $srcdir/src --enable-compat-symlinks --without-udev
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

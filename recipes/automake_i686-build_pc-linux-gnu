@@ -1,9 +1,17 @@
 #|src automake /src
 #|ins $target-autoconf
+#|ins $target-perl
 #|ins $target-gcc
 #|pkg name $target-automake
+#|pkg dep $target-perl
 #|pkg + /
 touch $(find $srcdir/src -name aclocal.m4 -or -name configure -or -name Makefile.in -or -name config.hin)
+sed -i -e "
+	s|^#!@PERL@\( -w\)\?|#!/usr/bin/env perl|
+	s|exec @PERL@|exec perl|g
+	" \
+    $srcdir/src/bin/*.in \
+    $srcdir/src/t/wrap/*.in
 sed -i -e "s|//share/autoconf|$srcdir/share/autoconf|" \
     $srcdir/share/autoconf/autom4te.cfg
 . $recipes/toolcmi $srcdir/src

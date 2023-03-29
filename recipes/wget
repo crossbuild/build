@@ -2,6 +2,14 @@
 #|ins $target-gcc
 #|ins $target-openssl-devel /$target/sys-root
 #|ins $target-zlib-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-texinfo
 #|pkg name $target-wget
 #|pkg auto $target
 #|pkg + /etc
@@ -11,13 +19,14 @@
 #|pkg name $target-wget-locale
 #|pkg + /usr/share/locale
 #|pkg name $target-wget-man
-#|pkg + /usr/share/man
+#|pkg +? /usr/share/man
 #|pkg name $target-wget-debug
 #|pkg + /usr/lib/debug
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 for i in aclocal.m4 configure Makefile.in config.h.in; do
     touch $(find $srcdir/src -name $i)
 done

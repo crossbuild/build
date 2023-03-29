@@ -4,7 +4,19 @@
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-tar
+#|ins i686-build_pc-linux-gnu-texinfo
+#|ins i686-build_pc-linux-gnu-xz
 #|pkg name $target-cpio
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -21,6 +33,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 cd $srcdir/src/cpio
 sed -i -e '
 	s|^git submodule|#git submodule|

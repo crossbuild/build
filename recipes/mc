@@ -4,8 +4,17 @@
 #|ins $target-ncurses-devel /$target/sys-root
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gettext
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-tar
+#|ins i686-build_pc-linux-gnu-xz
 #|pkg name $target-mc
 #|pkg auto $target
 #|pkg + /etc
@@ -22,10 +31,15 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
+#cd $srcdir/src
+#./autogen.sh
+#cd -
+export PATH=$srcdir/bin
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root
 cd $srcdir/src
+sed -i -e "s|^#! @PERL@\( -w\)\?|#!/usr/bin/env perl|" src/man2hlp/man2hlp.in
 ./autogen.sh
 cd -
 . $recipes/cmi $srcdir/src \

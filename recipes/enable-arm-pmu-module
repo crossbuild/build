@@ -1,0 +1,26 @@
+#|dep linux
+#|src enable_arm_pmu
+#|ins $target-gcc
+#|ins $target-linux-source /src
+#|pkg name $target-enable-arm-pmu-module-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /lib
+#|pkg . /lib/modules
+#|pkg . /usr
+#|pkg . /usr/lib*
+#|pkg . /usr/lib/modules
+
+export KDIR=$srcdir/src/linux
+
+mkdir -p $srcdir/src/modules/arm_pmu
+cp -a ko/* $srcdir/src/modules/arm_pmu
+cat << 'EOT' > $srcdir/src/modules/Kbuild
+ifeq ($(CONFIG_ARM),y)
+    obj-m += arm_pmu/
+endif
+EOT
+
+. $recipes/linuxvariants enable-arm-pmu-module
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

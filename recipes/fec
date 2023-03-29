@@ -1,7 +1,13 @@
 #|src fec /src/fec
 #|src config /src/config
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
 #|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-libfec
 #|pkg auto $target
 #|pkg . /usr/lib*/libfec.so
@@ -22,6 +28,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 cp $srcdir/src/config/config.* $srcdir/src/fec/
 export "${configure_vars[@]}"
 $srcdir/src/fec/"${configure[@]}" \

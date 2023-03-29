@@ -1,5 +1,11 @@
 #|src polarssl
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
 #|pkg name $target-polarssl
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -13,6 +19,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 make $parallel CC=$target-gcc OFLAGS="$target_opt_flags" AR=$target-ar
 make install DESTDIR=$destdir/usr
 test $lib = lib || mv $destdir/usr/lib $destdir/usr/$lib

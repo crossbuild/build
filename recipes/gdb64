@@ -2,10 +2,18 @@
 #|ins x86_64-build_pc-linux-gnu-gcc
 #|ins x86_64-build_pc-linux-gnu-bison
 #|ins x86_64-build_pc-linux-gnu-flex
+#|ins x86_64-build_pc-linux-gnu-python
+#|ins x86_64-build_pc-linux-gnu-python-devel /x86_64-build_pc-linux-gnu/sys-root
 #|ins x86_64-build_pc-linux-gnu-expat-devel /x86_64-build_pc-linux-gnu/sys-root
 #|ins x86_64-build_pc-linux-gnu-ncurses-devel /x86_64-build_pc-linux-gnu/sys-root
+#|ins x86_64-build_pc-linux-gnu-xz-devel /x86_64-build_pc-linux-gnu/sys-root
+# babeltrace support causes lexer conflict
+##|ins x86_64-build_pc-linux-gnu-babeltrace-devel /x86_64-build_pc-linux-gnu/sys-root
+##|ins x86_64-build_pc-linux-gnu-glib-devel /x86_64-build_pc-linux-gnu/sys-root
+##|ins x86_64-build_pc-linux-gnu-util-linux-devel /x86_64-build_pc-linux-gnu/sys-root
 #|pkg name $target-gdb64
 #|pkg dep x86_64-build_pc-linux-gnu-gdb-common
+#|pkg dep x86_64-build_pc-linux-gnu-python
 #|pkg + /bin
 #|pkg + /share/man
 #|pkg name $target-gdb64-debug
@@ -21,6 +29,14 @@
 rm -rf $srcdir/src/{binutils,gas,gprof,ld,gold}
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"
-. $recipes/toolcmi64 $srcdir/src --target=$target --enable-tui
+#sed -i -e 's|babeltrace babeltrace-ctf|babeltrace-ctf babeltrace glib-2.0 uuid pthread rt|' $srcdir/src/gdb/configure
+sed -i -e 's|\(if test -n "\${python_prefix}"\)|python_prefix=/; \1|' $srcdir/src/gdb/configure
+ln -s $srcdir/$build64/sys-root/usr/include/python2.7 $srcdir/include/
+. $recipes/toolcmi64 $srcdir/src \
+	--target=$target \
+	--with-python \
+	--enable-tui \
+	--with-sysroot \
+	--with-separate-debug-dir=//$target/sys-root/usr/lib/debug
 
 $recipes/strip_debug --strip-all $build64 $destdir /lib/debug /

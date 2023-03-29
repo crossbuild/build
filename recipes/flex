@@ -1,7 +1,16 @@
 #|src flex
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
 #|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gettext
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-flex
 #|pkg auto $target
 #|pkg dep $target-flex-devel
@@ -34,6 +43,8 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg + /usr/share
+export PATH=$srcdir/bin
+
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"
 . $recipes/cmi .

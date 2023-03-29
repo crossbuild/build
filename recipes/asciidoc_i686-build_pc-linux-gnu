@@ -1,0 +1,4 @@
+#|src asciidoc
+#|pkg name $target-asciidoc
+#|pkg + /
+. $recipes/toolcmi .

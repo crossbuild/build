@@ -2,16 +2,29 @@
 #|ins $target-gcc
 #|ins $target-autoconf
 #|ins $target-automake
+#|ins $target-coreutils
+#|ins $target-file
+#|ins $target-findutils
+#|ins $target-gawk
 #|ins $target-libtool
+#|ins $target-make
+#|ins $target-python
+#|ins $target-sed
+#|ins $target-setuptools
+#|ins $target-google-apputils
 #|pkg name $target-protobuf
 #|pkg + /bin
 #|pkg name $target-protobuf-devel /devel
 #|pkg + /usr
+#|pkg name $target-protobuf-python
+#|pkg dep $target-python
+#|pkg + /lib*/python2.7
 #|pkg name $target-protobuf-debug
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /devel
-#|pkg . /lib
+#|pkg . /lib*
+export PATH=$srcdir/bin
 cd $srcdir/src
 mkdir -p gtest/msvc
 touch gtest/msvc/x.vcproj
@@ -20,11 +33,18 @@ cd -
 . $recipes/toolcmi $srcdir/src \
     --enable-static --disable-shared
 
+export PROTOC=$PWD/src/protoc
+cd $srcdir/src/python
+
+python setup.py install --prefix=/. --root=$destdir
+
+if test "$lib" != lib; then
+    mv $destdir/lib/python2.7 $destdir/$lib/
+fi
+
 $recipes/strip_debug --strip-all $target $destdir /lib/debug /
 
-mkdir -p $destdir/devel/usr
-mv $destdir/{include,$lib} $destdir/devel/usr
-if test $lib = lib; then
-    mkdir $destdir/lib
-    mv $destdir/devel/usr/lib/debug $destdir/lib
-fi
+mkdir -p $destdir/devel/usr/$lib
+mv $destdir/include $destdir/devel/usr/
+mv $destdir/$lib/{lib*.a,pkgconfig} $destdir/devel/usr/$lib/
+rm $destdir/$lib/lib*.la

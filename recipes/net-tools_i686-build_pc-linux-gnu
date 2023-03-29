@@ -7,6 +7,7 @@
 #|pkg + /lib/debug
 #|pkg name nopackage
 #|pkg . /lib
+sed -i -e 's/\( HAVE_HWFDDI \)y/\1n/p' config.in
 yes '' | make config
 # not safe to build in $parallel
 make CC=$target-gcc AR=$target-ar

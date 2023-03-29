@@ -1,17 +1,45 @@
 #|src binutils /src
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
 #|ins i686-build_pc-linux-gnu-flex
-#|pkg name $target-binutils-target
-#|pkg dep $target-libbfd-2-26-0-20160602
-#|pkg dep $target-libopcodes-2-26-0-20160602
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc-native
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-texinfo
+#|pkg name $target-binutils-target-nobusybox
+#|pkg dep $target-libbfd-2-27-0-20161014
+#|pkg dep $target-libopcodes-2-27-0-20161014
 #|pkg auto $target
-#|pkg + /usr/bin
+#|pkg . /usr/bin/addr2line
+#|pkg . /usr/bin/ar
+#|pkg . /usr/bin/as
+#|pkg . /usr/bin/c++filt
+#|pkg . /usr/bin/elfedit
+#|pkg .? /usr/bin/embedspu
+#|pkg . /usr/bin/gprof
+#|pkg . /usr/bin/ld*
+#|pkg . /usr/bin/nm
+#|pkg . /usr/bin/objcopy
+#|pkg . /usr/bin/objdump
+#|pkg . /usr/bin/ranlib
+#|pkg . /usr/bin/readelf
+#|pkg . /usr/bin/size
+#|pkg . /usr/bin/strip
 #|pkg + /usr/*-*
+#|pkg name $target-binutils-target
+#|pkg dep $target-binutils-target-nobusybox
+#|pkg auto $target
+#|pkg . /usr/bin/strings
 #|pkg name $target-binutils-target-devel
 #|pkg auto $target
-#|pkg dep $target-libbfd-2-26-0-20160602
-#|pkg dep $target-libopcodes-2-26-0-20160602
+#|pkg dep $target-libbfd-2-27-0-20161014
+#|pkg dep $target-libopcodes-2-27-0-20161014
 #|pkg dep $target-glibc-devel
 #|pkg . /usr/include/ansidecl.h
 #|pkg . /usr/include/bfd.h
@@ -26,12 +54,12 @@
 #|pkg dep $target-binutils-target-devel
 #|pkg . /usr/lib*/libbfd.a
 #|pkg . /usr/lib*/libopcodes.a
-#|pkg name $target-libbfd-2-26-0-20160602
+#|pkg name $target-libbfd-2-27-0-20161014
 #|pkg auto $target
-#|pkg . /usr/lib*/libbfd-2.26.0.20160602.so
-#|pkg name $target-libopcodes-2-26-0-20160602
+#|pkg . /usr/lib*/libbfd-2.27.0.20161014.so
+#|pkg name $target-libopcodes-2-27-0-20161014
 #|pkg auto $target
-#|pkg . /usr/lib*/libopcodes-2.26.0.20160602.so
+#|pkg . /usr/lib*/libopcodes-2.27.0.20161014.so
 #|pkg name $target-libiberty-devel
 #|pkg auto $target
 #|pkg dep $target-glibc-devel
@@ -47,10 +75,14 @@
 #|pkg + /usr/lib/debug
 #|pkg name nopackage
 #|pkg . /usr
+#|pkg . /usr/bin
 #|pkg . /usr/include
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/share
+
+export PATH=$srcdir/bin
+
 rm -rf $srcdir/src/{gdb,sim}
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"

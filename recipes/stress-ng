@@ -2,6 +2,12 @@
 #|ins $target-gcc
 #|ins $target-keyutils-devel /$target/sys-root
 #|ins $target-libattr-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-gzip
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-stress-ng
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -13,7 +19,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/share
-
+export PATH=$srcdir/bin
 export CFLAGS="$target_opt_flags"
 
 make $parallel CC=$target-gcc

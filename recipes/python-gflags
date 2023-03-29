@@ -1,0 +1,20 @@
+#|src python-gflags
+#|ins i686-build_pc-linux-gnu-python
+#|ins $target-python-devel /$target/sys-root
+#|ins $target-python /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|pkg name $target-python-gflags
+#|pkg auto $target
+#|pkg . /usr/bin/gflags2man.py
+#|pkg + /usr/lib*/python2.7
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/bin
+#|pkg . /usr/lib*
+export PATH=$srcdir/bin
+python setup.py install --prefix=/usr --root=$destdir
+
+if test "$lib" != lib; then
+    mkdir -p $destdir/usr/$lib
+    mv $destdir/usr/lib/python2.7 $destdir/usr/$lib/
+fi

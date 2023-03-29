@@ -1,0 +1,21 @@
+#|src dateutil
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-python
+#|ins i686-build_pc-linux-gnu-setuptools
+#|ins $target-python-devel /$target/sys-root
+#|ins $target-python /$target/sys-root
+#|pkg name $target-python-dateutil
+#|pkg auto $target
+#|pkg dep $target-six
+#|pkg + /usr/lib*/python2.7
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib*
+
+export PATH=$srcdir/bin
+python setup.py install --prefix=/usr --root=$destdir
+
+if test "$lib" != lib; then
+    mkdir -p $destdir/usr/$lib
+    mv $destdir/usr/lib/python2.7 $destdir/usr/$lib/
+fi

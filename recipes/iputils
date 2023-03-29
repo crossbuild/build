@@ -2,6 +2,13 @@
 #|ins $target-gcc
 #|ins $target-libcap-devel /$target/sys-root
 #|ins $target-openssl-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-git
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-iputils-nobusybox
 #|pkg auto $target
 #|pkg . /usr/sbin/clockdiff
@@ -19,6 +26,7 @@
 #|pkg . /usr
 #|pkg . /usr/sbin
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 make USE_GNUTLS=no USE_IDN=no USE_NETTLE=no CC=$target-gcc $parallel
 mkdir -p $destdir/usr/bin $destdir/usr/sbin
 cp -a ping $destdir/usr/bin/

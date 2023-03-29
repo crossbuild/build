@@ -2,8 +2,16 @@
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-gettext
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-tar
+#|ins i686-build_pc-linux-gnu-xz
 #|pkg name $target-xz-nobusybox
 #|pkg auto $target
 #|pkg . /usr/bin/lzcmp
@@ -60,6 +68,7 @@
 #|pkg . /usr/lib*/liblzma.la
 #|pkg . /usr/lib*/pkgconfig
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 cd $srcdir/src
 ./autogen.sh
 cd -

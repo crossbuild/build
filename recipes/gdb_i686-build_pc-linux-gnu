@@ -1,14 +1,23 @@
 #|src gdb /src
 #|ins $target-gcc
-#|ins $target-flex
 #|ins $target-bison
+#|ins $target-flex
+#|ins $target-python
+#|ins $target-python-devel /$target/sys-root
 #|ins $target-expat-devel /$target/sys-root
 #|ins $target-ncurses-devel /$target/sys-root
+#|ins $target-xz-devel /$target/sys-root
+# babeltrace support causes lexer conflict
+##|ins $target-babeltrace-devel /$target/sys-root
+##|ins $target-glib-devel /$target/sys-root
+##|ins $target-util-linux-devel /$target/sys-root
 #|pkg name $target-gdb
 #|pkg dep $target-gdb-common
+#|pkg dep $target-python
 #|pkg + /bin
 #|pkg + /share/man
 #|pkg name $target-gdb-common
+#|pkg dep $target-gcc-python /share/gdb
 #|pkg + /lib*/lib*.so
 #|pkg + /share/gdb
 #|pkg . /share/info/annotate.info
@@ -34,7 +43,13 @@
 rm -rf $srcdir/src/{binutils,gas,gprof,ld,gold}
 export FLEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t'
 export LEX="$FLEX"
-. $recipes/toolcmi $srcdir/src --target=$target --enable-tui
+#sed -i -e 's|babeltrace babeltrace-ctf|babeltrace-ctf babeltrace glib-2.0 uuid pthread rt|' $srcdir/src/gdb/configure
+sed -i -e 's|\(if test -n "\${python_prefix}"\)|python_prefix=/; \1|' $srcdir/src/gdb/configure
+ln -s $srcdir/$target/sys-root/usr/include/python2.7 $srcdir/include/
+. $recipes/toolcmi $srcdir/src \
+	--target=$target \
+	--with-python \
+	--enable-tui
 
 $recipes/strip_debug --strip-all $target $destdir /lib/debug /
 

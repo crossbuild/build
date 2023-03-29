@@ -1,6 +1,15 @@
-#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-sh
 #|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
 #|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc-native
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-tar
+#|ins i686-build_pc-linux-gnu-texinfo
 #|ins $target-binutils
 #|ins i686-build_pc-linux-gnu-gmp-devel /i686-build_pc-linux-gnu/sys-root
 #|ins i686-build_pc-linux-gnu-mpfr-devel /i686-build_pc-linux-gnu/sys-root
@@ -19,7 +28,9 @@
 #|pkg +? /share/locale
 #|pkg . /share/man
 #|pkg + /share/man/man7
+export PATH=$srcdir/bin
 . $recipes/gccbase --without-headers --with-newlib \
     --disable-shared --disable-threads --disable-libssp \
     --disable-libgomp --disable-libmudflap --enable-languages=c \
-    --disable-decimal-float --disable-libquadmath --disable-libatomic
+    --disable-decimal-float --disable-libquadmath --disable-libatomic \
+    --disable-libmpx

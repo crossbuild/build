@@ -1,10 +1,10 @@
-##|ins $target-asciidoc
-##|ins $target-atop
+#|ins $target-asciidoc
+#|ins $target-atop
 #|ins $target-attr
 #|ins $target-autoconf
 #|ins $target-automake
 #|ins $target-babeltrace
-#|ins $target-bash
+#|ins $target-sh
 #|ins $target-bc
 #|ins $target-bison
 #|ins $target-bzip2
@@ -18,7 +18,7 @@
 #|ins $target-flex
 #|ins $target-gawk
 #|ins $target-genext2fs
-##|ins $target-git
+#|ins $target-git
 #|ins $target-grep
 #|ins $target-gzip
 #|ins $target-kmod
@@ -30,29 +30,29 @@
 #|ins $target-mtd-utils
 #|ins $target-ncurses
 #|ins $target-ncurses-devel /$target/sys-root
-##|ins $target-net-tools
+#|ins $target-net-tools
 #|ins $target-openssl
-##|ins $target-p7zip
+#|ins $target-p7zip
 #|ins $target-patch
 #|ins $target-perl
-##|ins $target-perl-Devel-Cover
-##|ins $target-perl-File-Slurp
-##|ins $target-perl-Log-Log4perl
+#|ins $target-perl-Devel-Cover
+#|ins $target-perl-File-Slurp
+#|ins $target-perl-Log-Log4perl
 #|ins $target-perl-XML-Parser
-##|ins $target-perl-XML-Simple
+#|ins $target-perl-XML-Simple
 #|ins $target-pigz
 #|ins $target-protobuf
+#|ins $target-protobuf-python
 #|ins $target-python
 #|ins $target-python-devel /$target/sys-root
-##|ins $target-quilt
-##|ins $target-rbtools
+#|ins $target-quilt
 #|ins $target-rsync
 #|ins $target-scons
 #|ins $target-sed
-##|ins $target-setuptools
-##|ins $target-sparse
+#|ins $target-setuptools
+#|ins $target-sparse
 #|ins $target-squashfs
-##|ins $target-swig
+#|ins $target-swig
 #|ins $target-tar
 #|ins $target-texinfo
 #|ins $target-unzip
@@ -60,7 +60,7 @@
 #|ins $target-valgrind
 #|ins $target-which
 #|ins $target-xz
-##|ins $target-zip
+#|ins $target-zip
 #|ins $target-gcc
 #|ins aarch64-linux-gnu-gcc64
 #|ins arm-cortexa15-linux-gnueabihf-gcc64
@@ -80,7 +80,6 @@ cp -a $srcdir/* $destdir
 for i in $(ls $destdir/bin | sed -ne "s|^$target-||p" | grep -v ^$target-); do
     ln -s $target-$i $destdir/bin/$i
 done
-ln -s bash $destdir/bin/sh
 cat <<'EOT' > $destdir/bin/sdksetup
 #!/bin/bash
 case $BASH_SOURCE in

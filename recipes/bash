@@ -19,7 +19,10 @@
 #|pkg . /usr
 #|pkg . /usr/bin
 #|pkg . /usr/bin/bashbug
+#|pkg + /usr/include
 #|pkg . /usr/lib*
+#|pkg + /usr/lib*/bash
+#|pkg + /usr/lib*/pkgconfig
 #|pkg + /usr/share
 export PATH=$srcdir/bin
 case $target in

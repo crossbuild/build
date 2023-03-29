@@ -13,6 +13,7 @@
 #|src boost-chrono boost/libs/chrono
 #|src boost-circular_buffer boost/libs/circular_buffer
 #|src boost-compatibility boost/libs/compatibility
+#|src boost-compute boost/libs/compute
 #|src boost-concept_check boost/libs/concept_check
 #|src boost-config boost/libs/config
 #|src boost-container boost/libs/container
@@ -26,9 +27,11 @@
 #|src boost-date_time boost/libs/date_time
 #|src boost-detail boost/libs/detail
 #|src boost-disjoint_sets boost/libs/disjoint_sets
+#|src boost-dll boost/libs/dll
 #|src boost-dynamic_bitset boost/libs/dynamic_bitset
 #|src boost-endian boost/libs/endian
 #|src boost-exception boost/libs/exception
+#|src boost-fiber boost/libs/fiber
 #|src boost-filesystem boost/libs/filesystem
 #|src boost-flyweight boost/libs/flyweight
 #|src boost-foreach boost/libs/foreach
@@ -41,6 +44,7 @@
 #|src boost-gil boost/libs/gil
 #|src boost-graph boost/libs/graph
 #|src boost-graph_parallel boost/libs/graph_parallel
+#|src boost-hana boost/libs/hana
 #|src boost-heap boost/libs/heap
 #|src boost-icl boost/libs/icl
 #|src boost-integer boost/libs/integer
@@ -57,6 +61,7 @@
 #|src boost-log boost/libs/log
 #|src boost-logic boost/libs/logic
 #|src boost-math boost/libs/math
+#|src boost-metaparse boost/libs/metaparse
 #|src boost-move boost/libs/move
 #|src boost-mpi boost/libs/mpi
 #|src boost-mpl boost/libs/mpl
@@ -81,6 +86,7 @@
 #|src boost-proto boost/libs/proto
 #|src boost-ptr_container boost/libs/ptr_container
 #|src boost-python boost/libs/python
+#|src boost-qvm boost/libs/qvm
 #|src boost-random boost/libs/random
 #|src boost-range boost/libs/range
 #|src boost-ratio boost/libs/ratio
@@ -113,6 +119,7 @@
 #|src boost-utility boost/libs/utility
 #|src boost-uuid boost/libs/uuid
 #|src boost-variant boost/libs/variant
+#|src boost-vmd boost/libs/vmd
 #|src boost-wave boost/libs/wave
 #|src boost-winapi boost/libs/winapi
 #|src boost-xpressive boost/libs/xpressive
@@ -128,145 +135,35 @@
 #|ins $target-zlib-devel /$target/sys-root
 #|ins $target-bzip2-devel /$target/sys-root
 ##|ins $target-python-devel /$target/sys-root
-#|ins i686-build_pc-linux-gnu-gcc
 #|ins i686-build_pc-linux-gnu-boost-build
-#|pkg name $target-libboost_atomic-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_atomic.so.1.59.0
-#|pkg name $target-libboost_chrono-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_chrono.so.1.59.0
-#|pkg name $target-libboost_container-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_container.so.1.59.0
-#|pkg name $target-libboost_date_time-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_date_time.so.1.59.0
-#|pkg name $target-libboost_filesystem-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_filesystem.so.1.59.0
-#|pkg name $target-libboost_graph-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_graph.so.1.59.0
-#|pkg name $target-libboost_iostreams-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_iostreams.so.1.59.0
-#|pkg name $target-libboost_locale-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_locale.so.1.59.0
-#|pkg name $target-libboost_log-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_log.so.1.59.0
-#|pkg name $target-libboost_log_setup-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_log_setup.so.1.59.0
-#|pkg name $target-libboost_math_c99f-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_math_c99f.so.1.59.0
-#|pkg name $target-libboost_math_c99l-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_math_c99l.so.1.59.0
-#|pkg name $target-libboost_math_c99-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_math_c99.so.1.59.0
-#|pkg name $target-libboost_math_tr1f-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_math_tr1f.so.1.59.0
-#|pkg name $target-libboost_math_tr1l-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_math_tr1l.so.1.59.0
-#|pkg name $target-libboost_math_tr1-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_math_tr1.so.1.59.0
-#|pkg name $target-libboost_prg_exec_monitor-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_prg_exec_monitor.so.1.59.0
-#|pkg name $target-libboost_program_options-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_program_options.so.1.59.0
-##|pkg name $target-libboost_python-1-59-0
-##|pkg auto $target
-##|pkg . /usr/lib*/libboost_python.so.1.59.0
-#|pkg name $target-libboost_random-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_random.so.1.59.0
-#|pkg name $target-libboost_regex-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_regex.so.1.59.0
-#|pkg name $target-libboost_serialization-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_serialization.so.1.59.0
-#|pkg name $target-libboost_signals-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_signals.so.1.59.0
-#|pkg name $target-libboost_system-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_system.so.1.59.0
-#|pkg name $target-libboost_thread-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_thread.so.1.59.0
-#|pkg name $target-libboost_timer-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_timer.so.1.59.0
-#|pkg name $target-libboost_unit_test_framework-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_unit_test_framework.so.1.59.0
-#|pkg name $target-libboost_wave-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_wave.so.1.59.0
-#|pkg name $target-libboost_wserialization-1-59-0
-#|pkg auto $target
-#|pkg . /usr/lib*/libboost_wserialization.so.1.59.0
-#|pkg name $target-boost-devel
-#|pkg auto $target
-#|pkg dep $target-glibc-devel
-#|pkg + /usr/include
-#|pkg . /usr/lib*/libboost_exception.a
-#|pkg . /usr/lib*/libboost_test_exec_monitor.a
-#|pkg . /usr/lib*/lib*.so
-#|pkg name $target-boost-devel-static
-#|pkg auto $target
-#|pkg dep $target-boost-devel
-#|pkg . /usr/lib*/libboost_atomic.a
-#|pkg . /usr/lib*/libboost_chrono.a
-#|pkg . /usr/lib*/libboost_container.a
-#|pkg . /usr/lib*/libboost_date_time.a
-#|pkg . /usr/lib*/libboost_filesystem.a
-#|pkg . /usr/lib*/libboost_graph.a
-#|pkg . /usr/lib*/libboost_iostreams.a
-#|pkg . /usr/lib*/libboost_locale.a
-#|pkg . /usr/lib*/libboost_log.a
-#|pkg . /usr/lib*/libboost_log_setup.a
-#|pkg . /usr/lib*/libboost_math_c99.a
-#|pkg . /usr/lib*/libboost_math_c99f.a
-#|pkg . /usr/lib*/libboost_math_c99l.a
-#|pkg . /usr/lib*/libboost_math_tr1.a
-#|pkg . /usr/lib*/libboost_math_tr1f.a
-#|pkg . /usr/lib*/libboost_math_tr1l.a
-#|pkg . /usr/lib*/libboost_prg_exec_monitor.a
-#|pkg . /usr/lib*/libboost_program_options.a
-#|pkg . /usr/lib*/libboost_random.a
-#|pkg . /usr/lib*/libboost_regex.a
-#|pkg . /usr/lib*/libboost_serialization.a
-#|pkg . /usr/lib*/libboost_signals.a
-#|pkg . /usr/lib*/libboost_system.a
-#|pkg . /usr/lib*/libboost_thread.a
-#|pkg . /usr/lib*/libboost_timer.a
-#|pkg . /usr/lib*/libboost_unit_test_framework.a
-#|pkg . /usr/lib*/libboost_wave.a
-#|pkg . /usr/lib*/libboost_wserialization.a
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-gcc
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-boost-debug
 #|pkg + /usr/lib/debug
 #|pkg name nopackage
 #|pkg . /usr
+#|pkg . /usr/include
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 BLDDIR=$PWD/build
 mkdir -p $BLDDIR
 cd boost
 echo "using gcc : cross : $target-g++ ;" > tools/build/src/user-config.jam
 case "$target_opt_flags" in
-    *-Os*) boostopt=space;;
-    *) boostopt=speed;;
+    *-Os*)
+	boostopt=space
+	boostoptname=optimization-space/
+	;;
+    *)
+	boostopt=speed
+	boostoptname=
+	;;
 esac
 b2 headers
 b2 \
@@ -284,4 +181,107 @@ b2 \
     --exec-prefix=$destdir/usr \
     --libdir=$destdir/usr/$lib \
     --includedir=$destdir/usr/include install
+cd ..
+
+BOOSTVER=$(sed -ne 's,constant BOOST_VERSION : \(.*\) ;,\1,p' boost/Jamroot)
+
+find boost/libs/*/include/boost boost/libs/*/*/include/boost -type f \
+	-not -name '*.bat' \
+	-not -name '*.cpp' \
+	-not -name '*.dtd' \
+	-not -name '*.m4' \
+	-not -name '*.patch' \
+	-not -name '*.pl' \
+	-not -name '*.sh' \
+	-not -name '*.txt' \
+	> filelist
+diff -u <(
+	find $destdir/usr/include/boost/ -type f | sort -u
+    ) <(
+	sed -e "s,^boost/libs/.*/include/boost/,$destdir/usr/include/boost/," filelist |
+	sort -u
+    )
+sed -e 's,^boost/libs/\(.*\)/include/\(boost/.*\),\1 \2,' filelist |
+sort -u |
+sort -k 2 > fileprovides
+join -j 2 -o 2.1 1.1 fileprovides <(
+    xargs -a filelist grep '^[[:space:]]*#[[:space:]]*include[[:space:]]*<boost' |
+    sed -e 's,^boost/libs/\(.*\)/include/[^<]*<\(boost/[^>]*\)>.*,\1 \2,' |
+    sort -u |
+    sort -k 2
+) |
+awk '{if ($1 != $2) {print}}' |
+sort -u |
+sed -e 's,/,-,g;s,^\([^ ]*\) \(.*\)$,\1 b #|pkg dep '"$target"'-boost-\2-devel,' > pkgdeps
+sed -e 's,/,-,g;s,\(.*\) .*,\1 a #|pkg name '"$target"'-boost-\1-devel\n\1 b #|pkg auto '"$target"'\n\1 b #|pkg dep '"$target"'-glibc-devel,' fileprovides |
+sort -u > pkgname
+sed -e 's,^boost/libs/\(.*\)/include/boost/,\1 c #|pkg . /usr/include/boost/,' filelist |
+sed -e 's,/\(.*\) ,-\1 ,' > pkglist
+sed -e 's,/,-,g;s,\(.*\) .*,0 b #|pkg dep '"$target"'-boost-\1-devel,' fileprovides |
+sort -u > globaldeps
+ls build/boost/bin.v2/libs/*/build/gcc-cross/release/debug-symbols-on/link-static/${boostoptname}threading-multi/libboost_*.a |
+sed -e 's,^build/boost/bin.v2/libs/\([^/]*\)/build/gcc-cross/release/.*/libboost_\(.*\)\.a$,\1 \2,' |
+sort -u > statics
+ls build/boost/bin.v2/libs/*/build/gcc-cross/release/debug-symbols-on/${boostoptname}threading-multi/libboost_*.so.* |
+sed -e 's,^build/boost/bin.v2/libs/\([^/]*\)/build/gcc-cross/release/.*/libboost_\(.*\)\.so\..*$,\1 \2,' |
+sort -u > dynamics
+sed -e 's,\(.*\) \(.*\),\1 c #|pkg . /usr/'"$lib"'/libboost_\2.so\n2-\2 a #|pkg name '"$target"'-libboost_\2-'"${BOOSTVER//./-}"'\n2-\2 b #|pkg auto '"$target"'\n2-\2 c #|pkg . /usr/'"$lib"'/libboost_\2.so.'"$BOOSTVER"',' dynamics > pkgdynamics
+diff statics dynamics |
+sed -ne 's,^< \(.*\) \(.*\),\1 c #|pkg . /usr/'"$lib"'/libboost_\2.a,p' > pkgstatics
+sort dynamics statics |
+uniq -d |
+sed -ne 's,.* \(.*\),1 c #|pkg . /usr/'"$lib"'/libboost_\1.a,p' > globalstatics
+for i in accumulators algorithm align asio assign atomic bimap bind \
+	chrono/stopwatches circular_buffer compatibility compute \
+	concept_check config container context convert core coroutine \
+	coroutine2 date_time dll dynamic_bitset endian fiber filesystem \
+	flyweight format function function_types functional fusion geometry \
+	gil hana heap icl integer interprocess intrusive io iostreams \
+	iterator lambda lexical_cast local_function locale lockfree log \
+	logic math metaparse move mpi mpl msm multi_array multi_index \
+	multiprecision numeric/conversion numeric/interval numeric/odeint \
+	numeric/ublas optional parameter phoenix polygon pool predef \
+	preprocessor program_options property_map property_tree proto \
+	ptr_container python qvm random range ratio regex serialization \
+	signals signals2 smart_ptr sort spirit statechart system test thread \
+	timer tr1 tti tuple type_erasure type_index type_traits typeof units \
+	unordered uuid variant vmd wave xpressive; do
+    ( cd $destdir && find usr/include/boost/$i -type d ) |
+    sed -e "s,^,${i/\//-} c #|pkg . /," >> pkglist
+done
+( cd $destdir && find usr/include/boost/archive -type d ) |
+sed -e "s,^,serialization c #|pkg . /," >> pkglist
+( cd $destdir && find usr/include/boost/chrono/{detail,io,io_v1,typeof} -type d ) |
+sed -e "s,^,chrono c #|pkg . /," >> pkglist
+( cd $destdir && find usr/include/boost/concept -type d ) |
+sed -e "s,^,concept_check c #|pkg . /," >> pkglist
+( cd $destdir && find usr/include/boost/graph/{distributed,parallel} -type d ) |
+sed -e "s,^,graph_parallel c #|pkg . /," >> pkglist
+cat <<EOT > globalheader
+0 a #|pkg name $target-boost-devel
+0 b #|pkg auto $target
+1 a #|pkg name $target-boost-devel-static
+1 b #|pkg auto $target
+1 b #|pkg dep $target-boost-devel
+config b #|pkg . /usr/include/boost
+config b #|pkg . /usr/include/boost/detail
+chrono b #|pkg . /usr/include/boost/chrono
+core b #|pkg . /usr/include/boost/utility
+exception b #|pkg . /usr/include/boost/exception/detail
+graph b #|pkg . /usr/include/boost/graph
+graph b #|pkg . /usr/include/boost/graph/detail
+graph b #|pkg . /usr/include/boost/graph/planar_detail
+graph b #|pkg . /usr/include/boost/graph/property_maps
+iterator b #|pkg . /usr/include/boost/pending
+iterator b #|pkg . /usr/include/boost/pending/detail
+numeric-conversion b #|pkg . /usr/include/boost/numeric
+throw_exception b #|pkg . /usr/include/boost/exception
+utility b #|pkg . /usr/include/boost/utility/detail
+winapi b #|pkg . /usr/include/boost/detail/winapi
+winapi b #|pkg . /usr/include/boost/detail/winapi/detail
+EOT
+mkdir -p .pkg
+sort globalheader globaldeps globalstatics pkgname pkgdeps pkglist pkgdynamics pkgstatics |
+sed -e 's,^[^ ]* . ,,' > .pkg/dynamic
+
 $recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

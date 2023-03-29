@@ -1,5 +1,13 @@
 #|src openssl
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-sh
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-perl
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-openssl
 #|pkg auto $target
 #|pkg + /etc
@@ -30,6 +38,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 case $target in
     powerpc*)  arch=linux-ppc;;
     mips64*)   arch=linux-generic64;;

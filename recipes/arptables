@@ -1,5 +1,11 @@
 #|src ebtables
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-arptables
 #|pkg auto $target
 #|pkg + /etc
@@ -10,6 +16,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg + /usr/man
+export PATH=$srcdir/bin
 cd userspace/arptables
 export CC=$target-gcc
 make $parallel PREFIX=/usr

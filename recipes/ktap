@@ -1,5 +1,11 @@
 #|src ktap
 #|ins $target-gcc
+#|ins i686-build_pc-linux-gnu-sh
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
 #|pkg name $target-ktap
 #|pkg auto $target
 #|pkg + /usr/sbin
@@ -8,6 +14,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 make CC=$target-gcc $parallel ktap
 mkdir -p $destdir/usr/sbin
 cp -a ktap $destdir/usr/sbin

@@ -30,6 +30,7 @@ cd $srcdir/src
 ./autogen.sh
 cd -
 . $recipes/toolcmi $srcdir/src \
+	--enable-unicode-properties \
 	--disable-shared
 
 $recipes/strip_debug --strip-all $target $destdir /lib/debug /

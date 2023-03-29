@@ -1,7 +1,14 @@
 #|src dtc
 #|ins $target-gcc
-#|ins i686-build_pc-linux-gnu-flex
 #|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-dtc
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -23,6 +30,7 @@
 #|pkg name nopackage
 #|pkg . /usr
 #|pkg . /usr/lib*
+export PATH=$srcdir/bin
 make CC=$target-gcc AR=$target-ar LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t' PREFIX=/usr LIBDIR=/usr/$lib DESTDIR=$destdir $parallel
 make CC=$target-gcc AR=$target-ar LEX='flex -Dflex_int32_t=int32_t -Dflex_int16_t=int16_t' PREFIX=/usr LIBDIR=/usr/$lib DESTDIR=$destdir install
 

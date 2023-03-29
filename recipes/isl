@@ -1,6 +1,14 @@
 #|ins $target-gcc
 #|src isl /src
 #|ins $target-gmp-devel /$target/sys-root
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-diffutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-make
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-libisl-13
 #|pkg auto $target
 #|pkg . /usr/lib*/libisl.so.13
@@ -18,6 +26,7 @@
 #|pkg . /usr
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
+export PATH=$srcdir/bin
 . $recipes/cmi $srcdir/src \
     --with-gmp-prefix=$sysroot/usr
 

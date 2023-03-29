@@ -6,9 +6,17 @@
 #|ins $target-systemd-devel /$target/sys-root
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-gawk
 #|ins i686-build_pc-linux-gnu-gettext
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
+#|ins i686-build_pc-linux-gnu-tar
+#|ins i686-build_pc-linux-gnu-xz
 #|pkg name $target-util-linux-nobusybox
 #|pkg auto $target
 #|pkg . /usr/bin/cal
@@ -31,12 +39,12 @@
 #|pkg . /usr/bin/look
 #|pkg . /usr/bin/lsblk
 #|pkg . /usr/bin/lscpu
+#|pkg . /usr/bin/lsipc
 #|pkg . /usr/bin/lslocks
 #|pkg . /usr/bin/lslogins
+#|pkg . /usr/bin/lsns
 #|pkg . /usr/bin/mcookie
 #|pkg . /usr/bin/namei
-#|pkg . /usr/bin/nsenter
-#|pkg . /usr/bin/pg
 #|pkg . /usr/bin/prlimit
 #|pkg . /usr/bin/rename
 #|pkg . /usr/bin/rev
@@ -46,14 +54,12 @@
 #|pkg . /usr/bin/tailf
 #|pkg . /usr/bin/ul
 #|pkg . /usr/bin/uname26
-#|pkg . /usr/bin/unshare
 #|pkg . /usr/bin/utmpdump
 #|pkg . /usr/bin/uuidgen
 #|pkg . /usr/bin/wdctl
 #|pkg . /usr/bin/whereis
 #|pkg . /usr/sbin/addpart
 #|pkg . /usr/sbin/agetty
-#|pkg . /usr/sbin/blkdiscard
 #|pkg . /usr/sbin/blockdev
 #|pkg . /usr/sbin/cfdisk
 #|pkg . /usr/sbin/chcpu
@@ -102,13 +108,16 @@
 #|pkg . /usr/bin/more
 #|pkg . /usr/bin/mount
 #|pkg . /usr/bin/mountpoint
+#|pkg . /usr/bin/nsenter
 #|pkg . /usr/bin/renice
 #|pkg . /usr/bin/script
 #|pkg . /usr/bin/setsid
 #|pkg . /usr/bin/su
 #|pkg . /usr/bin/taskset
 #|pkg . /usr/bin/umount
+#|pkg . /usr/bin/unshare
 #|pkg . /usr/bin/wall
+#|pkg . /usr/sbin/blkdiscard
 #|pkg . /usr/sbin/blkid
 #|pkg . /usr/sbin/fdisk
 #|pkg . /usr/sbin/findfs
@@ -166,6 +175,7 @@
 #|pkg . /usr/lib*
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/share
+export PATH=$srcdir/bin
 export PKG_CONFIG_PATH=$srcdir/$target/sys-root/usr/$lib/pkgconfig:$srcdir/$target/sys-root/usr/share/pkgconfig
 export PKG_CONFIG_SYSTEM_LIBRARY_PATH=/usr/$lib
 export PKG_CONFIG_SYSROOT_DIR=$srcdir/$target/sys-root

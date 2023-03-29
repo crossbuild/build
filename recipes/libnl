@@ -2,9 +2,18 @@
 #|ins $target-gcc
 #|ins i686-build_pc-linux-gnu-autoconf
 #|ins i686-build_pc-linux-gnu-automake
+#|ins i686-build_pc-linux-gnu-bison
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-file
+#|ins i686-build_pc-linux-gnu-findutils
 #|ins i686-build_pc-linux-gnu-flex
+#|ins i686-build_pc-linux-gnu-gawk
+#|ins i686-build_pc-linux-gnu-grep
 #|ins i686-build_pc-linux-gnu-libtool
+#|ins i686-build_pc-linux-gnu-m4
+#|ins i686-build_pc-linux-gnu-make
 #|ins i686-build_pc-linux-gnu-pkg-config
+#|ins i686-build_pc-linux-gnu-sed
 #|pkg name $target-libnl
 #|pkg auto $target
 #|pkg + /usr/bin
@@ -55,6 +64,9 @@
 #|pkg . /usr/lib*/lib*.la
 #|pkg . /usr/lib*/libnl/cli/*/*.la
 #|pkg . /usr/share
+
+export PATH=$srcdir/bin
+
 cd $srcdir/src
 ./autogen.sh
 cd -

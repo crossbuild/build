@@ -1,0 +1,36 @@
+#|src psycopg2
+#|ins $target-gcc
+#|ins $target-python
+#|ins i686-build_pc-linux-gnu-findutils
+#|ins i686-build_pc-linux-gnu-coreutils
+#|ins i686-build_pc-linux-gnu-grep
+#|ins i686-build_pc-linux-gnu-file
+#|ins $target-libpq-devel /$target/sys-root
+#|ins $target-python-devel /$target/sys-root
+#|pkg name $target-psycopg2
+#|pkg dep $target-python
+#|pkg + /lib*/python2.7/site-packages/psycopg2
+#|pkg name $target-psycopg2-debug
+#|pkg + /usr/lib/debug
+#|pkg name nopackage
+#|pkg . /usr
+#|pkg . /usr/lib
+#|pkg . /lib*
+#|pkg . /lib*/python2.7
+#|pkg . /lib*/python2.7/site-packages
+#|pkg . /lib*/python2.7/site-packages/psycopg2-2.6.2-py2.7.egg-info
+
+# isolate the build and include pg_config
+export PATH=$srcdir/bin:$sysroot/usr/bin:$PATH
+
+# build the C extension first since only build_ext let's us define
+# additional include and library paths
+python setup.py build_ext \
+    --include-dirs $sysroot/usr/include/python2.7 \
+    --library-dirs $sysroot/usr/$lib \
+    --static-libpq
+
+python setup.py build
+python setup.py install --prefix=$destdir
+
+$recipes/strip_debug --strip-all $target $destdir /usr/lib/debug /

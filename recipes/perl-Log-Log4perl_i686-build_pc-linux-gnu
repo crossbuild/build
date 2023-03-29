@@ -1,0 +1,11 @@
+#|src log4perl
+#|ins $target-gcc
+#|ins $target-perl
+#|pkg name $target-perl-Log-Log4perl
+#|pkg dep $target-perl
+#|pkg + /
+perl Makefile.PL
+sed -i -e "s|^\(INSTALL.* = \)/.*/srcdir/|\1/|" Makefile
+make $parallel
+make install DESTDIR=$destdir
+rm $destdir/lib/perl5/*/i686-linux-thread-multi/perllocal.pod
