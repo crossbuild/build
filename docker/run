@@ -1,0 +1,2 @@
+#!/bin/bash
+exec docker run --mount type=bind,source=/home/rschiele/crossbuild/build,target=/crossbuild -ti crossbuildhost bash
