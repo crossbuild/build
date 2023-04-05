@@ -1,2 +1,5 @@
 #!/bin/bash
-exec docker build -t crossbuildhost .
+cd $(dirname $0)
+docker build -t crossbuildhost .
+cd ..
+exec docker run --mount type=bind,source="$PWD",target=/crossbuild -ti crossbuildhost ./build "$@"
